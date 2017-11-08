@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - Calc@localhost" uuid="d2196716-5e18-4ccd-a9c8-22eb44c75d6a">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>Calc.*</schema-pattern>
+      <default-schemas>Calc.*</default-schemas>
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - @localhost" uuid="46b3bd66-1a0b-4ab1-b5df-c4def40a8623">
+    <database-info product="MySQL" version="5.5.50-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.5">
+      <schema id="1" name="southwind"/>
+      <table id="2" parent="1" name="products"/>
+      <column id="3" parent="2" name="productID">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <sequence-identity>1</sequence-identity>
+      </column>
+      <column id="4" parent="2" name="productCode">
+        <mandatory>1</mandatory>
+        <data-type>char(3)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="5" parent="2" name="name">
+        <mandatory>1</mandatory>
+        <data-type>varchar(30)</data-type>
+        <default-expression>&apos;&apos;</default-expression>
+      </column>
+      <column id="6" parent="2" name="quantity">
+        <mandatory>1</mandatory>
+        <data-type>int(10) unsigned</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <column id="7" parent="2" name="price">
+        <mandatory>1</mandatory>
+        <data-type>decimal(7,2)</data-type>
+        <default-expression>&apos;99999.99&apos;</default-expression>
+      </column>
+      <key id="8" parent="2" name="PRIMARY">
+        <columns>productID</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>

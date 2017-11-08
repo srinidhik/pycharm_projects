@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>result</title>
+      <link rel="stylesheet" href="/static/app_css.css">
+</head>
+<body>
+<div class="container">
+        <ul class="pager">
+    <li class="previous"><a href="/">BACK</a></li>
+    </ul>
+</div>
+<table align="center">
+    <tr>
+    <th>NAME</th>
+    <th>DATE</th>
+    <th>CITY</th>
+    <th>INFORMATION</th>
+    </tr>
+        <tr>
+    <td colspan="4" align="center"><strong>Today's events</strong></td>
+  </tr>
+
+        {% for i in range(0,l1) %}
+    <tr>
+        <td>{{d1[i][1]['name']}}</td>
+        <td>{{d1[i][1]['date']}}</td>
+        <td>{{d1[i][1]['city']}}</td>
+        <td>{{d1[i][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+    <tr>
+    <td colspan="4" align="center"><strong>Upcoming events</strong></td>
+  </tr>
+        {% for j in range(0,l2) %}
+    <tr>
+        <td>{{d2[j][1]['name']}}</td>
+        <td>{{d2[j][1]['date']}}</td>
+        <td>{{d2[j][1]['city']}}</td>
+        <td>{{d2[j][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+    <tr>
+    <td colspan="4" align="center"><strong>Past events</strong></td>
+  </tr>
+        {% for k in range(0,l3) %}
+    <tr>
+        <td>{{d3[k][1]['name']}}</td>
+        <td>{{d3[k][1]['date']}}</td>
+        <td>{{d3[k][1]['city']}}</td>
+        <td>{{d3[k][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+
+</table>
+</body>
+</html>

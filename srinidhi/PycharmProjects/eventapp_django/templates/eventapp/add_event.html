@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% block title %}Add{% endblock%}
+{% block body %}
+<div class="row large-centered ">
+<div class="columns">
+<form id="add_form"  method="POST" target="_self" class="customform " >
+        <div class="row ">
+            <div class="small-6 columns name-field">
+            Name : <input type="text" id=name name="name" placeholder="Event Name" required pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$" >
+
+            </div>
+            <div class="small-6 columns ">
+                Date : <input type="date" id=date name="date" required >
+            </div>
+        </div>
+
+        <div class=row>
+            <div class="columns">Info : <input id=info type="text" placeholder="Event info" required maxlength="50" name="info" /><br>   </div>
+        </div>
+
+        <div class="row">
+            <div class="small-6 columns">
+                City : <select id='cities' name='city' onchange='Check(this.value);'>
+                  {%for i in data.cities%}
+                <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                <option value="other">Other</option>
+                </select><br><br>
+            </div>
+            <div class="small-6 columns">
+                <br><input type="text" name="city1" id="city1" pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$" style='display:none;' placeholder="Enter the city name manually"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="small-2 small-centered large-centered columns">
+                <input class="medium button" id="add_button" type="button" onclick="add()" value="Add">
+            </div>
+        </div>
+
+</form>
+</div>
+</div>
+<script src="/static/script.js"></script>
+
+
+{% endblock%}

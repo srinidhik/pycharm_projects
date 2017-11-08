@@ -1,0 +1,55 @@
+Database: MySQL/5.5.50-0ubuntu0.14.04.1
+Driver name: MySQL Connector Java
+Driver version: mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )
+JDBC version: 4.0
+Case sensitivity: EXACT (quoted: EXACT)
+
+
+username:: root
+password:: a123456
+
+username:: srinidhi
+password:: a123456
+
+source /home/cfit001/mydjangoapp/mydjangoappvenv/bin/activate
+give name for database
+ python manage.py syncdb
+
+
+
+ mysql -u root -p 
+
+## for setup ----- https://www.digitalocean.com/community/tutorials/how-to-use-mysql-or-mariadb-with-your-django-application-on-ubuntu-14-04
+
+## django models ----- http://www.djangobook.com/en/2.0/chapter05.html
+
+## sql ----- https://www.ntu.edu.sg/home/ehchua/programming/sql/MySQL_Beginner.html
+
+## for views.py ----- https://docs.djangoproject.com/en/1.10/intro/tutorial03/
+
+## csrf ----- http://stackoverflow.com/questions/5207160/what-is-a-csrf-token-what-is-its-importance-and-how-does-it-work
+
+## covert to south ----- http://south.readthedocs.io/en/latest/tutorial/part1.html
+
+## python ----- http://www.java2s.com/Code/Python/CatalogPython.htm
+
+database setup
+models 
+sync db
+views...
+
+
+http responses are all delivered through views.py.
+urls.py is responsible for routing in django.
+name is name of function in views files for the app.
+
+models contain database information.
+
+urls.py - contain what is served based on url patterns.
+models.py -  database structures and metadata.
+views.py - handles what the end-user "views" or interacts with.
+
+
+ajax setup before send:: This event, which is triggered before an Ajax request is started, allows you to modify the XMLHttpRequest object (setting additional headers, if need be.)
+
+cookie is sent back and forth between web browser and website.

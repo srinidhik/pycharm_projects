@@ -1,0 +1,25 @@
+{% extends "filters.html" %}
+
+{% block content %}
+
+<form action="/by_date" method="POST">
+
+
+        <div class="section row">
+
+            <div class="large-4 small-4 columns large-offset-3  small-offset-3  ">
+
+                DATE :<input type="date" id="date1" name="date"/></label>
+
+            </div>
+            <div class="columns large-2 small-2 end" style="padding-top: 25px" >
+                <input onclick="bydate()"  type="button" class="small button postfix" value="submit">
+            </div>
+
+
+        </div>
+</form>
+
+<div id=message class="row columns large-centered" style="margin-botton:50px;"></div>
+<script src="/static/script.js"></script>
+{% endblock%}

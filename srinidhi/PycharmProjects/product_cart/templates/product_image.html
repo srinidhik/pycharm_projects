@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+    <div class="row" style="margin-top: -25%; width: 100%;">
+
+    <form method="POST">{% csrf_token %}
+
+        <table>
+
+            <tbody>
+            <tr>
+                <td style="width: 25%"><a href="#" data-reveal-id="ZoomImage"><img src="/static/apple.jpg" id="image1" style="height:30%;"></a></td>
+                <td id="details1">
+                    <input id="name" value="{{ data1.name }}" class="product1" type="hidden"/>{{ data1.name }}<br/>
+                    <input id="rate" value="{{ data1.rate }}" class="product1" type="hidden"/>Cost: Rs. {{ data1.rate }}/-<br/>
+                    Color: White<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" class="product1" id="quantity" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button"  id="product1" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%"><a href="#" data-reveal-id="ZoomImage"><img src="/static/dell.jpg" id="image2" style="height:30%;"></a></td>
+                <td id="details2">
+                    <input id="name" value="{{ data2.name }}" class="product2" type="hidden"/>{{ data2.name }}<br/>
+                    <input id="rate" value="{{ data2.rate }}" class="product2" type="hidden"/>Cost: Rs. {{ data2.rate }}/-<br/>
+                    Color: White<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" class="product2" id="quantity" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button" id="product2" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%"><a href="#" data-reveal-id="ZoomImage"><img src="/static/hp.jpg" id="image3" style="height:30%;"></a></td>
+                <td id="details3">
+                    <input id="name" value="{{ data3.name }}" class="product3" type="hidden"/>{{ data3.name }}<br/>
+                    <input id="rate" value="{{ data3.rate }}" class="product3" type="hidden"/>Cost: Rs. {{ data3.rate }}/-<br/>
+                    Color: Black<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" id="quantity" class="product3" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button" id="product3" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            </tbody>
+
+
+        </table>
+
+</form>
+
+    <div id="message"></div>
+
+
+
+    <div id="ZoomImage" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+
+        <img id="Zoom" src="" style="display:none; width: 60%; height: 60%"/>
+        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+    </div>
+
+
+    </div>
+
+
+<script>
+
+
+
+    $('img').on('click', function () {
+
+        var id = $(this).attr('id');
+        d = $('#'+id).attr('src');
+
+        var source = d;
+
+        $('#Zoom').css('display', 'block')
+                .attr('src',source);
+
+    })
+
+
+</script>
+
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+angularjs is javascript framework that helps build web applications.
+
+BENEFITS:: 
+
+
+Controller is a javascript constructor function. The job of controller is to build a model for the view to display.
+The data which we attach to the scope is the model.
+
+
+
+
+
+
+__________________________________________________________
+
+ng-app is an Angular directive.   ng is short for angular.
+
+(function(){
+////
+}());  --------- Immediately Invoked Function Expression. = iffy
+
+pros:: - page doesnot break if there is no available data.
+
+create a module:: var x = angular.module("module_name", []);
+[] array describes the dependencies for this module.
+
+ng-model :: input field. used for binding.
+ng-click :: button functioning.
+ng-submit :: button functioning.
+ng-repeat :: like for loop.
+ng-show
+ng-hide
+ng-init :: used for aliasing.
+ng-include
+
+ngNonBindable :: angularjs is not applied here. {{ 1+2 }} is pritend as it is. 3 is not printed.
+
+
+ng-src :: delays the requesting of the image until angular has a chance to replace this right here.
+ng-cloak :: to avoid a flash of unbound html
+ng-form :: allows nesting forms
+ng-pattern
+
+
+factory --- we can reuse the function written under factory.
+$anchorScroll()
+$location()
+
+
+-----services------
+$interval
+$timeOut
+$anchorScroll
+$location.hash
+$log
+
+$route.reload(); --- reloads only the necessary fields.
+resolve property resolves the promises before transitioning to new route. 
+
+
+.when --- is an API used to register route for application.
+
+ng-model :: input, text, textarea -- work with two way binding.
+
+
+ui-router implements routing based on the state of application. (used for large applications) here, views and routes are not tied to the application.
+ngRoute implements based on route url.  here, views and routes are tied to the application.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

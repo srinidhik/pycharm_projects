@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block title %}History{% endblock %}
+{% block body %}
+
+
+    <a href="/clear_history" class="button">CLEAR</a>
+    <div class="row" style="margin-top: -25%;">
+        <table>
+        <thead>
+            <tr>
+                <th style="width:50%;">Product Name</th>
+                <th style="width:50%;">Quantity</th>
+                <th style="width:50%;">Total Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for i in data %}
+            <tr>
+
+                    <td style="width:50%;">{{ i.product_name_id }}</td>
+                    <td style="width:50%;">{{ i.quantity }}</td>
+                    <td style="width:50%;">{{ i.amount }}</td>
+
+            </tr>
+            {% endfor %}
+
+            <tr id="total">
+                <td colspan="2">Total</td>
+                <td>{{ total }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+{% endblock %}

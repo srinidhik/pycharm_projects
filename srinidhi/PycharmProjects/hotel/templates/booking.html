@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+
+{% block body%}
+
+<div class="row large-6 medium-6 small-3 " >
+
+    <form data-abide method="POST" >
+
+
+        <input value="{{ instance.id }}" type="hidden" />
+
+        <div>
+            <input id="hotel_info" type="text" value="{{ instance.HotelName }}" readonly />
+        </div>
+
+        <div>
+            <input id="rent" type="text" value="{{ instance.Amount }}" readonly />
+        </div>
+
+        <div>
+            <input class="input" type="date" id="from_date" name="from_date" placeholder="From date" required />
+            <small class="error errorMsg" style="margin-bottom:0;background-color:#f0f0f0;color:red;margin-top:1px">"From date is required."</small>
+        </div>
+
+        <div>
+            <input class="input" type="date" id="to_date" name="to_date" placeholder="To date" onclick="dateset()" required />
+            <small class="error errorMsg" style="margin-bottom:0;background-color:#f0f0f0;color:red;margin-top:1px">"To date is required."</small>
+        </div>
+
+        <div>
+            <input class="input" type="number" id="persons" name="persons" min="1" placeholder="Number of persons" required />
+            <small class="error errorMsg" style="margin-bottom:0;background-color:#f0f0f0;color:red;margin-top:1px">"Mention number of persons."</small>
+        </div>
+
+<br>
+
+
+        <input class="button postfix" type="button" onclick="booked()" value="BOOK" />
+
+        <div id="amountdiv"></div>
+
+    </form>
+
+</div>
+
+    <script>
+        var today = new Date().toISOString().split('T')[0];
+        $("#from_date")[0].setAttribute('min', today);
+
+        function dateset() {
+            var from_date = $('#from_date').val();
+            $("#to_date")[0].setAttribute('min', from_date);
+        }
+
+        $(':input').each(function () {
+
+            $(this).focus(function () {
+                $(this).css('background-color', '#d7fff0')
+                        .css('color', 'black');
+            });
+
+            $(this).blur(function () {
+                $(this).css('background-color', 'white')
+                        .css('color', 'black');
+            });
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

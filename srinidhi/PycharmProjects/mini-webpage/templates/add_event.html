@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>add_event</title>
+<style>
+form{
+    border: solid grey;
+    border-radius:5px;
+    width:440px;
+    height:385px;
+    margin-top: 250px;
+    margin-left: 675px;
+    text-align: center;
+
+
+}
+#section{
+	margin-top:30px;
+
+}
+</style>
+</head>
+
+<body>
+<form action = "http://127.0.0.1:5000/add_event" method = "POST">
+    <br>
+    <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Event Details Here</div>
+    <hr>
+    <br>
+    <div id = "section" , style="font-family: toms handwritten new; font-size:20pt " >
+        Event Name : <input type = "text" name = "name"> <br>
+        Date : <input type = "date" name = "date"><br>
+        City : <input type = "text" list = "city" name = "city" placeholder="Select your city"><br>
+        Description : <textarea name = "info" rows = "1" cols = "20"></textarea><br><br>
+        <datalist id="city">
+          <option value="Hyderabad"></option>
+          <option value="Chennai"></option>
+          <option value="Banglore"></option>
+        </datalist>
+    </div>
+    <br>
+
+    <button type="submit", value="submit">ADD</button>
+
+
+
+</form>
+
+
+
+</body>
+</html>

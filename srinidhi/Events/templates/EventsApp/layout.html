@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}Events{% endblock%}</title>
+    <link rel="stylesheet" href="{{ STATIC_URL }}foundation.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}foundation.min.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}normalize.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}app_css.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+</head>{% endblock %}
+<body>
+<div class="row">
+    <div class="columns small-1 large-1 large-offset-4 small-offset-4">
+        <br><img src='/static/icon.png' style="width: 50px; height: 50px;">
+    </div>
+    <div class="columns small-7 large-7 ">
+        <h1 >Eventify</h1>
+    </div>
+</div>
+<nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+    <li class="name">
+      <h1><a href="/">My Site</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+   <ul class="left">
+       <li> <a href="add_event_h">Add</a></li>
+       <li> <a href="search_modify_html">Search/Modify</a></li>
+       <li ><a href="/by_date_html">Filters</a></li>
+   </ul>
+  </section>
+</nav>
+<!--  body here -->
+    <div id="content">
+        {% block body %}
+            <h3>Django App </h3>
+        {% endblock %}
+    </div>
+
+{% block footer %}
+<footer>
+
+        Copyright @ TeamGreen. All Rights Reserved
+
+</footer>
+{% endblock  %}
+<script type="text/javascript" src="{{ STATIC_URL }}foundation.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}modernizr.js"></script>
+<script>
+   $(document).ready(function() {
+     $(document).foundation();
+   })
+</script>
+
+</body>
+</html>

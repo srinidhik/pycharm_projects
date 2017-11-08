@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>scroll</title>
+
+        <link href="/static/foundation/css/foundation.css" />
+        <link href="/static/foundation/css/foundation.min.css" />
+        <link href="/static/foundation/css/normalize.css" />
+        <link href="/static/app.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% endblock %}
+
+</head>
+<body>
+
+<div>
+
+    <div class="tab-bar" id="one" style="background-color: white">
+        <div class="row" style="max-width: 25%; font-size: 25px;">LIPPINCOTT</div>
+        <div class="row" style="max-width: 50%; margin-left: 85%; margin-top: -1.5%; font-size: 18px" >
+            <a href="#" class="button">Work</a>
+            <a href="#" class="button">Insights</a>
+            <a href="#" class="button">About</a>
+        </div>
+        <div id="one_1" style="font-size: 100px; text-align: center; margin-top: 15%;font-weight: bold; margin-bottom: 15%">
+            We help leaders design <br/>
+            businesses that succeed <br/>
+            on the edge of change <br/>
+        </div>
+    </div>
+
+
+    <div class="columns large-2" id="two" style="background-color: white; max-width: 25%;">
+        <div id="two_1">
+            <h1 style="font-size: 35%; font-weight: bold" >Hyatt</h1>
+            Case Study
+        </div>
+        <div id="two_2">
+            Creating new brands to<br />
+            drive growth and<br />
+            innovation across a <br/>
+            portfolio<br/>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="/static/foundation/js/vendor/modernizr.js"></script>
+<script src="/static/foundation/js/vendor/jquery.js"></script>
+<script src="/static/foundation/js/foundation.min.js"></script>
+<script src="/static/script.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).foundation();
+
+
+
+
+    })
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EventsApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="/static/app_css.css">
+  <script src="/static/script.js"></script>
+
+</head>
+<body>
+  <div class="container"  >
+    <img src='/static/icon.png' style="width: 50px; height: 50px;">
+    <h1>Eventify</h1>
+  <ul class="nav nav-tabs" >
+    <li><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#add">Add Event</a></li>
+    <li><a data-toggle="tab" href="#search_modify">Search and Modify Event</a></li>
+    <li><a data-toggle="tab" href="#filters">Filters</a></li>
+  </ul>
+
+  <div class="tab-content" >
+    <div id="home" class="tab-pane fade in active">
+      <h3>About</h3>
+      <p>Simple Flask app to store and retrieve the event details.</p>
+
+    </div>
+
+<div id="add" class="tab-pane fade">
+    <form id="add_form" action="/add", method="POST", target="_self">
+
+    <div class="banner">Event Details Here</div><hr>
+
+    <div class="section">
+        Name : <input type="text" name="name" required pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$" > <br><br>
+        Date : <input type="date" name="date" required ><br><br>
+        Info : <input type="text" required maxlength="50" name="info" /><br><br>
+        City :
+        <select name='city' onchange='Check(this.value);' style="width: 210px" >
+          {%for i in data["cities"]%}
+        <option value="{{i}}">{{i}}</option>
+            {%endfor%}
+        <option value="other">other</option>
+        </select><br><br>
+        <input type="text" name="city1" id="city" style='display:none;' placeholder="Enter the city"/>
+
+    </div>
+        <input type="submit" value="Submit"/><br><br>
+</form>
+</div>
+
+<div id="search_modify" class="tab-pane fade">
+    <form action="/search", method="POST">
+    <div  class="banner">Events List</div><hr>
+    <div class="section">
+        <select name="event_name">
+            <option selected value="default">Select Your Event</option>
+        {%for key in data%}
+               {% if key != "cities" %}
+
+        <option value="{{key}}">{{data[key]['name']}}</option>
+            {% endif %}
+            {%endfor%}
+        </select><br><br>
+    <input type="submit" value="Search" style="background-color: lightseagreen;border-color: lightseagreen" /><br><br>
+    </div>
+</form>
+</div>
+
+
+    <div id="filters" class="tab-pane fade" Style="margin-right: 10px">
+
+      <div class="container">
+
+          <ul class="nav nav-tabs" >
+            <li><a data-toggle="tab" href="#list_by_date">list_by_date</a></li>
+            <li><a data-toggle="tab" href="#list_by_city">list_by_city</a></li>
+            <li><a data-toggle="tab" href="#list_by_date_and_city">list_by_date_and_city</a></li>
+
+            <li ><a  href="http://127.0.0.1:5000/up_and_past">upcoming_and_past</a></li>
+
+              <li><a data-toggle="tab" href="#date_range">date_range</a></li>
+          </ul>
+
+
+
+
+            <div class="tab-content" >
+            <div id="date_range" class="tab-pane fade">
+                <form action="/by_daterange" method="POST">
+                <div  class="banner">date range </div>
+                 <hr>
+                <div class="section">
+                from:<input type = "date" name = "fromdate" /><br><br>
+                  to:<input type = "date" name = "todate" /><br><br>
+
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+            </div>
+            <div id="list_by_date" class="tab-pane fade">
+                <form action="/by_date" method="POST">
+                <div  class="banner">by date </div>
+                 <hr>
+                <div class="section">
+                 date  <input type = "date" name = "date" /><br><br>
+
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+            </div>
+            <div id="list_by_city" class="tab-pane fade">
+                <form action="/by_city" method="POST">
+                <div class="banner">by city </div>
+                 <hr>
+                <div class="section">
+                city     <select name="city">
+
+                   {%for i in data["cities"]%}
+        <option value="{{i}}">{{i}}</option>
+            {%endfor%}
+                    </select><br><br>
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+            </div>
+            <div id="list_by_date_and_city" class="tab-pane fade">
+                <form action="/by_date_and_city" method="POST">
+                <div  class="banner">by date and city </div>
+                 <hr>
+                <div class="section">
+                   date  <input type = "date" name = "date" /><br><br>
+
+                city     <select name="city">
+                    {%for i in data["cities"]%}
+        <option value="{{i}}">{{i}}</option>
+            {%endfor%}
+                    </select>
+                    <br><br>
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+
+   </div>
+</div>
+</body>
+</html>

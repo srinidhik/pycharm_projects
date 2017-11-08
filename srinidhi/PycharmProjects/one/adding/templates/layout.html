@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="add">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>adding</title>
+        <link href="/static/foundation/css/foundation.min.css">
+        <link href="/static/foundation/css/foundation.css">
+        <link href="/static/foundation/css/normalize.css">
+        <link href="/static/app.css">
+        <script src="/static/angular.min.js"></script>
+        <script src="/static/angular-route.min.js"></script>
+        <script src="/static/script.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <style>
+            input.ng-invalid.ng-dirty{
+                background-color: pink;
+            }
+        </style>
+    {% endblock %}
+</head>
+<body ng-controller="AddCtrl">
+
+{% block body %}
+
+<div class="row">
+<form method="POST" name="addition">{% csrf_token %}
+
+    <table>
+        <div class="row">
+            <div class="columns large-6">
+                <table>
+        <thead>
+        <tr>
+            <td>input1</td>
+            <td>input2</td>
+            <td>input3</td>
+            <td>output</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input ng-model="input1" id="input1" ng-pattern="/^[0-9]{1,3}$/" ng-keyup="adding()" required/></td>
+            <td><input ng-model="input2" id="input2" ng-pattern="/^[0-9]{1,3}$/" ng-keyup="adding()" required/></td>
+            <td><input ng-model="input3" id="input3" ng-pattern="/^[0-9]{1,3}$/" ng-keyup="adding()" /></td>
+            <td><input ng-model="output" id="output" readonly /></td>
+            <td><input type="button" class="button" ng-disabled="addition.$invalid" onclick="save()" value="SAVE"></td>
+        </tr>
+        </tbody>
+
+    </table>
+    <br/><br/>
+    Count : [[ count ]]<br/>
+
+
+            </div>
+            <div class="columns large-6">
+                <table>
+        <thead>
+        <tr>
+            <td>input1</td>
+            <td>input2</td>
+            <td>input3</td>
+            <td>output</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="i in items">
+            <td>[[ i[0] ]]</td>
+            <td>[[ i[1] ]]</td>
+            <td>[[ i[2] ]]</td>
+            <td>[[ i[3] ]]</td>
+            <td><input type="button" class="button" onclick="remove_item(this.id)" id="[[ i[4] ]]" value="X" style="background-color: transparent; color: red;"></td>
+        </tr>
+        <tr>
+            <td colspan="3" style="text-align: right;">Total : </td>
+            <td colspan="3" style="text-align: center;"> [[ total ]]</td>
+        </tr>
+        </tbody>
+
+    </table>
+
+            </div>
+        </div>
+    </table>
+
+
+
+
+
+
+
+</form>
+</div>
+
+{% endblock %}
+
+<script rel="text/javascript">
+    window.count = {{ count|safe }};
+    window.total = {{ total|safe }};
+    window.items = {{ items|safe }};
+</script>
+
+
+</body>
+</html>

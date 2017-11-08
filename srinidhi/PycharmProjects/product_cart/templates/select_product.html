@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block title %}Products{% endblock %}
+{% block body %}
+
+    <div class="row" style="margin-top: -25%">
+
+        <form method="POST">
+
+            <div>
+                <select id="product">
+                    {% for i in data %}
+                        <option value="{{ i.name }}">{{ i.name }}</option>
+                    {% endfor %}
+                </select>
+
+                    <input type="button" class="button postfix" onclick="product_select()" value="SELECT" />
+            </div>
+
+        </form>
+
+    <div id="ordered"></div>
+
+    </div>
+
+
+
+
+{% endblock %}

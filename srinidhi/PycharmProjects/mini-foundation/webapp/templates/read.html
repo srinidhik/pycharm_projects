@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}Events{% endblock%}</title>
+    <link rel="stylesheet" href="/static/foundation.css">
+    <link rel="stylesheet" href="/static/foundation.min.css">
+    <link rel="stylesheet" href="/static/normalize.css">
+</head>
+<body>
+<div> Header
+<div class="container">
+        <ul class="pager">
+    <li class="previous"><a href="/">BACK</a></li>
+    </ul>
+</div>
+<table align="center">
+    <caption><strong>Event(s)</strong></caption><br>
+    <tr>
+    <th>NAME</th>
+    <th>DATE</th>
+    <th>CITY</th>
+    <th>INFORMATION</th>
+    </tr>
+        <tr>
+
+  </tr>
+
+        {% for i in range(0,length,1) %}
+    <tr>
+        <td>{{d[i][1]['name']}}</td>
+        <td>{{d[i][1]['date']}}</td>
+        <td>{{d[i][1]['city']}}</td>
+        <td>{{d[i][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+    <tr>
+
+
+
+</table>
+</div>
+<!--  body here -->
+    <div id="content">{% block body %}{% endblock %}</div>
+
+
+
+
+<div> Footer </div>
+<script type="text/javascript" src="/static/foundation.min.js"></script>
+<script type="text/javascript" src="/static/modernizr.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends 'layout_a.html' %}
+{% block body %}
+
+
+    <h2>[[ cart_count ]]</h2>
+
+    <a href="/clear_history" class="button">CLEAR</a>
+
+    <div class="row" >
+
+        <div>
+            Rows to display :
+                <span style="display: inline-block"><input type="number" min="0" max="[[ cart_count ]]" ng-model="rowLimit" style="cursor: pointer"/></span>
+        </div>
+
+        <table>
+        <thead>
+            <tr>
+                <th style="width:50%;">Product Name</th>
+                <th style="width:50%;">Quantity</th>
+                <th style="width:50%;">Total Amount</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+
+            <tr ng-repeat="i in complete_data | limitTo:rowLimit">
+
+                    <td style="width:50%;">[[ i[0] | uppercase ]]</td>
+                    <td style="width:50%;">[[ i[1] ]]</td>
+                    <td style="width:50%;">[[ i[2] ]]</td>
+            </tr>
+
+            <tr id="total">
+                <td colspan="2">Total</td>
+                <td>[[ total ]]</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+
+
+    <script rel="text/javascript">
+        window.cart_count = {{ cart_count|safe }};
+        window.complete_data = {{ complete_data|safe }};
+        window.total = {{ total|safe }};
+        window.name = {{ name|safe }};
+    </script>
+
+
+{% endblock %}
+

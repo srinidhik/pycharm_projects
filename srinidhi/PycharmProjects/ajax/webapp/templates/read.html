@@ -1,0 +1,30 @@
+{% extends "list_by_date.html" %}
+
+
+    {% block result %}
+<table align="center">
+    <caption><strong>Event(s)</strong></caption><br>
+    <tr>
+    <th>NAME</th>
+    <th>DATE</th>
+    <th>CITY</th>
+    <th>INFORMATION</th>
+    </tr>
+        <tr>
+
+  </tr>
+
+        {% for i in range(0,length,1) %}
+    <tr>
+        <td>{{d[i][1]['name']}}</td>
+        <td>{{d[i][1]['date']}}</td>
+        <td>{{d[i][1]['city']}}</td>
+        <td>{{d[i][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+    <tr>
+
+
+
+</table>
+    {% endblock %}

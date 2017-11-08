@@ -1,0 +1,68 @@
+#tab_bar{
+    top:-10%;
+    left:40%;
+}
+
+#forms{
+    margin-top:15%;
+
+}
+
+#message{
+    margin-top: -10%;
+
+}
+
+
+#new{
+    display: none;
+}
+
+.button{
+    background-color: white;
+    color: #39c5c8;
+}
+
+
+
+body{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+#display{
+    margin-left: 20%;
+}
+
+#displayrow{
+    max-width: 45%;
+    margin-left: 25%;
+}
+
+
+#loginModal{
+    margin: auto;
+    position: absolute;
+    top: 30%;
+    padding: 10px;
+}
+
+#new{
+    margin: auto;
+    position: relative;
+    top: 30%;
+    padding: 10px;
+}
+
+tbody {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 2px solid black;
+    height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+tbody, thead { display: block; }
+

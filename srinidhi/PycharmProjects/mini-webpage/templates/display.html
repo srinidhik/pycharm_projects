@@ -1,0 +1,11 @@
+<html>
+<body>
+<form action="/display">
+    {% for key,value in storage.iteritems() %}
+        {{value['name']}}
+        <br>
+    <br>
+    {% endfor %}
+    </form>
+</body>
+</html>

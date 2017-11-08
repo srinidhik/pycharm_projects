@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>result</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+      <link rel="stylesheet" href="/static/app_css.css">
+<script src="/static/script.js"></script>
+</head>
+<body>
+<div class="container">
+        <ul class="pager">
+    <li class="previous"><a href="/">BACK</a></li>
+    </ul>
+</div>
+<form id="fetched_data"  method="post">
+    <div class="section">
+        <input type="hidden" name="id" value="{{id}}" >
+        NAME : <input name="upd_name" type="text" value="{{instance.get_name()}}" required pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$"><br><br>
+        DATE : <input name="upd_date" type="date" value="{{instance.get_date()}}"><br><br>
+        CITY : <input type="text" name="upd_city" list="city1" id="city" value="{{instance.get_city()}}" onload="setSelectedIndex(document.getElementById('city1'),'{{instance.get_city()}}')">
+        <datalist id="city1" style="width: 210px" >
+            {%for i in data["cities"]%}
+                 <option value="{{i}}">{{i}}</option>
+            {%endfor%}
+        </datalist><br><br>
+
+        INFO : <input name="upd_info" type="text" value="{{instance.get_info()}}"><br><br>
+
+
+    <input type="submit" value="Update" formaction="/update">
+    <input type="submit" value="Delete" formaction="/delete"><br><br>
+</div>
+    </form>
+
+</body>
+</html>
+

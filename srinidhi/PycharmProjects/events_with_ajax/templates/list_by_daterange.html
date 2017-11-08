@@ -1,0 +1,25 @@
+{% extends "filters.html" %}
+
+{% block content %}
+
+
+    <form action="/by_date_range" method="POST">
+        <div class="section row" >
+            <div class="columns large-4 small-5 ">
+                from:<input type = "date" id="date3" name = "fromdate" />
+            </div>
+            <div class="columns large-4 small-5 ">
+                  to:<input type ="date" id="date2" name = "todate" />
+            </div>
+            <div class="columns large-2 small-2 end " style="padding-top: 25px">
+                <input onclick="by_date_range()"  type="button" class="button postfix" value="submit">
+            </div>
+
+        </div>
+    </form>
+
+<div id="message" class="row columns large-centered"></div>
+
+<script src="/static/script.js"></script>
+
+{% endblock%}

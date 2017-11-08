@@ -1,0 +1,162 @@
+<script>
+// Add the CSRF Token
+var app = angular.module('example.app'); // Not including a list of dependent modules (2nd parameter to `module`) "re-opens" the module for additional configuration
+app.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.headers.common['X-CSRFToken'] = '{{ csrf_token|escapejs }}';
+}]);
+</script>
+
+
+
+#########################################################
+
+
+
+{% extends 'layout.html' %}
+{% block body %}
+
+    <div class="row" style="margin-top: -25%; width: 100%;">
+
+        <table>
+
+            <tbody>
+            <tr>
+                <td style="width: 25%"><img src="/static/apple.jpg" id="image1" style="height:30%;"></td>
+                <td id="details1">
+                    <input id="name" value="{{ data1.name }}" class="product1" type="hidden"/>{{ data1.name }}<br/>
+                    <input id="rate" value="{{ data1.rate }}" class="product1" type="hidden"/>Cost: Rs. {{ data1.rate }}/-<br/>
+                    Color: White<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" class="product1" id="quantity" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button"  id="product1" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%"><img src="/static/dell.jpg" id="image2" style="height:30%;"></td>
+                <td id="details2">
+                    <input id="name" value="{{ data2.name }}" class="product2" type="hidden"/>{{ data2.name }}<br/>
+                    <input id="rate" value="{{ data2.rate }}" class="product2" type="hidden"/>Cost: Rs. {{ data2.rate }}/-<br/>
+                    Color: White<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" class="product2" id="quantity" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button" id="product2" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            <tr>
+                <td style="width: 25%"><img src="/static/hp.jpg" id="image3" style="height:30%;"></td>
+                <td id="details3">
+                    <input id="name" value="{{ data3.name }}" class="product3" type="hidden"/>{{ data3.name }}<br/>
+                    <input id="rate" value="{{ data3.rate }}" class="product3" type="hidden"/>Cost: Rs. {{ data3.rate }}/-<br/>
+                    Color: Black<br/>
+                </td>
+                <td style="width: 25%"><input type="number" min="1" id="quantity" class="product3" placeholder="Quantity"/></td>
+                <td><input onclick="placeorder(this.id)" type="button" id="product3" class="button postfix" value="ORDER"/></td>
+            </tr>
+
+            </tbody>
+
+
+        </table>
+
+
+        <div class="row">
+            <div class="large-4 columns"></div>
+        </div>
+
+
+    <img id="Zoom" src="" style="display:none; width: 60%; height: 60%"/>
+
+    <div id="message"></div>
+
+    </div>
+
+
+<script>
+
+
+
+    $('img').on('click', function () {
+
+        var id = $(this).attr('id');
+        d = $('#'+id).attr('src');
+
+        var source = d;
+
+        $('#Zoom').css('display', 'block')
+                .attr('src',source);
+
+    })
+
+
+</script>
+
+
+
+{% endblock %}
+
+
+
+
+###########################################3
+
+
+        <div class="row">
+            <div class="large-4 columns"><img src="/static/apple.jpg" id="image1" data-reveal-id="ZoomImage"  style="height:30%;"></div>
+            <div class="large-4 columns"><img src="/static/dell.jpg" id="image2" data-reveal-id="ZoomImage" style="height:30%;"></div>
+            <div class="large-4 columns"><img src="/static/hp.jpg" id="image3" data-reveal-id="ZoomImage" style="height:30%;"></div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="large-4 columns"><input id="name" value="{{ data1.name }}" class="product1" type="hidden"/>{{ data1.name }}</div>
+            <div class="large-4 columns"><input id="name" value="{{ data2.name }}" class="product2" type="hidden"/>{{ data2.name }}</div>
+            <div class="large-4 columns"><input id="name" value="{{ data3.name }}" class="product3" type="hidden"/>{{ data3.name }}</div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="large-4 columns"><input id="rate" value="{{ data1.rate }}" class="product1" type="hidden"/>Cost: Rs. {{ data1.rate }}/-</div>
+            <div class="large-4 columns"><input id="rate" value="{{ data2.rate }}" class="product2" type="hidden"/>Cost: Rs. {{ data2.rate }}/-</div>
+            <div class="large-4 columns"><input id="rate" value="{{ data3.rate }}" class="product3" type="hidden"/>Cost: Rs. {{ data3.rate }}/-</div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="large-4 columns">Color: Silver</div>
+            <div class="large-4 columns">Color: Silver</div>
+            <div class="large-4 columns">Color: Black</div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="large-4 columns"><input type="number" min="1" class="product1" id="quantity" placeholder="Quantity"/></div>
+            <div class="large-4 columns"><input type="number" min="1" class="product2" id="quantity" placeholder="Quantity"/></div>
+            <div class="large-4 columns"><input type="number" min="1" id="quantity" class="product3" placeholder="Quantity"/></div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="large-4 columns"><input onclick="placeorder(this.id)" type="button"  id="product1" class="button postfix" value="ADD TO CART"/></div>
+            <div class="large-4 columns"><input onclick="placeorder(this.id)" type="button" id="product2" class="button postfix" value="ADD TO CART"/></div>
+            <div class="large-4 columns"><input onclick="placeorder(this.id)" type="button" id="product3" class="button postfix" value="ADD TO CART"/></div>
+        </div>
+
+
+#####################################################
+script==>
+
+        app.controller("ctrl", function($scope, $http){
+
+    $scope.product = $http.get("select_a.html");
+
+    $scope.view = $http.get("display_a.html");
+
+});
+
+#####################################################
+layout==>
+ <a ng-click="product" class="button" ng-href="/select_a">PRODUCT</a>
+ <a ng-click="view" class="button" ng-href="/display_a">VIEW</a>
+
+ ##################################################3
+

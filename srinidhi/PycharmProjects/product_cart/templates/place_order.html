@@ -1,0 +1,30 @@
+{% block body %}
+
+    <div class="row" style="margin-top: 0;">
+
+        <form method="POST" data-abide>
+
+
+            <div>
+                <input id="product_name" type="text" value="{{ instance.name }}" disabled />
+            </div>
+
+            <div>
+                <input id="product_rate" type="text" value="{{ instance.rate }}" disabled />
+            </div>
+
+            <div>
+                <input id="quantity" type="number" min="1" placeholder="Number of selected items" />
+            </div>
+
+            <input onclick="place_order()" type="button" class="button postfix" value="PLACE ORDER"/>
+
+
+        </form>
+
+    <div id="message"></div>
+
+    </div>
+
+
+{% endblock %}

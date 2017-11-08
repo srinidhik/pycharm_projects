@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for i in data %}
+            <tr>
+                                <td>Book at
+                    <input type="button" onclick="hotel(this.value)" value="{{ i.HotelName }}" />
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div id="message"></div>
+
+{% endblock %}

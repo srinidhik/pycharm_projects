@@ -1,0 +1,31 @@
+{% extends "filters.html" %}
+
+{% block content %}
+
+<form action="/by_city" method="POST">
+
+    <div class="row">
+        <div class="large-10 columns large-centered">
+
+                <div class="small-8 large-7 columns">
+                    <select name="city" id="city">
+                {%for i in data.cities%}
+                    <option value="{{i}}">{{i}}</option>
+                {%endfor%}
+                    </select>
+
+
+                </div>
+                <div class="small-2 large-2 columns end">
+                        <input onclick="bycity()"  class = "button postfix" type="button" value="submit"><br><br>
+
+                </div>
+
+        </div>
+    </div>
+</form>
+
+ <div id=message class="row columns large-centered" ></div>
+<script src="/static/script.js"></script>
+
+{% endblock%}

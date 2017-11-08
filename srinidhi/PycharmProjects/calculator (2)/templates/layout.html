@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>Calculator</title>
+        <link rel="stylesheet" href="/static/app.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="/static/foundation/css/normalize.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    {% endblock %}
+</head>
+<body>
+
+    {% block body %}
+<form method="POST">
+    <div class="calc">
+
+        <div class="row" style="max-width: 20%;">
+
+            <textarea id="screen" rows="4" cols="2" ></textarea>
+
+        <ul class="keyboard">
+
+            <li class="button" onclick="input1(this)" value="1" id="num1">1</li>
+            <li class="button" onclick="input2(this)" value="2" id="num2">2</li>
+            <li class="button" onclick="input3(this)" value="3" id="num3">3</li>
+            <li class="button" onclick="input4(this)" value="4" id="num4">4</li>
+            <li class="button" onclick="input5(this)" value="5" id="num5">5</li>
+            <li class="button" onclick="input6(this)" value="6" id="num6">6</li>
+            <li class="button" onclick="input7(this)" value="7" id="num7">7</li>
+            <li class="button" onclick="input8(this)" value="8" id="num8">8</li>
+            <li class="button" onclick="input9(this)" value="9" id="num9">9</li>
+            <li class="button" onclick="input0(this)" value="0" id="num0">0</li>
+            <li class="button" onclick="plus(this)" value="11" id="plus">+</li>
+            <li class="button" onclick="minus(this)" value="12" id="minus">-</li>
+            <li class="button" onclick="multiply(this)" value="13" id="multiply">*</li>
+            <li class="button" onclick="divide(this)" value="14" id="divide">/</li>
+            <li class="button" onclick="modulus(this)" value="15" id="modulus">%</li>
+            <li class="button" onclick="equals(this)" value="=" id="equals">=</li>
+
+            <li class="button success" onclick="save(this)" id="save">SAVE</li>
+            <li class="button alert" onclick="clear(this)" id="clear">CLEAR</li>
+
+
+
+        </ul>
+
+    </div>
+</div>
+        </form>
+    {% endblock %}
+
+
+<script src="/static/script.js"></script>
+<script type="text/javascript" src="/static/foundation/js/foundation.min.js"></script>
+<script type="text/javascript" src="/static/foundation/js/vendor/modernizr.js"></script>
+
+
+</body>
+</html>

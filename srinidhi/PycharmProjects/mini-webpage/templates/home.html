@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+<style>
+input[type=text], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+textarea, select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type=date], select {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+a{
+    font-size:50pt;
+}
+ul.tab{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+ul.tab li{float: left;}
+
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+form{
+    border: solid grey;
+    border-radius:5px;
+    width:500px;
+    height:500px;
+    margin-top: 100px;
+    margin-left: 675px;
+    text-align: center;
+
+
+}
+#section{
+    text-align: left;
+	margin-top:5px;
+	font-size:15pt;
+	border-radius:5px;
+}
+
+
+
+
+
+</style>
+
+</head>
+<body>
+<ul class="tab">
+    <li><a  class="tablinks" onclick="openEvent(event,'home')">HOME</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'add_event')">ADD_EVENT</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'search')">SEARCH</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'delete')">DELETE</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'update')">UPDATE</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'filters')">FILTERS</a></li>
+</ul>
+
+<div id="home" class="tabcontent">
+
+</div>
+
+<div id="add_event" class="tabcontent">
+    <h3>ADD_EVENT</h3>
+    <form action = "/add_event" method = "POST">
+    <br>
+    <div style="font-family: toms handwritten new; font-size:24pt; text-align: center; display: inline-block; verical-align: middle ">Event Details Here</div>
+    <hr>
+    <br>
+    <div id = "section">
+        <label>Event Name :</label><input type="text" name="name"> <br>
+        <label>Date :</label><input type="date" name="date"><br>
+        <label>City :</label>
+        <select id="city" name="city">
+      <option value="hyderabad">hyderabad</option>
+      <option value="chennai">chennai</option>
+      <option value="banglore">banglore</option>
+    </select>
+        <br>
+        <label>Description :</label><textarea name="info" ></textarea><br><br>
+    </div>
+    <br>
+    <button type="submit", value="submit">ADD</button>
+</form>
+</div>
+
+<div id="section" class = "container" style = "max-height:100% width:80%">
+            {% with message = get_flashed_messages() %}
+            {% if message %}
+
+            <ul class = flashes>
+                {% for msg in message %}
+                    <li><h3>{{message}}</h3></li>
+                <br>
+                {% endfor %}
+            </ul>
+
+            {% endif %}
+        {% endwith %}
+</div>
+
+
+<div id="search" class="tabcontent">
+    <h3>SEARCH</h3>
+    <p><form action = "/search" method = 'POST'>
+    <br>
+    <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Enter Event ID</div>
+    <hr>
+    <br>
+    <div id = "section">
+        Event ID : <input type="text" name="event_id" placeholder="Event ID"> <br>
+    </div>
+    <br>
+
+    <button type="submit", value="submit">SEARCH</button>
+
+    {{Name}}<br>{{City}}<br>{{Date}}<br>{{Info}}<br>
+
+
+
+</form></p>
+</div>
+
+<div id="delete" class="tabcontent">
+    <h3>DELETE</h3>
+    <p>
+    <form action="/delete", method = "POST">
+	<br>
+	<div style="font-family: toms handwritten new; font-size:24pt; text-align: center "> Delete Event </div>
+      <hr>
+      <div id="section">
+      <br>
+         Event ID : <input type = "text" name = "event_id" placeholder="Event ID" /><br><br>
+         <button type="submit", value="submit">DELETE</button>
+         <br>
+          {{message}}
+      </div>
+</form>
+    </p>
+
+</div>
+
+<div id="update" class="tabcontent">
+    <h3>UPDATE</h3>
+    <p>
+        <form action = "/update" method = "POST">
+		<br>
+      <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Update here </div>
+      <hr>
+      <div id="section">
+      <br>
+         Event Id : <input type = "text" name = "event_id" /><br>
+
+Field : <input type = "text" list="city1" name = "key" placeholder="select your Field" /><br>
+
+         Feild value : <textarea name = "value" rows="1" coloumns="20" ></textarea><br>
+
+          <datalist id="city1">
+          <option value="name">name</option>
+          <option value="date">date</option>
+          <option value="city">city</option>
+              <option value="info">info</option>
+        </datalist>
+
+         <button type="submit", value="submit">UPDATE</button> <br>
+          <br>
+          {{message}}
+
+    </div>
+    </form></p>
+</div>
+
+
+<div id="filters" class="tabcontent">
+    <h3>FILTERS</h3>
+
+    <ul class="tab">
+        <li><a  class="formlinks" onclick="openFilter(filter,'by_date')">BY_DATE</a></li>
+        <li><a  class="formlinks" onclick="openFilter(filter,'by_city')">BY_CITY</a></li>
+        <li><a  class="formlinks" onclick="openFilter(filter,'by_date_city')">BY_DATE_AND_CITY</a></li>
+        <li><a  class="formlinks" onclick="openFilter(filter,'date_range')">BY_DATE_RANGE</a></li>
+        <li><a  class="formlinks" onclick="openFilter(filter,'past_upcoming')">PAST_UPCOMING_EVENTS</a></li>
+    </ul>
+
+
+
+</div>
+
+<!--java script for home -->
+
+<script>
+function openEvent(event, task ) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(task).style.display = "block";
+    event.currentTarget.className += " active";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>Calculator</title>
+        <link rel="stylesheet" href="/static/app.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="/static/foundation/css/normalize.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    {% endblock %}
+</head>
+<body>
+
+    {% block body %}
+<form method="POST" class="calc_form">
+    <div class="calc">
+
+        <div id="keyboard" class="row" style="max-width: 20.5%;">
+
+            <textarea id="screen" rows="1" cols="2" readonly></textarea>
+
+            <ul class="keyboard">
+
+                <li class="button" onclick="input(this.value)" value="1" id="num">1</li>
+                <li class="button" onclick="input(this.value)" value="2" id="num">2</li>
+                <li class="button" onclick="input(this.value)" value="3" id="num">3</li>
+                <li class="button" onclick="input(this.text)" value="plus" id="num">+</li>
+                <label for="plus"></label>
+
+                <li class="button" onclick="input(this.value)" value="4" id="num">4</li>
+                <li class="button" onclick="input(this.value)" value="5" id="num">5</li>
+                <li class="button" onclick="input(this.value)" value="6" id="num">6</li>
+                <li class="button" onclick="input('-')" value="-" id="num">-</li>
+
+                <li class="button" onclick="input(this.value)" value="7" id="num">7</li>
+                <li class="button" onclick="input(this.value)" value="8" id="num">8</li>
+                <li class="button" onclick="input(this.value)" value="9" id="num">9</li>
+                <li class="button" onclick="input('*')" value="*" id="num">*</li>
+
+                <li class="button" onclick="input(this.value)" value="0" id="num">0</li>
+                <li class="button" onclick="input('/')" value="/" id="num">/</li>
+                <li class="button" onclick="input('%')" value="%" id="num">%</li>
+                <li class="button" onclick="equals()" value="=" id="num">=</li>
+
+
+            </ul>
+
+            </div>
+                <ul class="row" style="max-width: 20.5%; margin-top: 15px;">
+                    <li class="button" onclick="save()" id="save">SAVE</li>
+                    <li class="button" onclick="clear_data()" id="clear">DELETE</li>
+                    <li class="button" onclick="clear_screen()" id="clear_screen">CLEAR</li>
+                </ul>
+
+             <div id="message"  class="row" style="max-width: 20.5%;" ></div>
+
+    </div>
+        </form>
+
+    {% endblock %}
+
+
+
+<script src="/static/script.js"></script>
+<script type="text/javascript" src="/static/foundation/js/foundation.min.js"></script>
+<script type="text/javascript" src="/static/foundation/js/vendor/modernizr.js"></script>
+
+
+</body>
+</html>

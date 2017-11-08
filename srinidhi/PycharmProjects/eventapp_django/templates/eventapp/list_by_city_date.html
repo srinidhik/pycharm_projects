@@ -1,0 +1,30 @@
+{% extends "filters.html" %}
+
+{% block content %}
+
+<form action="" method="POST">
+    <div class="row section">
+        <div class=" columns large-4 small-5  ">
+           date  <input type = "date" name = "date"  id="date"/>
+        </div>
+        <div class="columns large-4 small-5 ">
+            city <select name="city" id="city">
+                    {%for i in data.cities%}
+                        <option value="{{i}}">{{i}}</option>
+                        {%endfor%}
+                </select>
+        </div>
+         <div class="columns large-2 small-2 end " style="padding-top: 25px">
+            <input onclick="date_city()"  type="button" class="button postfix" value="submit"><br><br>
+        </div>
+
+    </div>
+</form>
+
+
+
+<div id=message class="row columns large-centered" ></div>
+<script src="/static/script.js"></script>
+
+
+{% endblock%}

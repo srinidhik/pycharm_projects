@@ -1,0 +1,53 @@
+{% extends "layout.html"%}
+{% block title %}Search Result{% endblock %}
+{% block body %}
+
+    <div class="row">
+        <div class="columns small-2 large-2 small-centered large-centered">
+            <a class="small button secondary " href="search_event_h">BACK</a>
+        </div>
+    </div>
+
+
+<form id="fetched_data"  method="post">
+    <div class="section">
+        <input type="hidden" name="id" value="{{id}}" >
+        <div class="row ">
+            <div class="small-6 columns ">
+            Name : <input type="text" name="upd_name" value="{{instance.get_name()}}" required pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$">
+            </div>
+            <div class="small-6 columns ">
+                Date : <input type="date" name="upd_date" value="{{instance.get_date()}}" required >
+            </div>
+        </div>
+
+        <div class=row>
+            <div class="columns">
+                Info : <input type="text" required maxlength="50" name="upd_info" value="{{instance.get_info()}}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="columns small-6 small-centered">
+                CITY : <input type="text" name="upd_city" list="city1" id="city" value="{{instance.get_city()}}" pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$"
+                              onload="setSelectedIndex(document.getElementById('city1'),'{{instance.get_city()}}')" required>
+                <datalist id="city1" >
+                    {%for i in data["cities"]%}
+                         <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                </datalist><br>
+            </div>
+        </div>
+
+        <div class="row large-2 small-4">
+            <div class="large-6 columns small-6" >
+                <input class="small button success" type="submit" value="Update" formaction="/update">
+            </div>
+            <div class="large-6  columns small-6">
+                <input class="small button alert" type="submit" value="Delete" formaction="/delete">
+            </div>
+        </div>
+</div>
+    </form>
+<script src="/static/script.js"></script>
+{% endblock %}

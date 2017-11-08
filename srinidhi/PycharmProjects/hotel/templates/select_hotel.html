@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body%}
+
+<form method="POST">
+
+    <div class="row large-6 medium-6 small-3">
+
+        <select id="hotel_name" onchange="add_hotel(this.value);">
+            <option value="" disabled selected>Select your option</option>
+            {% for i in data %}
+                <option value="{{ i.HotelName }}">{{ i.HotelName }}</option>
+            {% endfor %}
+            <option value="other">Other</option>
+        <br>
+        </select>
+        <input class="button postfix" type="button" onclick="hotel()" value="SELECT" />
+
+
+
+        <div id="new" class="reveal-modal" data-reveal >
+            <div class="row large-6 medium-6 small-3">
+                <input type="text" id="new_hotel" name="new_hotel" placeholder="Hotel Name"/>
+
+                <input type="text" id="new_amount" name="new_amount" placeholder="Amount"/>
+
+                <input class="button postfix" type="button" onclick="hotel()" value="SELECT" />
+            </div>
+            <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+
+        </div>
+                <br>
+
+        <div id="loginModal" class="reveal-modal small" data-reveal >
+
+            <div class="row large-6 medium-6 small-3">
+
+                <input id="username" type="text" placeholder="Name" />
+
+                <input id="password" type="password" placeholder="Password" />
+                <input id="chkbox" type="checkbox" /> Show Password
+
+                <input type="button" class="button postfix" onclick="accountHolder()" value="LOGIN" />
+            </div>
+                <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+
+
+            </div>
+
+        </div>
+
+
+</form>
+
+     <div id="message"></div>
+    <div id="hotel_result"></div>
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#chkbox').click(function () {
+            $('#password').attr('type', $(this).is(':checked') ? 'text' : 'password');
+        })
+
+
+    })
+
+
+
+</script>
+
+{% endblock %}

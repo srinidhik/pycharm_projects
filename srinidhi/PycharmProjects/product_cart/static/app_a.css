@@ -1,0 +1,56 @@
+body{
+    overflow-x: hidden;
+}
+
+a.button{
+    border: 1px solid  black;
+    border-radius: 8px;
+    background-color: transparent;
+    color: black;
+}
+
+a.button:hover{
+    background-color: #99cc00;
+    color: white;
+    border: 1px solid  white;
+}
+
+
+
+#cart_count{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 18px;
+    margin-top: 5%;
+}
+
+#a{
+    margin-left: -54%;
+    color: red;
+}
+
+
+#total{
+    background-color: peru;
+    color: black;
+    font-weight: bold;
+}
+
+
+#cart_button {
+	width: 50px;
+	height: 50px;
+	border-radius:34px;
+    border: 1px solid red;
+}
+
+.reveal-modal .close-reveal-modal {
+    color: #d01921;
+    cursor:pointer;
+    font-size: 2.5rem;
+    font-weight: normal;
+    height: 1px;
+    position: absolute;
+    top: -1.375rem;
+    right: -0.625rem;
+}

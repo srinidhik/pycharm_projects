@@ -1,0 +1,35 @@
+{% extends 'layout_a.html' %}
+{% block body %}
+
+
+<h2>[[ cart_count ]]</h2>
+
+
+    <div class="row" style="margin-top: 5%;">
+
+        <form method="POST">
+
+            <div>
+                <select id="product">
+
+                    <option ng-repeat="i in data1"  value="[[ i ]]">[[ i ]]</option>
+                </select>
+
+                    <input type="button" class="button postfix" onclick="product_select()" value="SELECT" />
+            </div>
+
+        </form>
+
+    <div id="ordered"></div>
+
+    </div>
+
+
+    <script style="text/javascript">
+        window.cart_count = {{ cart_count|safe }};
+        window.data1 = {{ data1|safe }};
+    </script>
+
+
+{% endblock %}
+

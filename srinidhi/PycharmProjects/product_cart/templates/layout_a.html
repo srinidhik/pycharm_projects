@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="cart">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/foundation/css/foundation.css">
+    <link rel="stylesheet" href="/static/foundation/css/foundation.min.css">
+    <link rel="stylesheet" href="/static/foundation/css/normalize.css">
+    <link rel="stylesheet" href="/static/app_a.css">
+    <script src="/static/angular.js"></script>
+    <script src="/static/angular-route.min.js"></script>
+    <script src="/static/script_a.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+</head>
+
+<body ng-controller="productController">
+
+    <a ng-click="product" class="button" ng-href="/select_a">PRODUCT</a>
+    <a ng-click="view" class="button" ng-href="/display_a">VIEW</a>
+    <a class="button" ng-href="/form">form</a>
+
+    {% block body %}
+
+    <h2>[[ cart_count ]]</h2>
+    <div class="row">
+
+    <div ng-controller="country as c">
+        [[c.name]]
+        <div ng-controller="state as s">
+            [[c.name]] - [[s.name]]
+            <div ng-controller="city as cc">
+                [[c.name]] - [[s.name]] - [[cc.name]]
+            </div>
+        </div>
+    </div>
+
+    <div>[[ 5 | currency:'#' ]]</div>
+
+    <input ng-model="color" type="text" value="[[ color ]]" style="background-color: [[ color ]]" >
+
+
+         <div class="row" style="display: inline-block">
+         Sort by:   <select ng-model="sortby">
+                        <option value="false">By default</option>
+                        <option value="k">by key</option>
+                        <option value="v">by value</option>
+                    </select>
+         Search: <input type="text" placeholder="search" ng-model="searchby" />
+         Hide Number: <input type="checkbox" ng-model="hidenum" />
+         </div>
+         <br/><br/>
+
+         <table>
+
+         <thead>
+         <tr>
+             <th>qqq</th>
+             <th>aaa</th>
+         </tr>
+         </thead>
+
+         <tbody>
+         <tr ng-repeat="i in names | orderBy:sortby | filter:searchby">
+             <td> [[ i.k ]] </td>
+             <td ng-hide="hidenum" > [[ i.v ]] </td>
+             <td ng-show="hidenum" > * </td>
+         </tr>
+         </tbody>
+
+         </table>
+
+     </div>
+
+
+<script rel="text/javascript">
+    window.cart_count = {{ cart_count|safe }};
+    window.data1 = {{ data1|safe }};
+</script>
+
+
+
+    {% endblock %}
+
+
+
+
+</body>
+</html>
+
+

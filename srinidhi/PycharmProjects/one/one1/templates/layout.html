@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head%}
+        <meta charset="UTF-8">
+        <title>home</title>
+        <link rel="stylesheet" href="/static/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.css">
+        <link rel="stylesheet" href="/static/foundation/css/normalize.css">
+        <link rel="stylesheet" href="/static/app.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% endblock %}
+</head>
+<body>
+
+    <nav id="tabs">
+        <a href="/one">ONE</a>
+
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+
+<script rel="script" src="/static/foundation/js/foundation.min.js"></script>
+<script rel="script" src="/static/foundation/js/vendor/modernizr.js"></script>
+<script rel="script" src="/static/static.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).foundation();
+    })
+</script>
+
+</body>
+</html>

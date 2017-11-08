@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Searching{% endblock%}
+{% block body %}
+<form action="/search", method="POST" class="customform">
+    <br>
+    <div class="row">
+        <div class="small-4 large-4 small-centered large-centered columns">
+        <select name="event_name">
+            <option selected value="default">Select Your Event</option>
+        {%for key in data%}
+               {% if key != "cities" %}
+
+                    <option value="{{key}}">{{data[key]['name']}}</option>
+                {% endif %}
+        {%endfor%}
+        </select><br><br>
+    </div>
+    </div>
+    <div class="row">
+        <div class="small-2 small-centered large-centered columns">
+            <button class="small button" type="submit">Search</button><br><br>
+        </div>
+    </div>
+</form>
+{% endblock%}
+{% block result %}{% endblock %}

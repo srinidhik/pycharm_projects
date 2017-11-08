@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/static/foundation.css">
+    <link rel="stylesheet" href="/static/foundation.min.css">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/app_css.css">
+{% block body %}
+
+<form id="fetched_data"  method="post">
+    <div class="section">
+        <input type="hidden" name="id" value="{{id}}" >
+        <div class="row ">
+            <div class="small-6 columns ">
+            Name : <input type="text" name="upd_name" value="{{instance.get_name()}}" required pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$">
+            </div>
+            <div class="small-6 columns ">
+                Date : <input type="date" name="upd_date" value="{{instance.get_date()}}" required >
+            </div>
+        </div>
+
+        <div class=row>
+            <div class="columns">
+                Info : <input type="text" required maxlength="50" name="upd_info" value="{{instance.get_info()}}" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="columns small-6 ">
+                CITY : <input type="text" name="upd_city" list="city1" id="city" value="{{instance.get_city()}}" pattern="^[a-z.A-Z ]+[a-z.A-Z.0-9]{1,}[ .]{0,}$"
+                              onload="setSelectedIndex(document.getElementById('city1'),'{{instance.get_city()}}')" required>
+                <datalist id="city1" >
+                    {%for i in data["cities"]%}
+                         <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                </datalist><br>
+            </div>
+        </div>
+
+        <div class="row ">
+            <div class="large-2 medium-3 columns small-6 large-offset-4" >
+                <input class="small button success" type="submit" value="Update" formaction="/update">
+            </div>
+            <div class="large-2 medium-3  columns small-6 end">
+                <input class="small button alert " type="submit" value="Delete" formaction="/delete">
+            </div>
+        </div>
+</div>
+    </form>
+<script src="/static/script.js"></script>
+<script type="text/javascript" src="/static/foundation.min.js"></script>
+<script type="text/javascript" src="/static/modernizr.js"></script>
+<script>
+   $(document).ready(function() {
+     $(document).foundation();
+
+   })
+</script>
+{% endblock %}

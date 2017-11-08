@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EventsApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+  a{
+    font-family:"Terminal Dosis"; font-size :13pt;background-color: black}
+
+  form{
+		border:1px solid black;
+		width:440px;
+		height:385px;
+		margin-left:200px;
+		margin-top: 20px;
+		border-radius: 5px;
+	}
+</style>
+
+</head>
+<body>
+  <div class="container">
+    <img src="{{ url_for('static', filename = 'icon.png') }}" style="width: 50px; height: 50px;">
+    <h1 style="font-family:toms handwritten new; display:inline-block; vertical-align: middle" >Eventify</h1>
+  <ul class="nav nav-tabs" >
+    <li class="active" ><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#add">Add Event</a></li>
+    <li><a data-toggle="tab" href="#search">Search Event</a></li>
+    <li><a data-toggle="tab" href="#update">Update Event</a></li>
+    <li><a data-toggle="tab" href="/templates/delete">Delete Event</a></li>
+    <li><a data-toggle="tab" href="#filters">Filters</a></li>
+  </ul>
+
+  <div class="tab-content" >
+    <div id="home" class="tab-pane fade in active">
+      <h3 style="font-family:toms handwritten new; font-size:50pt" >HOME</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+
+    <div id="add" class="tab-pane fade">
+      <h3 style="font-family:toms handwritten new; font-size:50pt">Event Details here</h3>
+      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+
+    <div id="search" class="tab-pane fade">
+      <h3 style="font-family:toms handwritten new; font-size:50pt">Search</h3>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+  </div>
+
+
+  <div id="update" class="tab-pane fade" style="text-align: center;">
+     <form>
+		<div style="font-family:toms handwritten new; font-size: 24pt; vertical-align: middle">Update here </div><hr>
+        <div style= "font-family:toms handwritten new; font-size:20pt ;">
+         Event Id  <input type = "text" name = "event id" /><br>
+		 Event Name <input type = "text" name = "event name" /><br>
+
+         Description  <textarea name = "description" rows="1" coloumns="20" ></textarea><br>
+
+         City  <input type = "text" list="city" name = "city" placeholder="select your city" /><br>
+
+         Date  <input type = "date" name = "date" /><br>
+
+
+         <datalist id=city>
+         	<option value="hyderabad">hyderabad</option>
+         	<option value="mahaboobnagar">mahaboobnagar</option>
+			<option value="warangal">warangal</option>
+         </datalist>
+        <input type="image" src="/static/update.png" alt="Submit" width="100" height="100"><br>
+      </div>
+     </form>
+    </div>
+
+
+    <div id="delete" class="tab-pane fade">
+      <h3 style="font-family:toms handwritten new; font-size:50pt">Delete</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+
+
+    <div id="filters" class="tab-pane fade">
+      <h3 style="font-family:toms handwritten new; font-size:50pt">Filter</h3>
+      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
+

@@ -1,0 +1,49 @@
+<!doctype>
+<html>
+<style >
+	form{
+		border:1px solid black;
+		width:440px;
+		height:385px;
+		margin-left:125px;
+		margin-top: 200px;
+		border-radius: 5px;
+	}
+
+</style>
+<body>
+<center>
+	<form action = "{{ url_for('addrec') }}" method = "POST">
+		<br>
+      <div style="font-family:toms handwritten new; font-size: 26pt;">Update here </div>
+      <hr>
+      <div style= "font-family:toms handwritten new; font-size:20pt ;">
+      <br>
+         Event Id  <input type = "text" name = "event id" /><br>
+		 Event Name <input type = "text" name = "event name" /><br>
+         
+         Description  <textarea name = "description" rows="1" coloumns="20" ></textarea><br>
+         
+         City  <input type = "text" list="city" name = "city" placeholder="select your city" /><br>
+         
+         Date  <input type = "date" name = "date" /><br>
+         <button type="submit", value="submit">UPDATE</button> <br>
+         
+         <datalist id=city>
+         	<option value="hyderabad">hyderabad</option>
+         	<option value="mahaboobnagar">mahaboobnagar</option>
+			<option value="warangal">warangal</option>
+			<option value="khammam">khammam</option>
+			<option value="Nizamabad">Nizamabad</option>
+			<option value="Adilabad">Adilabad</option>
+			<option value="Karimnagar">Karimnagar</option>
+			<option value="Medak">Medak</option>
+			<option value="Nalgonda">Nalgonda</option>
+			<option value="Ranga Reddy">Ranga Reddy</option>
+        </datalist> 
+      </div>
+     </form>
+
+</center>
+</body>
+</html>

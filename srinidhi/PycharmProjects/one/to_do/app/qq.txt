@@ -1,0 +1,39 @@
+    <table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Task is</th>
+            <th>Entry date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for i in data %}
+        <tr>
+            <td><input type="checkbox" value="{{ i.id }}"></td>
+            <td>{{ i.task }}</td>
+            <td>{{ i.date }}</td>
+            <td><div id="{{ i.id }}" >Incomplete</div>
+                <div id="x{{ i.id }}" ></div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+
+    <ul>
+        {% for i in data %}
+        <li>
+
+            <div><input type="checkbox" value="{{ i.id }}"></div>
+            <div>{{ i.date }}</div>
+            <div>{{ i.task }}</div>
+            <div id="{{ i.id }}">Incomplete</div>
+
+
+        </li>
+        {% endfor %}
+
+    </ul>

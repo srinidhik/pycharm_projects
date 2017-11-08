@@ -1,0 +1,301 @@
+
+
+http :: Hyper Text Transfer Protocol
+- protocol is a way to transfer information over internet.
+
+
+POST :: The POST request method is designed to request that a web server accepts the data enclosed in the request message's body for storage. It is often used when uploading a file or submitting a completed web form. 
+
+GET :: In contrast, the HTTP GET request method is designed to retrieve information from the server.
+
+jQuery is lightweight javascript library, that simplifies programming with javascript.
+
+Basically Ajax is, it allows you to communicate with your server while the user is still on the webpage without interrupting their experience.
+
+Ajax is a term that describes loading data dynamically without loading a new page.
+
+Ajax is used for data transfer mechanism.
+- Unobtrusive client-server dataexchange.
+  - avoid page refresh.
+-jquery has $.ajax()
+
+ajax allows parts of the page to be updated without having to reload the entire page.
+
+$.ajax({
+
+	url = address of the server-side resource.
+		- url to which the request is send.
+	data = to send information from client to server.
+		- with GET = append to url as query string.
+		- with POST = sent to post body.
+})
+
+We are not allowed to do ajax requests from one domain to another. It doesn't work because of security restrictions.
+
+ajaxSetup() = for globally configuring ajax.
+- ajaxSetup()  is global ajax setting.
+
+Just pass the object map into that and then it will override it per $.ajax call.
+
+
+jQuery is cross browser meaning when we write javascript using jquery it will work in all the browsers.
+$ => jQuery
+ready => DOM (Document Object Model) is fully loaded. 
+
+$(document).ready(function(){ 
+	///  loads DOM without images and css.
+	///  executes as soon as DOM is ready.
+});
+
+$(window).load(function(){
+	///  runs only after images and css is loaded.
+});
+
+document.getElementById() is not same as $('#id').
+.getElementById returns raw DOM object.
+$('#id') returns DOM object wrapped in jquery => jQuery object. therefore, we can use css on these objects.
+$('#id')[0] returns raw DOM object.
+
+
+.each() --- method to iterate over the items in jQuery collection.
+$.each() --- method to iterate over javascript objects.
+
+
+
+
+
+
+______________________________________________________________________________________________________________________________________________________________
+-----------django-------------------------------------------------------------------------------------
+______________________________________________________________________________________________________________________________________________________________
+
+
+
+
+views are python functions that take a request from the user and respond or get back a response in some kind of way.
+---
+
+models are the blueprint(plan) of sql tables.
+---
+
+migrations are basically a way that you can hook up or connect your website all your source code with your database.
+---
+
+init tells that folder is interrelatUse location.reload():
+
+
+$('#something').click(function() {
+    location.reload();
+});
+The reload() function takes an optional parameter that can be set to true to force a reload from the server rather than the cache. The parameter defaults to false, so by default the page may reload from the browser's cache.ed.
+---
+
+http responses are all delivered through views.py.
+urls.py is responsible for routing in django.
+name is name of function in views files for the app.
+
+models contain database information.
+
+urls.py - contain what is served based on url patterns.
+models.py -  database structures and metadata.
+views.py - handles what the end-user "views" or interacts with.
+
+
+ajax setup before send:: This event, which is triggered before an Ajax request is started, allows you to modify the XMLHttpRequest object (setting additional headers, if need be.)
+
+cookie is sent back and forth between web browser and website.
+
+Each view function takes at least one parameter, called request by convention. This is an object that contains information about the current Web request that has triggered this view, and is an instance of the class django.http.HttpRequest.
+
+urls.py :: Basically, it’s a mapping between URLs and the view functions that should be called for those URLs. It’s how you tell Django, “For this URL, call this code, and for that URL, call that code.”
+
+
+
+
+
+______________________________________________________________________________________________________________________________________________________________
+______________________________________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+
+jQuery select attributes list :: https://api.jquery.com/category/selectors
+
+input[type='typename']
+:input  --- for all inputs
+.val();
+.text();
+.each();
+:selected --- for select
+:checked --- for radio and checkbox
+:contains(word to search)
+$('a[href^="xxx"]')
+$('div:not(.abcd)') --- does not apply to abcd class
+if($('input[type="checkbox"]').is(:checked))
+
+
+
+.stringify() converts to string.
+.parse() is used to convert object string to property values
+.attr()
+.removeAttr()
+.wrap()
+.unwrap()
+.wrapAll()
+.wrapInner()
+.append()
+.appendTo()
+.prepend()
+.prependTo()
+.before()
+.insertBefore()
+.after()
+.insertAfter()
+.hasclass()
+.addClass()
+.removeClass()
+.toggleClass()
+
+.focus()
+.blur()
+.focusin()
+.focusout()
+
+.map() --- ................. return $(element).text()}, .get().join('|'));
+$.event.fix() --- converts to jQuery object
+.preventDefault();
+
+
+.scrollTop() --- gives the vertical position of the scroll bar.
+
+
+.animate()
+.attr()
+
+
+
+
+.bind() --- binds multiple event handlers to a button.
+.unbind()
+.on() --- works even for dynamically created elements. $(document / 'body' / 'html').on('EVENT', 'SELECTOR', 'FUNCTION');
+.off()
+.delegate()
+.undelegate()
+.one() --- executes once and disables it next time 
+mousedown
+mouseup
+mouseenter
+mouseleave
+keyup()
+keydown()
+unbind()
+
+show()
+hide()
+slideUp()
+slideDown()
+slideToggle()
+fadeOut()
+fadeIn()
+fadeToggle()
+fadeTo(milliseconds,opacity)--- fade to that opacity
+delay(milliseconds)
+animate()--- we can add css here.
+
+addClass()
+removeClass()
+toggleClass()
+
+.text()
+.html()
+.empty()
+.append()
+.after()
+.prepend()
+.before()
+.replaceWith()
+.attr(things to be animated, time in ms, callback function)--- can be used to change images
+
+.add()--- add to that selector
+.not()--- remove from that selector
+.next()--- next after that selector
+.prev()--- previous to the selector
+.parent()
+.find()--- descendents of the element
+.first()
+.last()
+.siblings()
+
+.eq(indexnumber)
+$('li:nth-child(1)') ==> 0th indexed li
+$('li:nth-child(n)') ==> all li
+$('li:nth-child(2n)') ==> even 
+$('li:nth-child(2n + 1)') ==> odd
+
+
+.html()--- in the form of html
+.val()--- inserts as value
+.text()--- in text form
+
+
+
+---------#############----------
+
+$(this) ==> window 
+
+$(document).ready(function(){
+  
+  $(this) ==> document.ready
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------
+--------------------regular expressions-------------------------
+----------------------------------------------------------------
+\d numbers
+
+{1,3} expecting 1 to 3 digits
+{5,10} expecting 5 to 10 digits
+
++ match 1 or more
+? match 0 or 1
+* match 0 or more
+
+\. is .
+
+
+------------------------------------------------------------------
+----------------------------------------------------------------------
+
+

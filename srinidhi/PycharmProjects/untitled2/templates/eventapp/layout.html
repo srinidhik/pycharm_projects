@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% block head %}<head>
+    <meta charset="UTF-8">
+    <title>{%block title%}Events{% endblock%}</title>
+    <link rel="stylesheet" href="/static/foundation.css">
+    <link rel="stylesheet" href="/static/foundation.min.css">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" type="text/css" href="/static/app_css.css">
+
+</head>{% endblock %}
+<body>
+<div class="row con">
+    <div class="columns small-1">
+        <br><img src='/static/icon.png' style="width: 50px; height: 50px;">
+    </div>
+    <div class="columns small-11 ">
+        <h1 >Eventify</h1>
+    </div>
+</div>
+<nav class="top-bar" data-topbar role="navigation">
+    <ul class="title-area">
+    <li class="name">
+      <h1><a href="/">My Site</a></h1>
+    </li>
+     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+  </ul>
+
+  <section class="top-bar-section">
+   <ul class="left">
+       <li> <a href="add_event_h">Add</a></li>
+       <li> <a href="search_event_h">Search/Modify</a></li>
+       <li ><a href="/filter_html">Filters</a></li>
+   </ul>
+  </section>
+</nav>
+<!--  body here -->
+    <div id="content">{% block body %}Simple Flask App to store and retrieve from JSON{% endblock %}</div>
+
+<footer>
+
+        Copyright @ TeamGreen. All Rights Reserved
+
+</footer>
+<script type="text/javascript" src="/static/foundation.min.js"></script>
+<script type="text/javascript" src="/static/modernizr.js"></script>
+<script>
+   $(document).ready(function() {
+     $(document).foundation();
+   })
+</script>
+
+</body>
+</html>

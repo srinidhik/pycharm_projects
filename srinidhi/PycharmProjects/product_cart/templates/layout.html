@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>product</title>
+        <link rel="stylesheet" href="/static/foundation/css/foundation.css">
+        <link rel="stylesheet" href="/static/foundation/css/foundation.min.css">
+        <link rel="stylesheet" href="/static/foundation/css/normalize.css">
+        <link rel="stylesheet" href="/static/app.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% endblock %}
+</head>
+<body >
+
+<div class="row" style="background-image: url('/static/Online-Shop.jpg'); background-repeat: no-repeat; height: 70%; width: 100%;" >
+    <div style="margin-top: 18%;">
+        <div class="columns large-11">
+            <a class="button" href="/select_product">PRODUCT</a>
+            <a class="button" href="/display_html">VIEW</a>
+            <a class="button" href="/pic_html">CLICK</a>
+            <a class="button" href="/">HOME</a>
+            <a class="button" href="/image_html">PRODUCTS</a>
+            <a class="button" href="/angularjs">a_js</a>
+        </div>
+        <div class="columns large-1" id="cart_button" style="left: -10%;">
+            <a href="/display_html" id="a">CART
+            <h1 id="cart_count">{{ cart_count }}</h1></a>
+        </div>
+    </div>
+</div>
+
+{% block body %}
+{% endblock %}
+
+
+<script src="/static/foundation/js/foundation.min.js"></script>
+<script src="/static/foundation/js/vendor/modernizr.js"></script>
+<script src="/static/script.js"></script>
+<script src="/static/image.js"></script>
+<script>
+   $(document).ready(function() {
+       $(document).foundation();
+
+   })
+</script>
+
+</body>
+</html>

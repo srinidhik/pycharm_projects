@@ -1,0 +1,37 @@
+
+
+source /home/cfit001/mydjangoapp/mydjangoappvenv/bin/activate
+mysql -u root -p
+create database db;
+use db;
+
+
+
+srinidhi.kambalapally@gmail.com
+
+
+---------------IN VIRTUAL ENVIRONMENT--------------
+
+
+Django:
+to start project: django-admin startproject [projectname]
+
+to run project: python manage.py runserver [PORT]
+
+to startapp a new app: python manage.py startapp [appname]
+
+to make migrations:python manage.py makemigrations [appname]
+
+
+South Migrations:
+1.  in installed apps insert 'south'.
+2.  python manage.py syncdb
+3.  python manage.py convert_to_south [appname].
+4.  First migartion: python manage.py schemamigration [appname] --initial
+5.  python manage.py migrate [appname]
+
+
+when changes are made in model:
+1.  ./manage.py schemamigration [appname] --auto
+2.  python manage.py migrate [appname]
+

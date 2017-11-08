@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+      <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <title>result</title>
+      <link rel="stylesheet" href="/static/app_css.css">
+</head>
+<body>
+<div class="container">
+        <ul class="pager">
+    <li class="previous"><a href="/">BACK</a></li>
+    </ul>
+</div>
+<table align="center">
+    <caption><strong>Event(s)</strong></caption><br>
+    <tr>
+    <th>NAME</th>
+    <th>DATE</th>
+    <th>CITY</th>
+    <th>INFORMATION</th>
+    </tr>
+        <tr>
+
+  </tr>
+
+        {% for i in range(0,length,1) %}
+    <tr>
+        <td>{{d[i][1]['name']}}</td>
+        <td>{{d[i][1]['date']}}</td>
+        <td>{{d[i][1]['city']}}</td>
+        <td>{{d[i][1]['info']}}</td>
+      </tr>
+        {% endfor %}
+    <tr>
+
+
+
+</table>
+</body>
+</html>

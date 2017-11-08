@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<style>
+form{
+	border:1px solid black;
+		width:289px;
+		height:250px;
+		margin-left:60px;
+		margin-top: 275px;
+		border-radius: 5px;
+}
+	
+</style>
+<body>
+<center>
+	<form action = "{{ url_for('addrec') }}" method = "POST">
+	<br>
+	<div style="font-family:toms handwritten new; font-size: 26pt;"> Delete Event </div>
+      <hr>
+      <div style= "font-family:toms handwritten new; font-size:20pt ;">
+      <br>
+         Event Id  <input type = "text" name = "event id" /><br><br>
+         <button type="submit", value="submit">DELETE</button> <br>
+          <br>
+		</div>
+	</form>
+</center>
+
+</body>
+</html>

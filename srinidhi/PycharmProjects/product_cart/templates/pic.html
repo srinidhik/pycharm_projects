@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+    <div class="row" style="margin-top: -30%;">
+
+        <div style="display: none">
+        <ul>
+            {% for i in data %}
+                <li>{{ i.name }}:{{ i.rate }}</li>
+            {% endfor %}
+
+        </ul>
+        </div>
+
+        <div id="open" style="background-color: #99cc00; width: 100px; height: 100px; opacity: 0.5; margin-top: 25%;">
+
+            <div id="text">click me</div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+<script>
+
+    $('#open').on('click', function () {
+
+        $('#text').html('');
+
+        $('li').each(function () {
+
+            $('#text').html($('#text').html() + '<br/>' + $(this).text()).animate({'font-size':'40px'});
+        });
+
+        $(this).animate({width: '500px',height: '500px'}).css('opacity','1').fadeIn(3000);
+
+    });
+
+
+</script>
+
+
+
+{% endblock %}

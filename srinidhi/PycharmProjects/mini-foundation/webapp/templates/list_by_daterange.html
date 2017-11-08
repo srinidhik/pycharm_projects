@@ -1,0 +1,19 @@
+{% extends "filters.html" %}
+{% block title %}List{% endblock%}
+{% block content %}
+
+<div id="date_range" class="tab-pane fade">
+                <form action="/by_daterange" method="POST">
+                <div  class="banner">date range </div>
+                 <hr>
+                <div class="section">
+                from:<input type = "date" name = "fromdate" /><br><br>
+                  to:<input type = "date" name = "todate" /><br><br>
+
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+            </div>
+
+{% endblock%}

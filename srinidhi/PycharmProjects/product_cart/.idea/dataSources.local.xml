@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - product_cartdb@localhost" uuid="0bab9a76-4118-4c7b-9010-8a30e1a0543a">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <schema-pattern>product_cartdb.*</schema-pattern>
+      <default-schemas>product_cartdb.*</default-schemas>
+    </data-source>
+  </component>
+</project>

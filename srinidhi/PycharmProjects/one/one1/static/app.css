@@ -1,0 +1,61 @@
+body{
+    background-image: url("/static/bg.jpg");
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+#tabs a{
+    font-family: "toms handwritten new";
+    font-size: 50px;
+    color: #3a3332;
+}
+
+#one{
+    background-image: url("/static/about.jpg");
+
+    background-repeat: no-repeat;
+    width: 1000px;
+    height: 702px;
+    padding-left: 340px;
+    margin-left: 50px;
+    padding-top: 120px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+table{
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    width: 420px;
+    height: 500px;
+    border-spacing: 0px;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}

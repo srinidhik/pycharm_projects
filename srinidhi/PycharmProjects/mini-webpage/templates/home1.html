@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+<style>
+a{
+    font-size:50pt;font-family: toms handwritten new;
+}
+ul.tab{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+ul.tab li{float: left;}
+
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+ul.tab li a:hover {
+    background-color: #ddd;
+}
+
+ul.tab li a:focus, .active {
+    background-color: #ccc;
+}
+
+form{
+    border: solid grey;
+    border-radius:5px;
+    width:440px;
+    height:385px;
+    margin-top: 250px;
+    margin-left: 675px;
+    text-align: center;
+
+
+}
+#section{
+    text-align: center;
+	margin-top:30px;
+    font-family: toms handwritten new;
+	font-size:20pt;
+	border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+<ul class="tab">
+    <li><a  class="tablinks" onclick="openEvent(event,'home')">HOME</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'add_event')">ADD_EVENT</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'search')">SEARCH</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'delete')">DELETE</a></li>
+    <li><a  class="tablinks" onclick="openEvent(event,'update')">UPDATE</a></li>
+</ul>
+
+<div id="home" class="tabcontent">
+    <h3>HOME</h3>
+    <p>HOME</p>
+</div>
+
+<div id="add_event" class="tabcontent">
+    <h3>ADD_EVENT</h3>
+    <form action = url_for("add_event") method = "POST">
+    <br>
+    <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Event Details Here</div>
+    <hr>
+    <br>
+    <div id = "section">
+        Event Name :<input type="text" name="name"> <br>
+        Date       :<input type="date" name="date"><br>
+        City       :<input type="text" list="city" name="city" placeholder="Select your city"><br>
+        Description:<textarea name="info" rows="1" cols="20"></textarea><br><br>
+        <datalist id="city">
+          <option value="Hyderabad"></option>
+          <option value="Chennai"></option>
+          <option value="Banglore"></option>
+        </datalist>
+    </div>
+    <br>
+
+    <button type="submit", value="submit">ADD</button>
+</form>
+</div>
+
+
+<div id="search" class="tabcontent">
+    <h3>SEARCH</h3>
+    <p><form>
+    <br>
+    <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Enter Event ID</div>
+    <hr>
+    <br>
+    <div id = "section">
+        Event ID : <input type="text" name="event_id" placeholder="Event ID"> <br>
+    </div>
+    <br>
+
+    <button type="submit", value="submit">SEARCH</button>
+
+</form></p>
+</div>
+
+<div id="delete" class="tabcontent">
+    <h3>DELETE</h3>
+    <p>
+    <form>
+	<br>
+	<div style="font-family: toms handwritten new; font-size:24pt; text-align: center "> Delete Event </div>
+      <hr>
+      <div id="section">
+      <br>
+         Event ID : <input type = "text" name = "event id" placeholder="Event ID" /><br><br>
+         <button type="submit", value="submit">DELETE</button>
+         <br>
+      </div>
+</form>
+    </p>
+
+</div>
+
+<div id="update" class="tabcontent">
+    <h3>UPDATE</h3>
+    <p>
+        <form>
+		<br>
+      <div style="font-family: toms handwritten new; font-size:24pt; text-align: center ">Update here </div>
+      <hr>
+      <div id="section">
+      <br>
+         Event Id : <input type = "text" name = "event id" /><br>
+		 Event Name : <input type = "text" name = "event name" /><br>
+
+         Description : <textarea name = "description" rows="1" coloumns="20" ></textarea><br>
+
+         City : <input type = "city" list="city" name = "city" placeholder="select your city" /><br>
+
+         Date : <input type = "date" name = "date" /><br>
+         <button type="submit", value="submit">UPDATE</button> <br>
+
+    </div>
+    </form></p>
+</div>
+
+
+<script>
+function openEvent(event, task ) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(task).style.display = "block";
+    event.currentTarget.className += " active";
+}
+</script>
+
+</body>
+</html>

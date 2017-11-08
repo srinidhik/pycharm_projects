@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - hoteldb@localhost" uuid="e43a40de-cee9-4a6b-85be-75d102127f3b">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+    </data-source>
+    <data-source name="Django default" uuid="514c0caa-cc1b-4ef4-a426-3458b6310792">
+      <user-name>root</user-name>
+      <user-password>dfcbdf9bdf98df99df9edf9fdf9c</user-password>
+      <schema-pattern>hoteldb.*</schema-pattern>
+      <default-schemas>hoteldb.*</default-schemas>
+    </data-source>
+  </component>
+</project>

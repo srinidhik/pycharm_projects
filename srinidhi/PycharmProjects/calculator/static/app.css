@@ -1,0 +1,54 @@
+body{
+
+}
+
+.calc{
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.screen{
+    max-width: 18%;
+}
+
+#keyboard{
+    border: 1px solid black;
+}
+
+.button:hover{
+    cursor: pointer;
+}
+
+#num0,#num1,#num2,#num3,#num4,#num5,#num6,#num7,#num8,#num9,#plus,#minus,#multiply,#divide,#modulus,#equals{
+    background-color: #EEEEEE;
+    color: black;
+    width: 78px;
+    display: inline-block;
+    font-size: 1rem;
+    margin-right: 5px;
+    border-radius: 5px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0px;
+}
+
+.keyboard{
+    margin-top: 15px;
+    margin-bottom: 0px;
+}
+
+#save{
+    background-color: #75c87a;
+}
+
+#clear{
+    background-color: #c85514;
+}
+
+#clear_screen{
+    background-color: #EEEEEE;
+    color: black;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+        <meta charset="UTF-8">
+        <title>pic_dict</title>
+        <link rel="shortcut icon" href="">
+        <link rel="stylesheet" href="/static/foundation.css">
+        <link rel="stylesheet" href="/static/foundation.min.css">
+        <link rel="stylesheet" href="/static/normalize.css">
+        <link rel="stylesheet" href="/static/app.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    {% endblock %}
+</head>
+
+<body>
+<form method="POST">{% csrf_token %}
+    <ul id="keyboard" class="row">
+
+        <ul class="row">
+
+            <li class="button" value="add_form" onclick="add(this.value)" data-reveal-id="add_form" id="add_button">+</li>
+            <li class="button" value="A" onclick="input('A')" id="char" data-reveal-id="reveal_word">A</li>
+            <li class="button" value="B" onclick="input('B')" id="char" data-reveal-id="reveal_word">B</li>
+            <li class="button" value="C" onclick="input('C')" id="char" data-reveal-id="reveal_word">C</li>
+            <li class="button" value="D" onclick="input('D')" id="char" data-reveal-id="reveal_word">D</li>
+            <li class="button" value="E" onclick="input('E')" id="char" data-reveal-id="reveal_word">E</li>
+            <li class="button" value="F" onclick="input('F')" id="char" data-reveal-id="reveal_word">F</li>
+            <li class="button" value="G" onclick="input('G')" id="char" data-reveal-id="reveal_word">G</li>
+            <li class="button" value="H" onclick="input('H')" id="char" data-reveal-id="reveal_word">H</li>
+
+        </ul>
+
+        <ul class="row">
+
+            <li class="button" value="I" onclick="input('I')" id="char" data-reveal-id="reveal_word">I</li>
+            <li class="button" value="J" onclick="input('J')" id="char" data-reveal-id="reveal_word">J</li>
+            <li class="button" value="K" onclick="input('K')" id="char" data-reveal-id="reveal_word">K</li>
+            <li class="button" value="L" onclick="input('L')" id="char" data-reveal-id="reveal_word">L</li>
+            <li class="button" value="M" onclick="input('M')" id="char" data-reveal-id="reveal_word">M</li>
+            <li class="button" value="N" onclick="input('N')" id="char" data-reveal-id="reveal_word">N</li>
+            <li class="button" value="O" onclick="input('O')" id="char" data-reveal-id="reveal_word">O</li>
+            <li class="button" value="P" onclick="input('P')" id="char" data-reveal-id="reveal_word">P</li>
+            <li class="button" value="Q" onclick="input('Q')" id="char" data-reveal-id="reveal_word">Q</li>
+        </ul>
+
+        <ul class="row">
+            <li class="button" value="R" onclick="input('R')" id="char" data-reveal-id="reveal_word">R</li>
+            <li class="button" value="S" onclick="input('S')" id="char" data-reveal-id="reveal_word">S</li>
+            <li class="button" value="T" onclick="input('T')" id="char" data-reveal-id="reveal_word">T</li>
+            <li class="button" value="U" onclick="input('U')" id="char" data-reveal-id="reveal_word">U</li>
+            <li class="button" value="V" onclick="input('V')" id="char" data-reveal-id="reveal_word">V</li>
+            <li class="button" value="W" onclick="input('W')" id="char" data-reveal-id="reveal_word">W</li>
+            <li class="button" value="X" onclick="input('X')" id="char" data-reveal-id="reveal_word">X</li>
+            <li class="button" value="Y" onclick="input('Y')" id="char" data-reveal-id="reveal_word">Y</li>
+            <li class="button" value="Z" onclick="input('Z')" id="char" data-reveal-id="reveal_word">Z</li>
+        </ul>
+
+    </ul>
+</form>
+
+
+
+        <br/>
+
+<div id="add_form" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <input type="text" id="letter" name="letter" placeholder="Letter" />
+    <input type="text" id="word" name="word" placeholder="Word" />
+    <input type="file" id="photo" name="image" />
+    <input type="button" class="button postfix" onclick="add_data()" value="ADD" id="addbutton" />
+</div>
+
+<div id="reveal_word" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
+
+<script src="/static/script.js"></script>
+<script type="text/javascript" src="/static/foundation.min.js"></script>
+<script type="text/javascript" src="/static/modernizr.js"></script>
+
+<script>
+   $(document).ready(function() {
+        $(document).foundation();
+
+
+
+
+
+   })
+</script>
+
+</body>
+</html>
+
+
+

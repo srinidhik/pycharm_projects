@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Searching{% endblock%}
+{% block body %}
+<form action="/search", method="POST" class="customform">
+    <br>
+    <div class="row">
+        <div class="small-4 large-4 small-centered large-centered columns">
+        <select name="event_name" id="event_name">
+            <option selected value="default">Select Your Event</option>
+        {%for obj in data%}
+
+
+                    <option value="{{obj.id}}">{{obj.name}}</option>
+
+        {%endfor%}
+        </select><br><br>
+    </div>
+    </div>
+    <div class="row">
+        <div class="small-2 small-centered large-centered columns">
+            <input class="small button" onclick="search()" id=search_button type="button" value="Search"><br><br>
+        </div>
+    </div>
+</form>
+   <div id=search_result class="row columns large-centered"></div>
+
+<script src="{{ STATIC_URL }}script.js"></script>
+{% endblock%}
+{% block result %}{% endblock %}

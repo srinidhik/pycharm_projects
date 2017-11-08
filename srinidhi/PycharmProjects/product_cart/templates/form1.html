@@ -1,0 +1,46 @@
+{% extends 'layout_a.html' %}
+{% block body %}
+
+    <style>
+
+        table{
+            border: transparent;
+        }
+
+
+    </style>
+
+
+    <div class="row">
+    <form>
+
+    <table>
+    <tbody>
+    <tr>
+        <td>Name :</td>
+        <td><input type="text" ng-model="name1" /></td>
+        <td>[[ name1 ]]</td>
+    </tr>
+
+    <tr>
+        <td>Date Of Birth :</td>
+        <td><input type="date" ng-model="dob" /></td>
+        <td>[[ dob | date: mediumDate]]</td>
+    </tr>
+
+    <tr>
+        <td>Phone :</td>
+        <td><input type="text" ng-model="phno" ng-pattern="/\d\d\d\d\d\d\d\d\d\d/" maxlength="10" /></td>
+        <td>[[ phno ]]</td>
+    </tr>
+
+
+    </tbody>
+
+    </table>
+
+    </form>
+    </div>
+
+
+{% endblock %}

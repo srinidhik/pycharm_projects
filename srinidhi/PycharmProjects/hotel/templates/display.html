@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="row"><a class="button" href="/clear_history">CLEAR</a></div>
+    <div id="displayrow">
+        <table id="display">
+        <thead>
+        <tr>
+            <th style="width: 75px">Hotel Name</th>
+            <th style="width: 125px">From Date</th>
+            <th style="width: 125px">To Date</th>
+            <th style="width: 75px">No. Of Persons</th>
+            <th style="width: 75px">No. Of Days</th>
+            <th style="width: 75px">Total Amount</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for i in data %}
+
+            <tr>
+                <td style="width: 75px">{{ i.HotelInfo_id }}</td>
+                <td style="width: 125px">{{ i.FromDate }}</td>
+                <td style="width: 125px">{{ i.ToDate }}</td>
+                <td style="width: 75px">{{ i.NoOfPersons }}</td>
+                <td style="width: 75px">{{ i.NoOfDays }}</td>
+                <td style="width: 75px">{{ i.TotalAmount }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        <tr>
+            <td colspan="5">Total</td>
+            <td>{{ total }}</td>
+        </tr>
+        </tbody>
+
+
+        </table>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,3 @@
+A final class cannot be subclassed.
+A final method cannot be overridden by subclassed.
+A final variable can only be initialized once.

@@ -1,0 +1,86 @@
+
+    h1{
+    font-family:toms handwritten new; display:inline-block; vertical-align: middle;
+    }
+
+    h3{
+    font-family:toms handwritten new; font-size:40pt;
+    }
+
+    .banner{
+    font-size:24pt;
+     text-align: center
+    }
+
+  a{
+    font-family:"Terminal Dosis"; font-size :13pt;background-color: black}
+  form{
+		border:1px solid black;
+		width:500px;
+		height:auto;
+		margin-left:28%;
+		margin-top: 10%;
+		border-radius: 5px;
+        text-align: center;
+        transition: box-shadow 0.8s;
+        font-family:"Terminal Dosis";
+        font-size:18pt;
+
+	}
+  form:hover{
+    box-shadow: 10px 10px 5px grey;
+  }
+  .section{
+
+	 font-size:18pt ;
+	 vertical-align: middle;
+
+	  border-radius:5px;
+	  text-align: center;
+}
+  input{
+    border-color: light grey;
+    width: 210px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+
+
+br{
+clear: left;
+}
+
+  table,td,th{
+    border-collapse: collapse;
+   border: 1px solid black;
+   text-align:center;
+   margin-top:5%;
+   }
+
+table{
+width: 50%;
+
+}
+
+td,th{
+height: 30px;
+vertical-align: middle;
+}
+
+
+tr:nth-child(odd){
+background-color: 	#fbefcc;
+}
+
+th{
+background-color:#d9ad7c;
+}
+
+
+  tr:nth-child(even) {background-color: #fff2df}
+option:hover{
+background-color:red;
+position:relative;
+
+}
+

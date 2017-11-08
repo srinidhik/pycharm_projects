@@ -1,0 +1,24 @@
+{% extends "filters.html" %}
+{% block title %}List{% endblock%}
+{% block content %}
+
+                <form action="/by_date_and_city" method="POST">
+
+                <div class="section">
+                   date  <input type = "date" name = "date" /><br><br>
+
+                city     <select name="city">
+                    {%for i in data["cities"]%}
+        <option value="{{i}}">{{i}}</option>
+            {%endfor%}
+                    </select>
+                    <br><br>
+                <button type="submit" value="submit">Submit</button><br><br>
+
+              </div>
+             </form>
+
+
+
+
+{% endblock%}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>EventsApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+    <style>
+  a{
+    font-family:"Terminal Dosis"; font-size :13pt;background-color: black}
+  form{
+		border:1px solid black;
+		width:500px;
+		height:auto;
+		margin-left:200px;
+		margin-top: 20px;
+		border-radius: 5px;
+        text-align: center;
+        transition: box-shadow 0.8s;
+        font-family:"Terminal Dosis";
+        font-size:18pt;
+	}
+  form:hover{
+    box-shadow: 10px 10px 5px grey;
+  }
+  #section1 , #section{
+    align-items: flex-end;
+	margin-top:30px;
+}
+  input{
+    border-color: lightgray;
+    border-radius: 5px;
+  }
+</style>
+
+</head>
+<body>
+  <div class="container"  >
+    <img src='/static/icon.png' style="width: 50px; height: 50px;">
+    <h1 style="font-family:toms handwritten new; display:inline-block; vertical-align: middle" >Eventify</h1>
+  <ul class="nav nav-tabs" >
+    <li><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#add">Add Event</a></li>
+    <li><a data-toggle="tab" href="#search">Search Event</a></li>
+    <li><a data-toggle="tab" href="#update">Update Event</a></li>
+    <li><a data-toggle="tab" href="#delete">Delete Event</a></li>
+    <li><a data-toggle="tab" href="#filters">Filters</a></li>
+  </ul>
+
+  <div class="tab-content" >
+    <div id="home" class="tab-pane fade in active">
+      <h3 style="font-family:toms handwritten new; font-size:40pt" >About</h3>
+      <p>Simple Flask app to store and retrieve the event details.</p>
+
+    </div>
+
+<div id="add" class="tab-pane fade">
+    <form id="add_form" action="/add", method="POST", target="_self">
+
+    <div style="font-size:24pt; text-align: center ">Event Details Here</div><hr>
+
+    <div id = "section1" align=right style= "font-size:18pt ;margin-right: 100px" >
+        Name :<input type="text" name="name" required pattern="[\w]+" > <br><br>
+        Date :<input type="date" name="date" required ><br><br>
+        City:<select name="city" style="width: 248px">
+          <option value="Hyderabad">Hyderabad</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Banglore">Bangalore</option>
+        </select><br><br>
+        Info :<input type="text" required maxlength="50" name="info" /><br><br>
+    </div>
+        <input type="submit" value="Submit"/><br><br>
+</form>
+</div>
+
+<div id="search" class="tab-pane fade">
+    <form action="/search", method="POST" style="height: 350px;">
+    <div style="font-size:24pt; text-align: center " >Enter Event ID</div><hr>
+    <div id = "section"  style="font-size:18pt; border-radius:5px;" >
+        ID:<input type="text" name="event_id" required  > <br><br>
+    <input type="submit" value="Search" style="background-color: lightseagreen;border-color: lightseagreen"/><br><br>
+    </div>
+</form>
+</div>
+
+
+  <div id="update" class="tab-pane fade" style="text-align: center;">
+     <form action='/fetch' method=POST >
+		<div style="font-size: 24pt; vertical-align: middle">Update here </div><hr>
+        <div align=right style= "font-size:18pt ;margin-right: 100px">
+           EventId: <input type = "text" name = "event id" required  /><br><br>
+
+          </div>
+         <input type="reset" value="Reset">   <input type="submit" value="Update"/><br><br>
+     </form>
+
+
+    </div>
+
+<div id="delete" class="tab-pane fade" style="text-align: center;">
+    <form action="/delete", method="POST" style="height: 350px">
+	<div style="font-size: 26pt;"> Delete Event </div>
+      <hr>
+      <div style= "font-size:18pt ;">
+      <br>
+         Event Id  <input type = "text" name = "event id" required /><br><br>
+         <input type="submit" value="Delete" style="color:white;border-color:red;background-color: red"/>
+         <br>
+      </div>
+	</form>
+  </div>
+
+
+    <div id="filters" class="tab-pane fade" Style="margin-right: 10px">
+
+       <form action="/filter", method="post" style="height: auto">
+           <br>Date:<input type="date" name="date"/><br><br>
+           City:<select name="city" style="width: 240px">
+          <option value="Hyderabad">Hyderabad</option>
+          <option value="Chennai">Chennai</option>
+          <option value="Banglore">Banglore</option>
+        </select><br><br>
+           from:<input type="date" name="from"/><br><br>
+           to:<input type="date" name="to" /><br><br>
+        <input type="submit" value="Submit"/><br><br>
+       </form>
+
+    </div>
+
+   </div>
+</div>
+</body>
+</html>
+

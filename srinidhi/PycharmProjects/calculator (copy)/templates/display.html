@@ -1,0 +1,26 @@
+{% block body %}
+
+    <table>
+    <thead>
+        <tr>
+            <th>Input</th>
+            <th>Output</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for i in data %}
+        <tr>
+            <td>{{ i.input }}</td>
+            <td>{{ i.output }}</td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+    </table>
+
+
+{% endblock %}

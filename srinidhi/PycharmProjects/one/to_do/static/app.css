@@ -1,0 +1,18 @@
+a.button, .btn{
+    border: 1px solid  black;
+    border-radius: 8px;
+    background-color: transparent;
+    color: black;
+}
+
+table, tbody{
+    border: 1px solid transparent;
+}
+
+tbody{
+    overflow-y: scroll;
+    height: 200px;
+}
+
+
+tbody, thead { display: block; }

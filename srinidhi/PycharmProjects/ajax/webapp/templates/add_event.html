@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Add{% endblock%}
+{% block body %}
+<form id="add_form" action="/add" method="POST" onsubmit="return checkName(this);">
+
+    <div class="banner">Event Details Here</div><hr>
+
+    <div class="section">
+        Name : <span><input type="text" name="name" id="form_name" ></span> <br><br>
+    </div>
+
+    <input type="submit" value="Submit"/><br><br>
+</form>
+
+
+
+{% endblock%}

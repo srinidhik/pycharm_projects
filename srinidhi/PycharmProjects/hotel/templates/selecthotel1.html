@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block body %}
+
+    <table style="margin-left: 25%; width: 50%;">
+    <tr>
+        <td style="width: 25%; padding-left: 15%">
+            {% for i in data %}
+                <input type="radio" name="hh" onclick="hotel(this.value)" value="{{ i.HotelName }}" >{{ i.HotelName }} <br />
+            {% endfor %}
+        </td>
+
+        <td style="width: 150%">
+            <div id="message"></div>
+        </td>
+    </tr>
+    </table>
+
+{% endblock %}

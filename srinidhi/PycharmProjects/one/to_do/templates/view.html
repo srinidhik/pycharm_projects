@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+    <div class="row">
+
+    <table style="width: 60%;">
+
+    <tbody>
+    {% for i in data %}
+        <tr>
+            <td style="width: 10%;"><input class="inputclass" type="checkbox" value="{{ i.id }}" ></td>
+            <td style="width: 25%;">{{ i.task }}</td>
+            <td style="width: 25%;">{{ i.date }}</td>
+            <td style="width: 16%;">
+                <span  id="{{ i.id }}"
+                        {% if i.status == 'Incomplete' %}
+                            style='color:red;'
+                        {% else %}
+                            style='color:green'
+                        {% endif %}>
+
+                    {{ i.status }}
+
+                </span>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+
+    <input type="button" class="button btn" onclick="delete_completed()" value="DELETE COMPLETED TASKS"/>
+    <input type="button" class="button btn" onclick="save_completed()" value="SAVE COMPLETED TASKS"/>
+
+
+    </div>
+
+
+{% endblock %}

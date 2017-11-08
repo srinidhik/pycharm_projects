@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="row">
+    <form data-abide  method="POST">{% csrf_token %}
+
+
+        <div class="row" style="width: 50%;">
+            <input type="date" id="when" required/>
+            <small class="error errorMsg" style="margin-bottom:0;background-color:#f0f0f0;color:red;margin-top:1px">"Date is required."</small>
+        </div>
+
+        <div class="row" style="width: 50%;">
+            <input type="text" id="what" maxlength="20" placeholder="task.." autocomplete="off" required />
+            <span id="status"></span>
+            <small class="error errorMsg" style="margin-bottom:0;background-color:#f0f0f0;color:red;margin-top:1px">"Task data is required."</small>
+        </div><br/>
+
+        <input type="button" class="button" value="ADD" onclick="addtask()" />
+
+
+    </form>
+    <div id="message"></div>
+</div>
+
+<script src="/static/input.js"></script>
+
+{% endblock %}

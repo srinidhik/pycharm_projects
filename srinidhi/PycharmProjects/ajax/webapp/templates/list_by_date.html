@@ -1,0 +1,38 @@
+{% extends "filters.html" %}
+{% block title %}List{% endblock%}
+{% block content %}
+
+<form action="/by_date" method="POST">
+    <div  class="banner"></div>
+    <hr>
+        <div class="section">
+
+            <div class="large-4 columns">
+
+                <label>DATE :<input type="date" name="date" id="date"/></label>
+
+            </div>
+            <br><br>
+            <button id="date_button" type="submit" value="submit">Submit</button><br><br>
+
+        </div>
+</form>
+
+
+<div id="with_date" class="row columns large-centered"></div>
+<script>
+$(document).ready(function(){
+    $("#date_button").click(function(){
+        $.post("/by_date",$('form').val(), function(data){
+             $('#with_date').text(data);
+        });
+    });
+});
+</script>
+
+{% block result %}{% endblock %}
+{% endblock%}
+
+
+
+
