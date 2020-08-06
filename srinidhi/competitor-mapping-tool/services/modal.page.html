@@ -1,0 +1,148 @@
+<ion-header>
+
+  <ion-toolbar color="primary">
+    <ion-title *ngIf="!isDuplicate">More Details</ion-title>
+    <ion-title *ngIf="isDuplicate">Identical Data Found</ion-title>
+    <ion-buttons *ngIf="!isDuplicate" slot="end">
+      <ion-button slot="icon-only" (click)="closeModal()">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  
+  <ion-row class="ion-align-items-start" *ngIf="competitor.pharmacyChain.includes('other')">
+    <ion-col>
+      <ion-row *ngIf="competitor.pharmacyChain.includes('(')">
+        <ion-col class="ion-no-padding" col-4>
+          pharmacyChain
+        </ion-col>
+        <ion-col col-1>:</ion-col>
+        <ion-col col-7>
+          {{ competitor.pharmacyChain.substring(competitor.pharmacyChain.indexOf('(')+1,competitor.pharmacyChain.indexOf(')')) }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="ion-no-padding" col-4>
+          Outlet Name:
+        </ion-col>
+        <ion-col col-1>:</ion-col>
+        <ion-col col-7>
+          {{ competitor.outletName }}
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col col-4>Competitor Id</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.competitorId }}</ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!competitor.pharmacyChain.includes('other')">
+    <ion-col col-4>Pharmacy Chain</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.pharmacyChain }}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-4>Address</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.address }}</ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col col-4>Store Dimensions</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.storeDimensions }}</ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col col-4>Door Type</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.doorType }}</ion-col>
+  </ion-row>
+  
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col col-4>Age Of Shop</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.ageOfShop }}</ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col col-4>Daily Sales</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.dailySales }}</ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="isAgent() && !isDuplicate">
+    <ion-col col-4>Created By</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.createdBy }}</ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col col-4>Date</ion-col>
+    <ion-col col-1>:</ion-col>
+    <ion-col col-7>{{ competitor.dateCreated.substring(0,19) }}</ion-col>
+  </ion-row>
+
+  <div *ngFor="let xxx of competitorDuplicate.imageInfoList">
+    <div *ngFor="let image of xxx | keyvalue">
+        <div *ngIf="image.key == 'imagePath'">
+            <img src="{{ image.value }}" style="max-width:100%;">
+        </div>
+      </div>
+  </div>
+  
+
+  <div *ngIf="competitor.imageInfoList">
+    <ion-row *ngIf="competitor.imageInfoList.length > 0">
+      <ion-col col-12>
+        <ion-row>
+          <ion-col>
+            Images :
+          </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let image of competitor.imageInfoList">
+          <ion-col>
+            <img src="{{ image.imagePath }}" style="max-width:100%;">
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div *ngIf="!competitor.imageInfoList">
+    <ion-row>
+      <ion-col>No Images</ion-col>
+    </ion-row>
+  </div>
+
+  <ion-row *ngIf="!isDuplicate">
+    <ion-col><ion-button expand="block" color="dark" (click)="closeModal()">Back</ion-button></ion-col>
+  </ion-row>
+
+  <ion-row *ngIf="isDuplicate">
+    <ion-col>
+      <ion-row>
+        <ion-col>Found an existing competitor similar to this, is this same?</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>Click No to continue submit.</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-5><ion-button expand="block" color="dark" (click)="closeModal()">Yes</ion-button></ion-col>
+        <ion-col col-2></ion-col>
+        <ion-col col-5><ion-button expand="block" color="dark" (click)="submitCompetitor()">No</ion-button></ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

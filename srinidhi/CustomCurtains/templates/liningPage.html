@@ -1,0 +1,78 @@
+<div class="show-for-small-down row center">
+    <div class="bold font-size-16 margin-15">LINING</div>
+</div>
+
+<div class="{$ curtainTypeName == 'shade' ? 'row' : '' $} ">
+    <div class="{$ curtainTypeName == 'curtain' ? 'row' : 'large-9 medium-centered large-centered columns' $}">
+        <div ng-repeat="eachLining in liningInformation" ng-cloak class="{$ curtainTypeName == 'curtain' ? 'large-4 medium-4 small-12 columns' : 'large-6 medium-6 small-12 columns' $}">
+            <div ng-class="{'selectedOptionsInformation': eachLining == selectedLining}" class="lining-div hide-for-small-down">
+                <div class="lining-name">{$ eachLining.name $}</div>
+                <div class="lining-points">
+                    <p ng-repeat="description in eachLining.description"> - {$ description $}</p>
+                </div>
+                <div class="lining-cost">
+                    <span ng-if="eachLining.price <= 0" class="lining-cost-per-curtain">--</span>
+                    <span ng-if="eachLining.price > 0">
+                        &#8377;
+                        <span class="lining-cost-per-curtain">{$ eachLining.price $}</span>/-
+                        <span class="lining-cost-curtain-product">(Per Meter)</span>
+                    </span>
+                </div>
+                <div class="center">
+                    <button ng-click="submitLining(eachLining)" class="nextButton">
+                        <span ng-if="eachLining.name === selectedLining.name">SELECTED</span>
+                        <span ng-if="eachLining.name != selectedLining.name">SELECT</span>
+                    </button>
+                </div>
+            </div>
+            <div class="show-for-small-down margin-10">
+                <label for="{$ eachLining.optionName $}{$ eachLining.id $}" style="float: left">
+                    <input type="radio" name="lining" ng-model="selectedLining" ng-value="eachLining"
+                           id="{$ eachLining.optionName $}{$ eachLining.id $}"
+                           ng-change="submitLining(eachLining)"
+                           ng-checked="selectedLining == eachLining">&nbsp;
+                    <div style="float: right;">
+                        <div>{$ eachLining.name $}</div>
+                        <div>
+                            <span>Price: </span>
+                            <span ng-if="eachLining.price <= 0" class="lining-cost-per-curtain">--</span>
+                            <span ng-if="eachLining.price > 0">
+                                &#8377;
+                                <span class="lining-cost-per-curtain">{$ eachLining.price $}</span>/-
+                                <span class="lining-cost-curtain-product">(Per Meter)</span>
+                            </span>
+                        </div>
+                    </div>
+                </label>
+                <a class="margin-left-10" ng-click="openLiningDetails(eachLining)"><i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="show-for-small-down margin-bottom-40"></div>
+
+<div class="row">
+    <div class="right">
+        <button type="button" ng-if="curtainTypeName == 'curtain'" ng-click="goToDimensions()" class="backButton">BACK</button>
+        <button type="button" ng-if="curtainTypeName == 'shade'" ng-click="goToLift()" class="backButton">BACK</button>
+        <button type="button" ng-click="submitLining(selectedLining)" class="nextButton">NEXT</button>
+    </div>
+</div>
+
+<div id="liningDetails" class="no-display row">
+    <div class="lining-div">
+        <div class="lining-name">{$ liningDetails.name $}</div>
+        <div class="lining-points">
+            <p ng-repeat="description in liningDetails.description"> - {$ description $}</p>
+        </div>
+        <div class="lining-cost">
+            <span ng-if="liningDetails.price <= 0" class="lining-cost-per-curtain">--</span>
+            <span ng-if="liningDetails.price > 0">
+                &#8377;
+                <span class="lining-cost-per-curtain">{$ liningDetails.price $}</span>/-
+                <span class="lining-cost-curtain-product">(Per Meter)</span>
+            </span>
+        </div>
+    </div>
+</div>

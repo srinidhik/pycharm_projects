@@ -1,0 +1,352 @@
+{% load custom_filters %}
+
+{% block content %}
+    <style>
+        table#description-table, table#description-table th, table#description-table td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        table td, table th {
+            font-size: 12px;
+        }
+
+        table#description-table td {
+            padding-left: 5px;
+        }
+
+        .sm-btn {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            cursor: pointer;
+            display: inline-block;
+            height: 22px;
+            line-height: 20px;
+            padding: 0 9px;
+            font-size: 12px;
+            border-radius: 4px;
+            text-decoration: none;
+            white-space: nowrap;
+            text-transform: none;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            vertical-align: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-appearance: none;
+            background-color: #479ccf !important;
+            border: 1px solid #2f82b4;
+            color: #fff !important;
+        }
+
+    </style>
+
+    <div style="margin: 5% !important;font-size: 12px;">
+
+        <div style="text-align: center;margin: 15px;text-decoration: underline;font-size: 16px;"><b>HINSHITSU
+            MANUFACTURING PRIVATE LIMITED</b></div>
+
+        <div style="width: 100%;display: table;line-height:1.5;">
+            <div style="width: 45%;float: left;">
+                <b>Regd off : </b>
+                GSR Estates, C Block, 3rd Floor, No.11-6-56, Survey No. 257 & 258/1,
+                Opp. IDPL Railway Siding Road, (Moosapet), Kukatpally, Hyderabad, Telangana - 500 037
+            </div>
+            <div style="width: 40%;float: right;">
+                <b>Unit Address : </b>{{ unitAddress }}
+            </div>
+        </div>
+
+        <div style="width: 100%;">
+            <div style="text-align: center;"><b>TAX INVOICE</b></div>
+            <p style="text-align: center;margin-top: 0;">[See Rule 1 under Tax Invoice, Credit and Debit Note Rules]</p>
+        </div>
+
+        <div style="display: table;width: 100%;">
+            <div style="width: 60%;float: left;">
+                <table>
+                    <thead>
+                    <tr>
+                        <th colspan="2" style="text-align: left;">Details of Recipient (Billed to and Shipped to)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ userInfo.address.name }}</td>
+                    </tr>
+                    <tr>
+                        <td>Address</td>
+                        <td>{{ userInfo.address.address }},<br> {{ userInfo.address.city }},<br> {{ userInfo.address.state }}<br>
+                            {{ userInfo.address.pinCode }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>{{ userInfo.address.state }}</td>
+                    </tr>
+                    <tr>
+                        <td>State Code</td>
+                        <td>{{ userInfo.address.state|gstStateCode }}</td>
+                    </tr>
+                    <tr>
+                        <td>Contact</td>
+                        <td>{{ userInfo.address.phoneNumber }}</td>
+                    </tr>
+                    {% if gstNumber %}
+                        <tr>
+                            <td>GSTIN ID</td>
+                            <td>{{ gstNumber }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>Place of Supply</td>
+                        <td>{{ userInfo.address.city }}</td>
+                    </tr>
+                    <tr>
+                        <td>Name of State</td>
+                        <td>{{ userInfo.address.state }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="width: 40%;float: right;">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td colspan="2">ORIGINAL FOR RECIPIENT</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">DUPLICATE FOR TRANSPORTER</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">TRIPLICATE FOR SUPPLIER <br><br></td>
+                    </tr>
+                    <tr>
+                        <td>Supplier CIN</td>
+                        <td>: U36101TG2013PTC090086</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier GSTIN</td>
+                        <td>: 36AADCH2580C1ZW</td>
+                    </tr>
+                    <tr>
+                        <td>Date</td>
+                        <td>: {{ deliveryDate|getISTDateFromUTCDate }}</td>
+                    </tr>
+                    <tr>
+                        <td>Invoice No.</td>
+                        <td>
+                            {% if invoiceNumber %}
+                                : {{ invoiceNumber }}
+                            {% else %}
+                                <div style="display: inline-flex;width: 100%;">
+                                    <div style="width: 60%;">
+                                        <div style="display: inline-block;white-space: nowrap;">
+                                            <span>{{ invoicePrefix }}</span>
+                                            <input type="number" id="invoiceNoInput"
+                                                   style="display: inline-block;margin-left: 5px;width: 75px;" min="1"><br>
+                                            (Previous No : {{ previousNo }})
+                                        </div>
+                                    </div>
+                                    <div style="width: 40%;margin-left: 15px;">
+                                        <button class="sm-btn generate-invoice-btn"
+                                                onclick="generateInvoice('{{ request.GET.invoiceId }}','{{ previousNo }}','{{ request.GET.orderId }}')">Generate
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Order No.</td>
+                        <td>: {{ KMID }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <table id="description-table" style="margin-top: 15px;width:100%">
+            <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Description and Specification of goods</th>
+                <th>HSN Code</th>
+                <th>List Price</th>
+                <th>Rate</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.name }} {% comment %}{% if item.isShipping %}(Shipping){% endif %}{% endcomment %}</td>
+                    <td>{{ item.hsnCode }}</td>
+                    <td>
+{#                        {% if item.isShipping %}#}
+{#                            Shipping : {{ item.shipping | floatformat:2 }}<br>#}
+{#                        {% else %}#}
+                        List Price : {{ item.grossPrice|divide:item.quantity | floatformat:2 }}
+                        {% if item.discount %}
+                            <br>Discount ({{ item.discount | floatformat:2 }})
+                        {% endif %}
+                        {% if item.shipping %}
+                            <br>Shipping ({{ item.shipping | floatformat:2 }})
+{#                        {% endif %}#}
+                        {% endif %}<br>
+                        {% if userInfo.address.state == 'Telangana' %}
+                            CGST : {{ item.CGSTRate }}%,
+                            SGST : {{ item.SGSTRate }}%
+                        {% else %}
+                            IGST : {{ item.IGSTRate }}%
+                        {% endif %}
+                    </td>
+{#                    {% if item.isShipping %}#}
+{#                        <td>{{ item.shippingBasePrice | floatformat:2 }}</td>#}
+{#                        <td style="text-align: center;">-</td>#}
+{#                        <td style="text-align: center;">-</td>#}
+{#                        <td>{{ item.shippingBasePrice | floatformat:2 }}</td>#}
+{#                    {% else %}#}
+                        <td>{{ item.basePrice|divide:item.quantity | floatformat:2 }}</td>
+                        <td style="text-align: center;">{{ item.quantity }}</td>
+                        <td>Nos</td>
+                        <td>{{ item.basePrice | floatformat:2 }}</td>
+{#                    {% endif %}#}
+                </tr>
+            {% endfor %}
+            <tr style="height: 19px;">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="height: 19px;">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="8"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align: center;">{{ totalQuantity }}</td>
+                <td style="text-align: right"><b>Total Amount</b></td>
+                <td>{{ amountDetails.basePrice | floatformat:2 }}</td>
+            </tr>
+            {% if amountDetails.discountOnBasePrice %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>Discount</b></td>
+                    <td>{{ amountDetails.discountOnBasePrice | floatformat:2 }}</td>
+                </tr>
+            {% endif %}
+            {% if amountDetails.shippingBasePrice %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>Shipping</b></td>
+                    <td>{{ amountDetails.shippingBasePrice | floatformat:2 }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align: right"><b>Taxable Value</b></td>
+                <td>{{ amountDetails.taxablePrice | floatformat:2 }}</td>
+            </tr>
+            {% if userInfo.address.state == 'Telangana' %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>CGST</b></td>
+                    <td>{{ amountDetails.cgstTaxAmount | floatformat:2 }}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>SGST</b></td>
+                    <td>{{ amountDetails.sgstTaxAmount | floatformat:2 }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right"><b>IGST</b></td>
+                    <td>{{ amountDetails.igstTaxAmount | floatformat:2 }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td style="text-align: right"><b>Final Amount</b></td>
+                <td>{{ recordedInvoiceAmount|roundPriceString }}</td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <span>Total Invoice Value (In Words)</span>
+                    <span style="float: right;"><b>{{ recordedInvoiceAmount|costToString }}</b></span><br>
+                    <span>Amount of Tax subject to Reverse Charges - NO</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="width: 100%;margin-top: 15px;">
+            <div style="width: 60%;float: left;">
+                <b>Notes :</b>
+                <ol>
+                    <li>Goods once sold will not be taken back.</li>
+                    <li>Amount charged is inclusive of transportation cost.</li>
+                    <li>All disputes are subject to Hyderabad jurisdiction</li>
+                </ol>
+            </div>
+            <div style="width: 20%;float: right;">
+                (Authorised Signatory)
+                <br><br><br><br>
+                Signature
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}
+

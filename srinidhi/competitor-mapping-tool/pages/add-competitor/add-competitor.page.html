@@ -1,0 +1,152 @@
+<ion-header>
+  <ion-toolbar color="primary" class="ion-no-padding">
+    <ion-buttons slot="start">
+      <ion-menu-button autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Map The Competition</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-text-center ion-padding">
+
+  <div>
+    <ion-grid class="ion-no-padding" style="padding: 4px 4px">
+        <ion-row style="max-height:140px; border: 1px solid rgb(12, 209, 232); border-radius: 5px">
+          <ion-col size-sm="3" *ngFor="let photo of photos; let id = index">
+            <ion-card class="img-block">
+              <img height="65px" [src]="photo" *ngIf="photo"/>
+              <ion-row>
+                <ion-col size-4em color="light" class="dark ion-text-center" (click)="deletePhoto(id)">
+                  <ion-icon name="trash"></ion-icon>Delete
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-col>
+          <ion-col size-sm="3" *ngIf="4 > photos.length">
+            <ion-row (click)="takePhoto()" style="height:120px">
+              <ion-col size="12" class="ion-align-self-center">
+                <ion-button color="secondary"><ion-icon size="large" class="imgicnLarge" name="md-images" md="md-images"></ion-icon></ion-button>
+                <ion-text style="font-size: 16px;">Add Images</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div>
+      <ion-list>
+
+        <ion-item class="ion-text-wrap">
+          <ion-label class="m-label ion-text-left"><span style="color: #f53d3d">*</span>&nbsp; Pharmacy Chain</ion-label>
+          <ion-select class="customSelect" [(ngModel)]="pharmacyChain" interface="popover">
+            <ion-select-option *ngFor="let item of competitorsList" value="{{item.code}}">{{item.name}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="pharmacyChain == 'other'">
+          <ion-input maxlength="45" placeholder="Enter Pharmacy Chain Name" type="text" [(ngModel)]="otherPharmacyChain"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="pharmacyChain == 'other'">
+          <ion-label class="m-label ion-text-left" color="danger">*</ion-label>
+          <ion-input maxlength="45" placeholder=" Name of the outlet" type="text" [(ngModel)]="outletName"></ion-input>
+        </ion-item>
+
+        <ion-item >
+          <!-- <ion-label class="m-label ion-text-left"  color="danger">*</ion-label> -->
+          <ion-label class="ion-text-left">Total Shutter Area:</ion-label>
+          <ion-input maxlength="4" placeholder="(in Sq feets)" pattern="[0-9]*" type="tel" [(ngModel)]="outletDimensions"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-text-wrap">
+          <ion-label class="ion-text-left"><span style="color: #f53d3d">*</span> Shutter Type:</ion-label>
+          <ion-select small class="select-max" [(ngModel)]="doorType">
+                <ion-select-option value="SingleShutter">Single Shutter</ion-select-option>
+                <ion-select-option value="DoubleShutter">Double Shutter</ion-select-option>
+                <ion-select-option value="Other">More than two Shutter</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item >
+          <ion-label class="m-label ion-text-left"  color="danger">*</ion-label>
+          <ion-label class="ion-text-left">Approximate Frontage:</ion-label>
+          <ion-input maxlength="2" placeholder="(in feets)" type="tel" pattern="[0-9]*" [(ngModel)]="approxFrontage"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-text-wrap">
+          <ion-label class="ion-text-left">
+            <!-- <span style="color: #f53d3d">*</span> -->
+            Approximate Daily Sales: Rs.</ion-label>
+          <ion-input maxlength="6" type="tel" pattern="[0-9]*" [(ngModel)]="dailySales"></ion-input>
+        </ion-item>
+
+        <ion-row>
+          <ion-text>Approximate Age of Shop: </ion-text>
+        </ion-row>
+        
+        <ion-row>
+          <ion-col size="6">
+            <ion-item class="ion-text-wrap">
+              <ion-label class="ion-text-left">Age in Years:</ion-label>
+              <ion-input maxlength="2" type="tel" pattern="[0-9]*" [(ngModel)]="ageOfShop"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label class="ion-text-left">Months:</ion-label>
+              <ion-select class="ion-no-padding" interface="popover" [(ngModel)]="months">
+                <ion-select-option *ngFor="let month of monthValues" value="{{month}}">{{month}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+
+
+        <div class="ion-text-wrap">
+          <ion-row>
+            <ion-col size="{{ gAddressFound ? '9' : '12' }}" style="padding-right:0px;">
+              <ion-item no-lines>
+                <ion-label class="m-label ion-text-left" color="danger">*</ion-label>
+                <ion-textarea maxlength="100" placeholder=" Address" type="text" [(ngModel)]="gAddress"></ion-textarea>
+              </ion-item>
+            </ion-col>
+            <ion-col *ngIf="gAddressFound" size="3" class="ion-align-self-end" style="padding-right:0px;" (click)="turnOnGPS(true)">
+              <ion-button fill="outline" color="success">
+                <ion-icon name="locate" slot="icon-only" color="success"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </div>
+        
+        <ion-item class="ion-text-wrap">
+            <ion-label class="ion-text-left" color="danger">*</ion-label>
+            <ion-input placeholder=" Pin-Code" type="tel" pattern="[0-9]{6}" [(ngModel)]="pincode" maxlength="6"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-text-wrap">
+            <ion-label class="ion-text-left" color="danger">*</ion-label>
+            <ion-input placeholder=" City" type="text" [(ngModel)]="city"></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-text-wrap">
+          <ion-label class="m-label ion-text-left"><span style="color: #f53d3d">*</span>&nbsp; State</ion-label>
+          <ion-select class="customSelect" [(ngModel)]="locality" interface="popover">
+            <ion-select-option *ngFor="let item of localityList" value="{{item.code}}">{{item.state}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      </ion-list>
+    
+    </div>
+
+    <ion-row>
+      <ion-col size="12" class="ion-no-padding">
+        <ion-button expand="block" (click)="submitCompetitor()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+    
+  </div>
+
+</ion-content>

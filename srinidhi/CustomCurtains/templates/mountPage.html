@@ -1,0 +1,50 @@
+<div class="show-for-small-down row center">
+    <div class="bold font-size-16 margin-15">MOUNT</div>
+</div>
+
+<div class="row">
+    <div class="large-9 small-11 medium-centered large-centered columns">
+        <div ng-repeat="eachMount in mountInformation" ng-cloak class="large-6 medium-6 small-12 columns center">
+            <div ng-class="{'selectedOptionsInformation': eachMount == selectedMount}" class="lining-div hide-for-small-down">
+                <img ng-src="{$ eachMount.displayImage | convertToHTTPS $}" alt="{$ eachMount.optionName $}" style="width:136px;margin: 10px;">
+                <div style="font-size: 18px;padding: 10px;">{$ eachMount.name $}</div>
+
+                <div>
+                    <button type="button" ng-click="submitMount(eachMount)" class="nextButton">
+                        <span ng-if="eachMount.name === selectedMount.name">SELECTED</span>
+                        <span ng-if="eachMount.name != selectedMount.name">SELECT</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="show-for-small-down margin-10">
+                <label for="{$ eachMount.optionName $}{$ eachMount.id $}" style="float: left">
+                    <input type="radio" name="lining" ng-model="selectedMount" ng-value="eachMount"
+                           id="{$ eachMount.optionName $}{$ eachMount.id $}"
+                           ng-change="submitMount(eachMount)"
+                           ng-checked="selectedMount == eachMount">&nbsp;
+                    <div style="float: right;">
+                        <div>{$ eachMount.name $}</div>
+                    </div>
+                </label>
+                <a class="margin-left-10" ng-click="openMountDetails(eachMount)"><i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="show-for-small-down margin-bottom-40"></div>
+
+<div class="row">
+    <div class="right">
+        <button type="button" ng-if="curtainTypeName == 'shade'" ng-click="goToDimensions()" class="backButton">BACK</button>
+        <button type="button" ng-click="submitMount(selectedMount)" class="nextButton">NEXT</button>
+    </div>
+</div>
+
+<div id="mountDetails" class="row no-display">
+    <div class="lining-div center">
+        <img ng-src="{$ mountDetails.displayImage | convertToHTTPS $}" alt="{$ mountDetails.optionName $}" style="width:136px;margin: 10px;">
+        <div style="font-size: 18px;padding: 10px;">{$ mountDetails.name $}</div>
+    </div>
+</div>

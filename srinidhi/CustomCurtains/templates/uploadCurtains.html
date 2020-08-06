@@ -1,0 +1,163 @@
+{% extends 'ModifiedHeader.html' %}
+{% load custom_filters %}
+
+{% block title %}
+    <title>Upload Curtains</title>
+{% endblock title %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.css">
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}font-awesome/css/all.css">
+{% endblock additional_css %}
+
+{% block content %}
+
+    <div class="row">
+        <a class="button sm-btn" href="/staff/curtains-admin">Back to Curtains Admin</a>
+    </div>
+
+    <div class="content row">
+        <div class="large-6 large-centered columns">
+            <h3>Upload Curtains Data From Excel <a onclick="curtainBulkUploadInfo()">
+                <i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i></a>
+            </h3>
+
+            <form method="post" id="excelUploadForm" onsubmit="return false" enctype="multipart/form-data">
+
+                <label>Select only ZIP file
+                    <small>Containing Curtains or Shades Folders</small>
+                    :</label>
+                <input type="file" id="zipFileCurtain" name="zipFileCurtain" accept=".zip">
+                <label>Select only Sheets file:</label>
+                <input type="file" id="sheetFileCurtain" name="sheetFileCurtain">
+                <div class="row">
+                    <div class="small-6 columns">
+                        <label for="isFabric">Fabric Type:</label>
+                        <select id="isFabric" name="isFabric" onchange="chooseType()" required>
+                            <option disabled hidden selected>Choose Here</option>
+                            <option value="true">Fabric Swatch</option>
+                            <option value="false">Fabric Render</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 columns">
+                        <label for="swatchFlag">Image Type:</label>
+                        <select id="swatchFlag" name="swatchFlag" onchange="chooseType()" required>
+                            <option disabled hidden selected>Choose Here</option>
+                            <option value="true">Swatch</option>
+                            <option value="false">Render</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="small-6 columns">
+                        <label for="zipFolderType">Type:</label>
+                        <select id="zipFolderType" name="zipFolderType" onchange="chooseType()" required>
+                            <option disabled hidden selected>Choose Here</option>
+                            <option value="shades">Shades</option>
+                            <option value="curtains">Curtains</option>
+                        </select>
+                    </div>
+
+                    <div class="small-6 columns option-field" style="display: none">
+                        <label for="zipCurtainType">Sub-Type:</label>
+                        <select id="zipCurtainType" name="zipCurtainType" required>
+                            <option disabled hidden selected>Choose Here</option>
+                            <option value="normal">Normal</option>
+                            <option value="zoom">Zoom</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="curtaintypes" style="display: none"><label>Curtain Types : <br><input type="checkbox"
+                                                                                               name="curtaintype"
+                                                                                               value="eyelet">eyelet
+                    <input type="checkbox" name="curtaintype" value="flat panel">flat panel <input type="checkbox"
+                                                                                                   name="curtaintype"
+                                                                                                   value="pinch pleat">pinch
+                    pleat <input type="checkbox" name="curtaintype" value="ripple fold">ripple fold </label></div>
+                <div id="shadetypes" style="display: none"><label>Shade Types : <br><input type="checkbox"
+                                                                                           name="shadetype"
+                                                                                           value="CLASSIC ROMAN SHADE">classic
+                    roman shade <input type="checkbox" name="shadetype" value="FLAT ROMAN SHADE">flat roman shade
+                    <br><input type="checkbox" name="shadetype" value="PLEATED ROMAN SHADE">pleated roman shade</label>
+                </div>
+                <br><label>Debug: &nbsp<input type="radio" name="debug" value="true" checked="checked"> True &nbsp
+                <input type="radio" name="debug" value="false"> False</label>
+
+                <button class="button tiny radius" onclick="folderDetails()">Upload</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-5 large-centered columns">
+            <p id="zipUploadResult"></p>
+        </div>
+    </div>
+    <div style="width: 100%; margin-left: 5px; margin-right: 5px; "><p id="zipUploadFailed"></p></div>
+    <hr style="border: 0.5px solid red;">
+
+
+    <div id="uploadFormat" class="no-display">
+        Zip File:
+        <br>
+        <ol>
+            <li>It Should contain main folder with name curtains/shades with 'case sensitive'.</li>
+            <li>default.jpg file('Image Not Available' Picture).</li>
+            <li>skuids.zip file(this file should be compressed folder of any subfolder present in curtains/3D or shades/3D).</li>
+        </ol>
+
+        Main folder should contains:
+        <ol>
+            <li>3D</li>
+            <li>3D_second</li>
+            <li>zoom</li>
+            <li>for_zoom</li>
+            <li>for_display<br> and their respective sub folders.</li>
+        </ol>
+
+        Image Type:
+        <ol>
+            <li>Swatches: If there is no availability of images of some skuids then select this option to use 'default.jpg' instead of 3D and 3D_second images.</li>
+            <li>Render: If all the skuid images are available select this option.</li>
+        </ol>
+
+        Type:
+        <ol>
+            <li>Curtains: Select this option while uploading curtains.</li>
+            <li>Shades: Select this option while uploading shades.</li>
+        </ol>
+
+        Sub-Type:  This Input will be shown when type Curtains is selected
+        <ol>
+            <li>Normal: Select this option first to upload 3D, for_zoom and for_display folders images.</li>
+            <li>Zoom: Select this option after uploading curtains normal to upload 3D_second & zoom folders images.</li>
+        </ol>
+
+        Shade/Curtain Types:
+        <ol>
+            <li>Check the options of types which are present in the zip file(If all the option types are present in zip file, either u can check all or leave them uncheck).</li>
+        </ol>
+
+        Debug:
+        <ol>
+            <li>True: This option is selected by default, select this option to test and find out the mistakes in all the files uploaded and options selected, whether are in right order.</li>
+            <li>False: Select this option if there is no failed data in Debug True Mode and to upload the test/production.</li>
+        </ol>
+
+    </div>
+
+
+{% endblock content %}
+
+{% block javascript %}
+    {% if IS_GZIP_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minifiedCompressed/angBaseHelpers.js"></script>
+    {% elif IS_COMPRESSED_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minified/angBaseHelpers.js"></script>
+    {% endif %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/custom-sofa/jconfirm-alert-boxes.js"></script>
+    <script src="/static/js/CustomCurtains/upload_from_zip.js"></script>
+{% endblock javascript %}

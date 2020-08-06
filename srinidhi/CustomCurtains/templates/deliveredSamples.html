@@ -1,0 +1,103 @@
+{% load custom_filters %}
+
+<div class="row">
+    <ul class="large-block-grid-9 medium-block-grid-5 small-block-grid-2">
+        <li ng-repeat="sample in deliveredSamplesList">
+            <img ng-src="{$ sample.displayImage | convertToHTTPS $}" alt="{$ sample.skuid $}" class="cursor-pointer"
+                 id="scrollToDeliveredSampleDiv" ng-click="viewDeliveredSample(sample.skuid)">
+        </li>
+    </ul>
+
+    <div class="large-12 medium-12 columns padding-0 margin-top-20" ng-if="viewSample" id="deliveredSampleDiv">
+        <ul style="margin-left: 0">
+            <li style="list-style: none;">
+                <div class="columns" ng-if="curtainTypeName == 'curtain'" id="allCurtains">
+                    <div class="large-5 medium-4 columns" style="padding: 5px;">
+                        <img ng-src="{$ viewSample.images[0] | convertToHTTPS $}" style="border: 1px solid white;height: 370px;width: 100%;">
+                    </div>
+                    <div class="large-3 medium-4 columns margin-top-5">
+                        <div class="columns">
+                            <img ng-src="{$ viewSample.zoomImage | convertToHTTPS $}" id="zoomImageSize" style="border: 1px solid white;height: 187px;">
+                        </div>
+                        <div class="columns">
+                            <div>
+                                <span class="small-4 columns padding-0">Material</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">{$ viewSample.material_filter[0] $}</span>
+                            </div>
+                            <div>
+                                <span class="small-4 columns padding-0">Price</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">&#8377; {$ viewSample.price $}/mtr</span>
+                            </div>
+                            <div>
+                                <span class="small-4 columns padding-0">SKU ID</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">{$ viewSample.skuid $}</span>
+                            </div>
+                            <div class="center">
+                                <button type="button" class="nextButton buy-now" ng-click="selectedItem(viewSample)">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-4 medium-4 columns" style="padding: 5px;">
+                        <div ng-if="viewSample.images[1]">
+                            <img ng-src="{$ viewSample.images[1] | convertToHTTPS $}" ng-click="zoomOnClick(viewSample)" class="cursor-pointer" style="border: 1px solid white;height: 370px;">
+                        </div>
+                        <div ng-if="!viewSample.images[1]">
+                            <img ng-src="{$ viewSample.images[0] | convertToHTTPS $}" style="border: 1px solid white;height: 370px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="curtainTypeName == 'shade'" id="allShades" class="columns">
+                    <div class="large-4 medium-4 columns padding-0 information-block" style="height: 378px;background: #c7c7c7;border: 1px solid #a7a8a8;display:table;">
+                        <div style="display: table-row;">
+                            <div class="small-9 small-centered columns padding-0 margin-bottom-10 margin-top-20">
+                                <img ng-src="{$ viewSample.zoomImage | convertToHTTPS $}" id="zoomImageSize" style="border: 1px solid white;">
+                            </div>
+                        </div>
+                        <div style="display: table-row;">
+                            <div class="small-8 small-centered columns padding-0 margin-bottom-10">
+                                <div class="row">
+                                    <span class="small-4 columns padding-0">Material</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">{$ viewSample.material_filter[0] $}</span>
+                                </div>
+                                <div class="row">
+                                    <span class="small-4 columns padding-0">Price</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">&#8377; {$ viewSample.price $}/mtr</span>
+                                </div>
+                                <div class="row">
+                                    <span class="small-4 columns padding-0">SKU ID</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">{$ viewSample.skuid $}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display: table-row;height: 12%">
+                            <div class="small-10 small-centered columns">
+                                <button type="button" class="nextButton buy-now" ng-click="selectedItem(viewSample)" style="padding: 16px 15px;">Buy Now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="large-8 medium-8 columns main-image-block" style="padding: 0 0 0 5px;">
+                        <img ng-src="{$ viewSample.images[0] | convertToHTTPS $}" ng-click="selectedItem(viewSample)" style="cursor: pointer;">
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="columns" ng-show="noDataFound" ng-cloak style="margin-bottom: 25%;">
+        We could not find matching fabrics for the style you have selected.
+    </div>
+
+    <div class="columns" ng-show="noDeliveredSamples" ng-cloak style="margin-bottom: 25%;">
+        No Samples purchase history was found.
+    </div>
+
+    {% include 'viewZoomImage.html' %}
+
+</div>

@@ -1,0 +1,234 @@
+{% load custom_filters %}
+
+<div class="row" ng-cloak="">
+    <div class="row hide-for-small-down" ng-hide="selectedNavItem == 'search'">
+        <div class="large-10 columns padding-0">
+            <div class="large-3 columns">
+                <div ng-click="toggleFilterDiv('colors')" class="filter-multiselect filter-multiselect-heading">
+                    <span>COLORS</span><span class="right font-10">&#9660;</span>
+                </div>
+                <div ng-show="showFilterDiv == 'colors'" class="filter-multiselect filter-multiselect-dropdown">
+                    <multiselect multiple="true"
+                                 ng-model="selectedFilter.color"
+                                 options="eachColor.name for eachColor in filterByColorList"
+                                 ng-click="filterByDropdown('COLORS')">
+                    </multiselect>
+                </div>
+            </div>
+
+            <div class="large-3 columns">
+                <div ng-click="toggleFilterDiv('material')" class="filter-multiselect filter-multiselect-heading">
+                    <span>MATERIAL</span><span class="right font-10">&#9660;</span>
+                </div>
+                <div ng-show="showFilterDiv == 'material'" class="filter-multiselect filter-multiselect-dropdown">
+                    <multiselect multiple="true"
+                                 ng-model="selectedFilter.material"
+                                 options="eachMaterial.name for eachMaterial in filterByMaterialList"
+                                 ng-click="filterByDropdown('MATERIALS')">
+                    </multiselect>
+                </div>
+            </div>
+
+            <div class="large-3 columns">
+                <div ng-click="toggleFilterDiv('pattern')" class="filter-multiselect filter-multiselect-heading">
+                    <span>PATTERN</span><span class="right font-10">&#9660;</span>
+                </div>
+                <div ng-show="showFilterDiv == 'pattern'" class="filter-multiselect filter-multiselect-dropdown">
+                    <multiselect multiple="true"
+                                 ng-model="selectedFilter.pattern"
+                                 options="eachPattern.name for eachPattern in filterByPatternList"
+                                 ng-click="filterByDropdown('PATTERN')">
+                    </multiselect>
+                </div>
+            </div>
+
+            <div class="large-3 columns">
+                <select name="" id="sortSelect" ng-model="sortByDict.sortBy" ng-change="sortByPrice()">
+                    <option ng-repeat="sortOption in sortByInputs" value="{$ sortOption.value $}" ng-selected="sortOption.value === sortByDict.sortBy">{$ sortOption.name $}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="large-2 columns padding-0">
+            <div class="columns display-flex">
+                <input type="text" placeholder="SKUID, Names, etc." ng-model="searchByIdDict.searchById" id="searchInput" press-enter="searchBySkuId()">
+                <button type="button" ng-click="searchBySkuId()" id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="selectedNavItem == 'search'">
+        <a ng-click="goToFabricState()" class="font-size-16 href_underline">View More Products from {$ selectedStyle.name $}</a>
+    </div>
+
+    <div id="infi-scroll">
+        <div class="large-12 medium-12 columns padding-0 infinite-container margin-top-20"
+             infinite-scroll="fetchData()" infinite-scroll-disabled='busy' infinite-scroll-distance="1" infinite-scroll-container="'#infi-scroll'">
+            <ul style="margin-left: 0">
+                <li ng-repeat="eachItem in listOfOptionsCurtains" style="list-style: none;">
+                    <div class="columns hide-for-small-down" ng-if="curtainTypeName == 'curtain'" id="allCurtains">
+                        <div class="large-5 medium-4 columns" style="padding: 5px;">
+                            <img ng-src="{$ eachItem.images[0] | convertToHTTPS $}" style="border: 1px solid white;height: 370px;width: 100%;">
+                        </div>
+                        <div class="large-3 medium-4 columns margin-top-5">
+                            <div class="columns">
+                                <img ng-src="{$ eachItem.zoomImage | convertToHTTPS $}" id="zoomImageSize" style="border: 1px solid white;height: 187px;">
+                            </div>
+                            <div class="columns">
+                                <div>
+                                    <span class="small-4 columns padding-0">Material</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">{$ eachItem.material_filter[0] $}</span>
+                                </div>
+                                <div>
+                                    <span class="small-4 columns padding-0">Price</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">&#8377; {$ eachItem.price $}/mtr</span>
+                                </div>
+                                <div>
+                                    <span class="small-4 columns padding-0">SKU ID</span>
+                                    <span class="small-1 columns padding-0">:</span>
+                                    <span class="small-7 columns padding-0">{$ eachItem.skuid $}</span>
+                                </div>
+                                <div class="center">
+                                    <button type="button" class="nextButton buy-now" ng-click="selectedItem(eachItem)" style="padding: 16px 42px;">Buy Now</button>
+                                </div>
+                                <div class="center">
+                                    <button type="button" class="nextButton add-sample" ng-click="addToSampleList(eachItem)" ng-hide="(samplesIdList|filter:eachItem.id.toString()).length">
+                                        Add To Samples
+                                    </button>
+                                    <button type="button" class="nextButton sample-added" ng-show="(samplesIdList|filter:eachItem.id.toString()).length">Sample Added</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-4 medium-4 columns" style="padding: 5px;">
+                            <div ng-if="eachItem.images[1]">
+                                <img ng-src="{$ eachItem.images[1] | convertToHTTPS $}" ng-click="zoomOnClick(eachItem)" class="cursor-pointer" style="border: 1px solid white;height: 370px;">
+                            </div>
+                            <div ng-if="!eachItem.images[1]">
+                                <img ng-src="{$ eachItem.images[0] | convertToHTTPS $}" style="border: 1px solid white;height: 370px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="curtainTypeName == 'shade'" id="allShades" class="columns hide-for-small-down">
+                        <div class="large-4 medium-4 columns padding-0 information-block" style="background: #c7c7c7;border: 1px solid #a7a8a8;display:table;">
+                            <div style="display: table-row;">
+                                <div class="small-9 small-centered columns padding-0 margin-bottom-10 margin-top-20">
+                                    <img ng-src="{$ eachItem.zoomImage | convertToHTTPS $}" id="zoomImageSize" style="border: 1px solid white;">
+                                </div>
+                            </div>
+                            <div style="display: table-row;">
+                                <div class="small-8 small-centered columns padding-0 margin-bottom-10">
+                                    <div class="row">
+                                        <span class="small-4 columns padding-0">Material</span>
+                                        <span class="small-1 columns padding-0">:</span>
+                                        <span class="small-7 columns padding-0">{$ eachItem.material_filter[0] $}</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="small-4 columns padding-0">Price</span>
+                                        <span class="small-1 columns padding-0">:</span>
+                                        <span class="small-7 columns padding-0">&#8377; {$ eachItem.price $}/mtr</span>
+                                    </div>
+                                    <div class="row">
+                                        <span class="small-4 columns padding-0">SKU ID</span>
+                                        <span class="small-1 columns padding-0">:</span>
+                                        <span class="small-7 columns padding-0">{$ eachItem.skuid $}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: table-row;height: 12%">
+                                <div class="small-10 small-centered columns">
+                                    <button type="button" class="nextButton buy-now" ng-click="selectedItem(eachItem)" style="padding: 16px 15px;">Buy Now</button>
+                                    <button type="button" class="nextButton right margin-bottom-0 add-sample" ng-click="addToSampleList(eachItem)" ng-hide="(samplesIdList|filter:eachItem.id.toString()).length">Add To Samples</button>
+                                    <button type="button" class="nextButton right margin-bottom-0 sample-added" ng-show="(samplesIdList|filter:eachItem.id.toString()).length">Sample Added</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="large-8 medium-8 columns main-image-block" style="padding: 0 0 0 5px;">
+                            <img ng-src="{$ eachItem.images[0] | convertToHTTPS $}" ng-click="selectedItem(eachItem)" style="cursor: pointer;">
+                        </div>
+                    </div>
+
+                    <div class="row show-for-small-down" style="background-color: #c7c7c7;margin: 5px;margin-bottom: 20px;">
+                        <div>
+                            <data-curtains-owl-carousel class="owl-carousel">
+                                <div curtains-owl-carousel-item="" ng-if="eachItem.images[1]" ng-repeat="item in [eachItem.images[0],eachItem.images[1],eachItem.zoomImage]">
+                                    <div style="padding: 5px;">
+                                        <img ng-src="{$ item | convertToHTTPS $}" style="border: 1px solid white;height: 300px;">
+                                    </div>
+                                </div>
+                                <div curtains-owl-carousel-item="" ng-if="!eachItem.images[1]" ng-repeat="item in [eachItem.images[0],eachItem.zoomImage]">
+                                    <div style="padding: 5px;">
+                                        <img ng-src="{$ item | convertToHTTPS $}" style="border: 1px solid white;height: 300px;">
+                                    </div>
+                                </div>
+                            </data-curtains-owl-carousel>
+                        </div>
+
+                        <div class="small-10 columns small-centered margin-bottom-5">
+                            <div class="row">
+                                <span class="small-4 columns padding-0">Material</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">{$ eachItem.material_filter[0] $}</span>
+                            </div>
+                            <div class="row">
+                                <span class="small-4 columns padding-0">Price</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">&#8377; {$ eachItem.price $}/mtr</span>
+                            </div>
+                            <div class="row">
+                                <span class="small-4 columns padding-0">SKU ID</span>
+                                <span class="small-1 columns padding-0">:</span>
+                                <span class="small-7 columns padding-0">{$ eachItem.skuid $}</span>
+                            </div>
+                            <div class="row">
+                                <button type="button" class="nextButton buy-now" ng-click="selectedItem(eachItem)" style="padding: 16px 15px;">Buy Now</button>
+                                <button type="button" class="nextButton right margin-bottom-0 add-sample" ng-click="addToSampleList(eachItem)" ng-hide="(samplesIdList|filter:eachItem.id.toString()).length">Add To Samples</button>
+                                <button type="button" class="nextButton right margin-bottom-0 sample-added" ng-show="(samplesIdList|filter:eachItem.id.toString()).length">Sample Added</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {% include 'viewZoomImage.html' %}
+
+    <div class="columns center" ng-show="busy" style="margin-bottom: 25%;">
+        <i class="fas fa-spinner fa-pulse"></i>
+        Loading... Please Wait..
+    </div>
+
+    <div class="columns" ng-show="noDataFound" ng-cloak style="margin-bottom: 25%;">
+        We could not find matching fabrics for the above combination of filters you have selected.
+    </div>
+
+    <div class="fix-to-bottom show-for-small-down columns center padding-0" style="border-top: 1px solid rgb(232, 75, 84);">
+        <div class="small-4 columns" style="border-right: 1px solid rgb(232, 75, 84);">
+            <button type="button" class="mobile-bottom-buttons" ng-click="compileDefaultThemeDialog('#mobileFilters', 90)">
+                <i class="fa fa-filter font-size-15"></i> Filter By
+            </button>
+        </div>
+
+        <div class="small-4 columns" style="border-right: 1px solid rgb(232, 75, 84);">
+            <button type="button" class="mobile-bottom-buttons" ng-click="compileDefaultThemeDialog('#mobileSort', 90)">
+                <i class="fa fa-exchange-alt font-size-15" style="transform: rotate(90deg);"></i> Sort By
+            </button>
+        </div>
+
+
+        <div class="small-4 columns left">
+            <button type="button" class="mobile-bottom-buttons" ng-click="compileDefaultThemeDialog('#mobileSearchSkuId', 90)">
+                <i class="fas fa-search font-size-15"></i> Search
+            </button>
+        </div>
+
+        {% include 'filterByPopup.html' %}
+
+    </div>
+
+</div>
+
+
+{% include 'samplesDisplay.html' %}

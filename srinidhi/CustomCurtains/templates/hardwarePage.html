@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="display-flex-resp-hardware" ng-if="listOfHardware.length > 0">
+        <div class="large-9 medium-9 small-12 columns">
+            <ul class="hardware-nav">
+                <li ng-repeat="hardware in hardwareCategoriesList"
+                    ng-click="switchHardwareTab(hardware.categoryName, hardware.id, 1)"
+                    ng-class="{'active-hardware-tab':selectedHardware==hardware.categoryName}">
+                    {$ hardware.categoryName $}
+                </li>
+            </ul>
+
+            <div>
+                <b style="font-weight: 700;font-size: 14px;margin-top: 10px;">
+                    <span style="color: red;text-decoration: underline;">Note</span> :
+                    <span>Hardware sets cannot be selected for curtain width greater than 6'6"(6.5 ft). However, you can select Finials and Curtain Rods separately.</span>
+                </b><br><br>
+            </div>
+            <div id="hardwareDisplayDiv">
+                <ul class="large-block-grid-3 medium-block-grid-2 small-block-grid-1">
+                    <li ng-repeat="eachItem in listOfHardware">
+                        <div class="hardwareItem">
+                            <div>
+                                <img ng-src="{$ eachItem.displayImage | convertToHTTPS $}" alt="image" class="zoomHardwareImage"
+                                     style="border-bottom:solid 1px #cccccc;" ng-click="showHardwareDetails(eachItem)">
+                            </div>
+                            <div class="row">
+                                <div class="small-8 columns">
+                                    <span title="{$ eachItem.name $}" style="font-size: 12px;margin-top: 12px;font-family: serif;color: #003366;">
+                                        {$ eachItem.name | limitTo:20 $}{$ eachItem.name.length > 20 ? '...' : '' $}
+                                    </span>
+                                    <p style="margin-bottom: 0;font-size: 12px;white-space: nowrap;" title="{$ eachItem.material $}">Material:
+                                        {$ eachItem.material | limitTo:12 $}{$ eachItem.material.length > 12 ? '...' : '' $}
+                                    </p>
+
+                                    <p style="font-size: 12px;">Price:
+                                        <b>&#8377; {$ eachItem.price $}/-</b>
+                                    </p>
+                                </div>
+                                <div class="small-4 columns" style="padding: 0;">
+                                    <a href="" style="font-size: 12px;color: #008cba;text-decoration: initial;" ng-click="showHardwareDetails(eachItem)">More Details</a>
+                                    <button type="button" class="add-hardware-button hide-for-small-down" ng-click="addHardware(eachItem)" ng-disabled="hideAddHardwareSetsButton">
+                                        ADD
+                                    </button>
+                                    <button type="button" class="add-hardware-button show-for-small-down"
+                                            ng-click="addHardware(eachItem)"
+                                            ng-disabled="hideAddHardwareSetsButton" id="scrollToSelectedHardwareMobile">
+                                        ADD
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% include 'hardwareDetails.html' %}
+                </ul>
+            </div>
+
+            <div class="row">
+    {#            <div style="color:rgb(244, 81, 30);">#}
+    {#                <button type="button" class="nextButton" >#}
+    {#                    <span class="page-nav-arrow-prev" style="font-size: 18px;">&#171;</span>#}
+    {#                    <span class="font-size-13 page-nav-text">PREV</span>#}
+    {#                </button>#}
+    {#            </div>#}
+                <div class="large-4 large-centered columns display-flex">
+                    <div class="cursor-pointer">
+                        <button type="button" class="hardware-pagination-btn" ng-click="switchHardwareTab(parameter,hardwareCategoryId,(selectedHardwarePage-1))" ng-disabled="selectedHardwarePage == 1">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    <div class="cursor-pointer pagination-div" ng-if="limitQuantity && first && (selectedHardwarePage > 3)"
+                         ng-click="switchHardwareTab(parameter,hardwareCategoryId,1)"
+                         ng-class="{'selectedHardwarePage': 1 == selectedHardwarePage}">1</div>
+                    <div ng-if="limitQuantity && first && (selectedHardwarePage > 3)" style="margin-top: 6px;">...</div>
+                    <div ng-repeat="i in []|rangeValues:start:end" class="cursor-pointer display-flex">
+                        <div ng-class="{'selectedHardwarePage': i == selectedHardwarePage}" ng-click="switchHardwareTab(parameter,hardwareCategoryId,i)"
+                             class="pagination-div">{$ i $}
+                        </div>
+                    </div>
+                    <div ng-if="limitQuantity && last" style="margin-top: 6px;">...</div>
+                    <div class="cursor-pointer pagination-div" ng-if="limitQuantity && last"
+                         ng-click="switchHardwareTab(parameter,hardwareCategoryId,range)"
+                         ng-class="{'selectedHardwarePage': range == selectedHardwarePage}">{$ range $}
+                    </div>
+                    <div class="cursor-pointer">
+                        <button type="button" class="hardware-pagination-btn" ng-click="switchHardwareTab(parameter,hardwareCategoryId,(selectedHardwarePage+1))" ng-disabled="selectedHardwarePage == range">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+    {#            <div style="color:rgb(244, 81, 30);">#}
+    {#                <button type="button" class="nextButton" ng-click="switchHardwareTab(parameter,hardwareCategoryId,(selectedHardwarePage+1))" ng-disabled="selectedHardwarePage == range">#}
+    {#                    <span class="font-size-13 page-nav-text">NEXT</span>#}
+    {#                    <span class="page-nav-arrow-next" style="font-size: 18px;">&#187;</span>#}
+    {#                </button>#}
+    {#            </div>#}
+            </div>
+        </div>
+
+        <div class="large-3 medium-3 small-12 columns selected-hardware-div">
+            <div style="background-color: #eeeeee;">
+                <div style="background-color: black;color: white;padding: 12px;font-size: 13px;text-align: center;">
+                    SELECTED HARDWARE
+                </div>
+                <div style="height: 435px;" ng-class="{'addScrollSelectedHardware': selectedHardwareList.length > 2}" id="selectedHardwareDiv">
+                    <div ng-repeat="eachSelectedHardware in selectedHardwareList">
+                        <div class="columns" ng-class="{'addedHardwareCss':(addedHardwareCss==true)&&(eachSelectedHardware.id==addedHardwareId)}" style="margin-bottom: 5px;padding: 0;">
+                            <div style="padding: 5px" class="center">
+                                <img ng-src="{$ eachSelectedHardware.displayImage | convertToHTTPS $}" alt="{$ eachSelectedHardware.name $}" style="height: 50px;">
+                            </div>
+                            <div class="columns" style="text-align: center;border-bottom: solid 1px #cccccc;">
+                                <div style="color: #003366;margin-bottom: 5px;font-size: 14px; font-family: serif;">{$ eachSelectedHardware.name $}</div>
+
+                                <div style="font-size: 14px;display: inline-flex;">
+                                    <select class="hardwareQuantity" ng-options="i for i in [] | rangeValues:1:100" ng-change="changeHardwareCount(eachSelectedHardware.id,eachSelectedHardware.quantity,'')"
+                                            ng-model="eachSelectedHardware.quantity"></select>
+                                    <span style="margin-top: 10px;margin-left: 8px;">
+                                        <b><span style="font-size: 13px;margin: 1px;">X</span> &#8377; {$ eachSelectedHardware.price $}/-</b>
+                                    </span>
+                                </div>
+
+                                <div class="font-12">Material: {$ eachSelectedHardware.material $}</div>
+
+                                <div>
+                                    <a ng-click="removeThisHardware(eachSelectedHardware.id)" class="font-12 cursor-pointer right"
+                                       style="text-decoration: underline;color: #008cba;margin-bottom: 10px;">REMOVE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p ng-if="selectedHardwareList.length" class="font-size-14 row center">
+                        Total Hardware Price:<br><b>&#8377; {$ getHardwarePrice $} </b></p>
+                </div>
+            </div>
+            <div style="margin-top: 24px;" id="selectedHardwareMobile">
+                <div class="right">
+                    <button type="button" ng-if="curtainTypeName == 'curtain'" ng-click="goToLining()" class="backButton">BACK</button>
+                    <button type="button" ng-click="goToCart()" class="nextButton" ng-if="selectedHardwareList.length == 0">SKIP</button>
+                    <button type="button" ng-click="submitHardware()" class="nextButton" ng-if="selectedHardwareList.length > 0">NEXT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns" ng-if="listOfHardware.length == 0">
+        <div class="large-12 medium-12 columns center">
+            No hardware available for this product.
+        </div>
+        <div class="large-12 medium-12 columns">
+            <div class="right">
+                <button type="button" ng-if="curtainTypeName == 'curtain'" ng-click="goToLining()" class="backButton">BACK</button>
+                <button type="button" ng-click="goToCart()" class="nextButton" ng-if="selectedHardwareList.length == 0">SKIP</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,58 @@
+<div class="row no-display" id="mobileFilters">
+    <div class="row" style="border-bottom: 1px solid #e07979;">
+        <div class="small-3 columns padding-left-0">Filters</div>
+        <div class="small-9 columns" style="border-left: 1px solid #e07979;"></div>
+    </div>
+
+    <div class="row">
+        <div class="small-3 columns padding-left-0">
+            <ul style="list-style: none;margin-left: 0;">
+                <li class="mobile-filter-names"><a ng-class="{'font-red': showMobileFilterDiv == 'colors'}"
+                       ng-click="showMobileFilterDiv = 'colors'" class="font-gray">COLORS</a></li>
+                <li class="mobile-filter-names"><a ng-class="{'font-red': showMobileFilterDiv == 'material'}"
+                       ng-click="showMobileFilterDiv = 'material'" class="font-gray">MATERIAL</a></li>
+                <li class="mobile-filter-names"><a ng-class="{'font-red': showMobileFilterDiv == 'pattern'}"
+                       ng-click="showMobileFilterDiv = 'pattern'" class="font-gray">PATTERN</a></li>
+            </ul>
+        </div>
+
+        <div class="small-9 columns" style="height: 500px;border-left: 1px solid #e07979;">
+            <div ng-show="showMobileFilterDiv == 'colors'">
+                <multiselect multiple="true"
+                             ng-model="selectedFilter.color"
+                             options="eachColor.name for eachColor in filterByColorList"
+                             ng-click="filterByDropdown('COLORS')">
+                </multiselect>
+            </div>
+            <div ng-show="showMobileFilterDiv == 'material'">
+                <multiselect multiple="true"
+                             ng-model="selectedFilter.material"
+                             options="eachMaterial.name for eachMaterial in filterByMaterialList"
+                             ng-click="filterByDropdown('MATERIALS')">
+                </multiselect>
+            </div>
+            <div ng-show="showMobileFilterDiv == 'pattern'">
+                <multiselect multiple="true"
+                             ng-model="selectedFilter.pattern"
+                             options="eachPattern.name for eachPattern in filterByPatternList"
+                             ng-click="filterByDropdown('PATTERN')">
+                </multiselect>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row no-display" id="mobileSort">
+    <div sort-data></div>
+</div>
+
+<div class="row no-display" id="mobileSearchSkuId">
+    <div class="margin-top-10">
+        <label for="">SEARCH BY SKUID:
+            <input type="text" placeholder="SKUID, Names, etc." ng-model="searchByIdDict.searchById">
+        </label>
+        <br>
+        <button type="button" ng-click="searchBySkuId()" class="nextButton">SEARCH</button>
+    </div>
+</div>

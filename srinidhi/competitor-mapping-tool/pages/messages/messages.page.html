@@ -1,0 +1,20 @@
+
+<ion-content class="no-scroll mx-ht">
+  <div class="dialogbox">
+    <div class="body" *ngFor="let commnent of messageData">
+      <span class="tip tip-left"></span>
+      <div class="message" class="padding-l-5">
+        <span>
+          <ion-icon ios="ios-chatboxes" class="size-16" md="md-chatboxes"></ion-icon>
+          &nbsp;{{commnent.commentedBy}}:&nbsp;
+          {{commnent.comment == 'null'?'':commnent.comment}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <ion-card>
+    <ion-card-content class="ion-text-center" *ngIf='messageData && messageData.length==0'>
+      No Comments To Display.
+    </ion-card-content>
+  </ion-card>
+</ion-content>

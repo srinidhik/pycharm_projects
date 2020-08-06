@@ -1,0 +1,58 @@
+{% extends 'ModifiedHeader.html' %}
+{% load custom_filters %}
+
+{% block title %}
+    <title>Update Curtains Data</title>
+{% endblock title %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.css">
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}font-awesome/css/all.css">
+{% endblock additional_css %}
+
+{% block content %}
+
+    <div class="row">
+        <a class="button sm-btn" href="/staff/curtains-admin">Back to Curtains Admin</a>
+    </div>
+
+    <div class="row" style="padding: 30px;">
+
+        <h3 class="large-6 large-centered columns">Update Curtains Data From Excel <a onclick="curtainEditInfo()">
+            <i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i></a>
+        </h3>
+
+        <div class="small-3 small-centered columns">
+            <form action="" id="updateParameter">
+                <input type="file" name="updateParameter"><br>
+                <button type="button" class="button tiny radius" onclick="updateCurtainsParameters()">UPDATE</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="bulkEditFormat" class="no-display">
+        Excel Sheet headers:
+        <ol>
+            <li>skuid</li>
+            <li>color_filter</li>
+            <li>material_filter</li>
+            <li>pattern_filter</li>
+            <li>price</li>
+            <li>Priority</li>
+        </ol>
+        <p>** should be given before header for the parameter to be updated.</p>
+    </div>
+
+{% endblock content %}
+
+
+{% block javascript %}
+    {% if IS_GZIP_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minifiedCompressed/angBaseHelpers.js"></script>
+    {% elif IS_COMPRESSED_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minified/angBaseHelpers.js"></script>
+    {% endif %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/custom-sofa/jconfirm-alert-boxes.js"></script>
+    <script src="/static/js/CustomCurtains/upload_from_zip.js"></script>
+{% endblock javascript %}

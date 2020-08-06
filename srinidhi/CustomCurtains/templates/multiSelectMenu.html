@@ -1,0 +1,27 @@
+<script type="text/ng-template" id="subMenu.html">
+
+    <div class="dropdown">
+        {#  <button class="btn" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">#}
+        {#    <span class="pull-left">{$ header $}</span>#}
+        {#    <span class="caret pull-right"></span>#}
+        {#  </button>#}
+        <ul class="dropdown-menu">
+            {#    <li>#}
+            {#      <input class="input-block-level" type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Filter" />#}
+            {#    </li>#}
+
+            <li ng-show="multiple" ng-click="checkAll(filterOptionIdList)">
+                Select All
+            </li>
+            <li ng-show="multiple" ng-click="uncheckAll(filterOptionIdList)">
+                Deselect All
+            </li>
+            <li ng-repeat="i in items" ng-click="selectValue(i,filterOptionIdList);">
+                <i class="far fa-square" ng-show="(filterOptionIdList.indexOf(i.model.id) == -1)"></i>
+                <i class="far fa-check-square" ng-show="(filterOptionIdList.indexOf(i.model.id) > -1)"></i>
+                {$ i.label $} ({$ i.model.count $})
+            </li>
+        </ul>
+    </div>
+
+</script>

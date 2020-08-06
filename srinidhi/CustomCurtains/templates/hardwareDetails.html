@@ -1,0 +1,31 @@
+<div id="showHardwareDetails" class="no-display">
+    <div class="columns" style="border: 1px solid #c5c5c5">
+        <div class="large-4 medium-4 small-12 columns" style="padding-left: 30px;margin-top: 20px;">
+            <ul style="padding-left: 0;">
+                <li ng-if="hardwareDetails.material" class="margin-5"><b>Material :</b>{$ hardwareDetails.material $}</li>
+
+                <li ng-if="hardwareDetails.finish" class="margin-5"><b>Finish :</b>{$ hardwareDetails.finish $}</li>
+
+                <li ng-if="(selectedHardware=='HARDWARE-SETS' || selectedHardware=='ROD') && hardwareDetails.length" class="margin-5"><b>Rod Length :</b>{$ hardwareDetails.length $} feet
+                </li>
+
+                <li ng-if="hardwareDetails.diameter" class="margin-5"><b>Diameter :</b>{$ hardwareDetails.diameter $}</li>
+
+                <li ng-if="(selectedHardware=='HARDWARE-SETS' || selectedHardware=='RINGS') && hardwareDetails.rings " class="margin-5"><b>Rings :</b>{$ hardwareDetails.rings $}</li>
+
+                <li ng-if="selectedHardware=='HARDWARE-SETS' && hardwareDetails.finial" class="margin-5"><b>Finial :</b>Set of {$ hardwareDetails.finial $}
+                </li>
+
+                <li ng-if="selectedHardware=='HARDWARE-SETS' && hardwareDetails.brackets" class="margin-5"><b>Brackets :</b>Set of {$ hardwareDetails.brackets $}
+                </li>
+
+                <li ng-if="hardwareDetails.skuid" class="margin-5"><b>Sku Id :</b>{$ hardwareDetails.skuid $}</li>
+            </ul>
+        </div>
+
+        <div class="large-8 medium-8 small-12 columns">
+            <img ng-src="{$ hardwareDetails.zoomImage | convertToHTTPS $}">
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,155 @@
+{% extends 'baseTemplate.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+    <title>Custom Curtains</title>
+{% endblock title %}
+{% block footer %}
+{% endblock footer %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}font-awesome/css/all.css">
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.css">
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}css/CustomCurtains/main.css">
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}css/CustomCurtains/customCurtains.css">
+{% endblock additional_css %}
+
+{% block additional_header_js %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/vendor/jquery.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/angular/angular.js"></script>
+{% endblock %}
+
+{% block content %}
+
+
+    <div ng-app="curtainsApp" ng-controller="curtainsController" ng-cloak>
+
+            <div class="backgroundWhite hide-for-small-down" ng-if="showNavItems" hl-sticky="" ng-cloak>
+                <div class="row" style="margin-bottom: 10px;">
+                    <ul class="breadcrumbs main-nav">
+                        {% include 'navItems.html' %}
+                    </ul>
+                </div>
+            </div>
+
+            <section class="{$ showNavItems == true ? 'mobile-menu' : 'no-display' $}  top-bar-section">
+                <ul>
+                    <li>
+                        <a class="curtains-header-menu">
+                            Menu
+                            <span class="mobile-header mobile-header-up-arrow"></span>
+                        </a>
+
+                        <div class="curtains-header-sub-menu hidden">
+                            <ul>
+                                {% include 'navItems.html' %}
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <div>
+                 <script type="text/ng-template" id="curtainsTypes.html">
+                        {% include 'curtainsTypes.html' %}
+                 </script>
+            </div>
+
+            <div ng-controller="fabricController" ng-cloak>
+                <script type="text/ng-template" id="allCurtains.html">
+                    {% include 'allCurtains.html' %}
+                </script>
+
+                {% include 'multiSelectMenu.html' %}
+
+            </div>
+
+            <div ng-controller="searchController" ng-cloak>
+                <script type="text/ng-template" id="allCurtains.html">
+                    {% include 'allCurtains.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="dimensionsController" ng-cloak>
+                <script type="text/ng-template" id="dimensionPage.html">
+                    {% include 'dimensionPage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="liningController" ng-cloak>
+                <script type="text/ng-template" id="liningPage.html">
+                    {% include 'liningPage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="mountController" ng-cloak>
+                <script type="text/ng-template" id="mountPage.html">
+                    {% include 'mountPage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="liftController" ng-cloak>
+                <script type="text/ng-template" id="liftPage.html">
+                    {% include 'liftPage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="hardwareController" ng-cloak>
+                <script type="text/ng-template" id="hardwarePage.html">
+                    {% include 'hardwarePage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="cartController" ng-cloak>
+                <script type="text/ng-template" id="cartPage.html">
+                    {% include 'cartPage.html' %}
+                </script>
+            </div>
+
+            <div ng-controller="deliveredSamplesController" ng-cloak>
+                <script type="text/ng-template" id="deliveredSamples.html">
+                    {% include 'deliveredSamples.html' %}
+                </script>
+            </div>
+
+            <div ui-view></div>
+
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+    {% if IS_GZIP_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minifiedCompressed/angBaseHelpers.js"></script>
+    {% elif IS_COMPRESSED_ENABLED %}
+        <script src="{{ STATIC_CDN_URL|CDNMapper }}minified/angBaseHelpers.js"></script>
+    {% endif %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/foundation/foundation.reveal.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.min.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/app.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/owl.carousel.min.js"></script>
+
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/script.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/ng-infinite-scroll.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/angular-sticky.min.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/jquery.elevatezoom.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/controllers.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/directives.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/factories.js"></script>
+
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/CustomCurtains/multi-select.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}jquery-confirm/jquery-confirm.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/custom-sofa/jconfirm-alert-boxes.js"></script>
+    <script type="text/javascript">
+        $(document).foundation();
+        $(window).resize(function () {
+            $.each($('.main-image-block'), function (index, element) {
+                var divHeight = $(element).height();
+                $(element).prev().css('minHeight', divHeight + 'px');
+            })
+        });
+    </script>
+{% endblock javascript %}

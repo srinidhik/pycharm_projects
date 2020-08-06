@@ -1,0 +1,21 @@
+{% extends 'baseTemplate.html' %}
+{% load custom_filters %}
+
+{% block title %}
+    <title>Curtains Admin</title>
+{% endblock title %}
+
+{% block content %}
+<div class="row" style="padding: 30px;">
+    <div class="small-3 columns">
+        <ul class="side-nav">
+            <li><a href="/staff/curtains-bulk-upload">Upload</a></li>
+            <li><a href="/staff/curtains-update">Data Update</a></li>
+            <li><a href="/staff/curtains-upload">Active/Inactive Skuids</a></li>
+            <li><a href="/api/custom-curtains/download-data">Download Data</a></li>
+        </ul>
+
+    </div>
+</div>
+    <hr style="border: 0.5px solid red;">
+{% endblock content %}

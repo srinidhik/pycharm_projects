@@ -1,0 +1,122 @@
+{% load custom_filters %}
+
+<div class="row">
+    <div class="large-11 large-centered columns margin-top-20 display-flex-resp-dimensions">
+        <div class="large-6 medium-6 small-12 columns">
+            <div class="columns padding-0 lightgray-border hide-for-small-down">
+                <p class="selectedCurtainDisplay">
+                    <b>MEASUREMENTS</b>
+                </p>
+                <div style="margin-left: 15%;">
+                    <div class="large-5 medium-8 small-8 columns" style="margin-top: 12px;">
+                        <b><span ng-if="curtainTypeName=='curtain'">Curtain </span><span ng-if="curtainTypeName=='shade'">Shade </span>Rod Width</b>
+                    </div>
+                    <div class="large-5 medium-8 small-8 columns left padding-0">
+                        {% include 'dimensionsWidth.html' %}
+                    </div>
+                </div>
+                <div style="margin-left: 15%;">
+                    <div class="large-5 medium-8 small-8 columns" style="margin-top: 12px;">
+                        <b><span ng-if="curtainTypeName=='curtain'">Curtain </span><span ng-if="curtainTypeName=='shade'">Shade </span>Height</b>
+                    </div>
+                    <div class="large-5 medium-8 small-8 columns left padding-0">
+                        {% include 'dimensionsHeight.html' %}
+                    </div>
+                </div>
+                {% include 'dimensionsPriceDisplay.html' %}
+            </div>
+        </div>
+
+        <div class="columns show-for-small-down lightgray-border">
+            <p class="margin-10 center">
+                <b>MEASUREMENTS</b>
+                <span ng-if="curtainTypeName == 'curtain'" class="right">
+                    <a ng-click="openMeasurementGuide('#measurementGuideDoorWithRod', 80, 'Curtain measurement guide')">
+                        <i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i>
+                    </a>
+                </span>
+            </p>
+            <div class="columns padding-0">
+                <div class="small-6 columns padding-0 margin-top-10">
+                    <b><span ng-if="curtainTypeName=='curtain'">Curtain </span><span ng-if="curtainTypeName=='shade'">Shade </span>Rod Width</b>
+                </div>
+                <div class="small-6 columns padding-0">
+                    {% include 'dimensionsWidth.html' %}
+                </div>
+            </div>
+            <div class="columns padding-0">
+                <div class="small-6 columns padding-0 margin-top-10">
+                    <b><span ng-if="curtainTypeName=='curtain'">Curtain </span><span ng-if="curtainTypeName=='shade'">Shade </span>Height</b>
+                </div>
+                <div class="small-6 columns padding-0">
+                    {% include 'dimensionsHeight.html' %}
+                </div>
+            </div>
+            {% include 'dimensionsPriceDisplay.html' %}
+        </div>
+
+        <div ng-if="curtainTypeName == 'curtain'" class="large-6 medium-6 small-12 columns selected-curtain-div lightgray-border">
+            <p class="selectedCurtainDisplay"><b>SELECTED CURTAIN</b></p>
+
+            <div>
+                <div class="small-6 columns" style="padding-bottom: 7px;">
+                    <div style="text-align: center; font-size: 13px;">
+                        <img ng-if="selectedCurtain.images[1]" ng-src="{$ selectedCurtain.images[1] | convertToHTTPS $}" alt="{$ selectedCurtain.displayName $}"
+                             style="width: 100%;">
+                        <img ng-if="!selectedCurtain.images[1]" ng-src="{$ selectedCurtain.images[0] | convertToHTTPS $}" alt="{$ selectedCurtain.displayName $}"
+                             style="width: 100%;">
+                    </div>
+                </div>
+                <div class="small-6 columns selectedCurtain">
+                    <div class="materialDetails">STYLE :<span class="selectedProductDetails"> {$ selectedCurtain.styleName $}</span>
+                    </div>
+
+                    <div class="materialDetails">FABRIC :<span class="selectedProductDetails"> {$ selectedCurtain.displayName $}</span>
+                    </div>
+
+                    <div class="materialDetails">MATERIAL :<span class="selectedProductDetails"> {$ selectedCurtain.material_filter[0] $}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="curtainTypeName == 'shade'" class="large-6 medium-6 small-12 columns selected-curtain-div lightgray-border">
+            <p class="selectedCurtainDisplay" style="margin-left: 0 !important;"><b>SELECTED SHADE</b></p>
+
+            <img ng-src="{$ selectedCurtain.images[0] | convertToHTTPS $}" alt="{$ selectedCurtain.displayName $}"
+                 style="height: 143px;">
+
+            <div class="row">
+                <div class="materialDetails large-6 medium-6 small-12 columns" style="margin: 10px 0;">STYLE :<span class="selectedProductDetails"> {$ selectedCurtain.styleName $}</span></div>
+
+                <div class="materialDetails large-6 medium-6 small-12 columns" style="margin: 10px 0;">MATERIAL :<span class="selectedProductDetails"> {$ selectedCurtain.material_filter[0] $}</span></div>
+            </div>
+
+            <div class="materialDetails margin-bottom-5">FABRIC :<span class="selectedProductDetails"> {$ selectedCurtain.displayName $}</span></div>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-11 large-centered columns margin-top-20">
+        <div ng-if="curtainTypeName == 'curtain'" class="large-6 medium-6 small-12 columns hide-for-small-down">
+            <div class="columns center">
+                <button type="button" class="backButton"
+                        ng-click="openMeasurementGuide('#measurementGuideDoorWithRod', 80, 'Curtain measurement guide')">
+                    MEASUREMENT GUIDE
+                </button>
+            </div>
+        </div>
+        <div class="large-6 medium-6 small-12 columns right">
+            <div class="columns padding-right-0 text-right">
+                <button type="button" ng-click="goToFabric()" class="backButton">BACK</button>
+                <button type="button" ng-click="submitDimensions()" class="nextButton">NEXT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'measurementGuide.html' %}

@@ -1,0 +1,22 @@
+<div style="margin-left: 15%;">
+    <div class="small-5 columns" style="margin-top: 12px;">
+        <b>Price</b>
+    </div>
+    <div class="small-6 columns left padding-0" style="margin-top: 12px;">
+        <span style="font-size: 18px;font-weight: bold;color:rgb(232, 75, 84);margin-bottom: 0;">&#8377; {$ getFabricPrice $} /-</span>
+    </div>
+</div>
+<div style="margin-left: 15%;">
+    <div class="small-5 columns" style="margin-top: 12px;">
+        <b>Quantity</b>
+    </div>
+    <div class="small-6 columns left padding-0" style="margin-top: 12px;">
+        {$ numberOfCurtains | number $}
+    </div>
+</div>
+<div class="columns margin-top-20 center">
+    <p class="margin-0 font-11">
+        *Displayed Price is for {$ numberOfCurtains | number $} panels covering a width of <span ng-if="curtainTypeName=='curtain'">2</span><span ng-if="curtainTypeName=='shade'">7.5</span> ft each. These are the number of panels recommended to maintain the
+        <span ng-if="curtainTypeName=='curtain'"> curtain style and fall of the curtain.</span><span ng-if="curtainTypeName=='shade'"> shade.</span>
+    </p>
+</div>

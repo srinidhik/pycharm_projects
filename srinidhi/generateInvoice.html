@@ -1,0 +1,179 @@
+{% load custom_filters %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}css/jquery-confirm.css">
+{% endblock %}
+
+<style>
+    span:hover {
+        position: relative;
+    }
+
+    span[aria-label]:hover:after {
+        content: attr(aria-label);
+        padding: 10px;
+        position: absolute;
+        left: 0;
+        top: 100%;
+        white-space: nowrap;
+        z-index: 1;
+        background: black;
+        color: white;
+        font-weight: normal;
+    }
+</style>
+
+    {% if request.GET.msg %}
+        <div id="successDiv" style="background-color: #43ac6a;border-color: #3a945b;color: white;padding: 14px 24px 14px 14px;display: inline-flex;width: 100%;">
+            <div style="width: 95%;text-align: center;">
+                {{ request.GET.msg }}
+            </div>
+            <div><a id="close" style="cursor: pointer;">&times;</a></div>
+        </div>
+    {% endif %}
+
+<div style="margin: 5% 5% 0 5% !important;">
+    <div>
+        <b>Order Id</b> : <a href="{% url 'staff-order-details' %}?id={{ orderId }}">{{ KMID }}</a>
+    </div>
+    {% if not invoiceNumber %}
+        <div style="width: 70%;">
+            <div style="width: 50%;float: left;">
+                <b>Order Total Amount</b> : Rs. {{ orderTotalAmount | roundPriceString }}
+            </div>
+            <div style="width: 50%;float: right;">
+                <b>Amount Paid</b> : Rs. {{ amountPaid | roundPriceString }}
+            </div>
+        </div>
+        <div style="width: 70%;">
+            <div style="width: 50%;float: left;">
+                <b>Invoiced Amount</b> : Rs. <span aria-label="Sum of Items Price for which Invoice is Generated">{{ invoicedAmount | roundPriceString }}</span>
+            </div>
+            <div style="width: 50%;float: right;">
+                <b>Invoiceable Amount</b> : Rs. <span aria-label="Difference between Amount Paid and Invoiced Amount">{{ invoiceableAmount | roundPriceString }}</span>
+            </div>
+        </div>
+    {% endif %}
+    <div style="float: right;">
+        {% if invoiceNumber %}
+            <a href="{{ invoiceUrl }}" target="_blank" class="sm-btn" style="margin-right: 50px;">PDF View</a>
+        {% endif %}
+    </div>
+</div>
+<br>
+<div>
+    {% include 'InventoryManagement/generateInvoiceTemplate.html' %}
+</div>
+
+<script src="{{ STATIC_CDN_URL|CDNMapper }}js/vendor/jquery.js"></script>
+<script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery.cookie.js"></script>
+<script src="{{ STATIC_CDN_URL|CDNMapper }}js/base/Authentication.js"></script>
+<script src="{{ STATIC_CDN_URL|CDNMapper }}js/ajaxBusyLodingIndicator.js"></script>
+<script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery-confirm.js"></script>
+
+
+<script>
+
+    function onOpenBeforeFunction() {
+        $('.jconfirm-content-pane').css('height', 'auto');
+        $('.jconfirm-content').css('overflow', 'hidden').css('font-size', '16px');
+    }
+
+    function submitGenerateInvoice(data, orderId, invoiceId) {
+        ajaxindicatorstart('');
+        window.kustome.getResponse('POST', '/api/staff/generate-invoice', data, {
+            "success": function (response) {
+                window.location.href = window.location.pathname + "?invoiceId=" + invoiceId + "&orderId=" + orderId + "&msg=" + encodeURI(response.msg);
+            },
+            "error": function (error) {
+                alertMessage(error.responseJSON.error, 'red');
+                ajaxindicatorstop();
+            }
+        })
+    }
+
+    function generateInvoice(invoiceId, previousInvoiceNo, orderId) {
+        var invoiceNo = $('#invoiceNoInput').val();
+        if (invoiceNo && invoiceNo > 0) {
+            var data = {
+                invoiceId: invoiceId,
+                invoiceNo: invoiceNo
+            };
+
+            if (invoiceNo != parseInt(previousInvoiceNo) + 1) {
+                $.confirm({
+                    title: 'Do you want to Continue?',
+                    content: 'Last issued Invoice number is ' + parseInt(previousInvoiceNo) + '.<br>',
+                    theme: 'light',
+                    typeAnimated: true,
+                    boxWidth: '40%',
+                    useBootstrap: false,
+                    bgOpacity: 0.6,
+                    type: 'orange',
+                    animation: 'top',
+                    closeAnimation: 'top',
+                    animationFromElement: false,
+                    animationBounce: 1.5,
+                    buttons: {
+                        Continue: {
+                            text: 'Continue',
+                            btnClass: 'btn-dark',
+                            action: function () {
+                                submitGenerateInvoice(data, orderId, invoiceId);
+                            }
+                        },
+                        cancel: function () {
+                        }
+                    },
+                    onOpenBefore: function () {
+                        onOpenBeforeFunction()
+                    }
+                })
+            }
+            else {
+                submitGenerateInvoice(data, orderId, invoiceId);
+            }
+        }
+        else {
+            alertMessage('Invalid Invoice Number', 'red');
+        }
+    }
+
+    function alertMessage(message, typeColor) {
+        $.alert({
+            title: '',
+            content: message,
+            theme: 'light',
+            typeAnimated: true,
+            boxWidth: '40%',
+            useBootstrap: false,
+            bgOpacity: 0.6,
+            type: typeColor ? typeColor : '',
+            animation: 'top',
+            closeAnimation: 'top',
+            animationFromElement: false,
+            animationBounce: 1.5,
+            backgroundDismiss: true,
+            buttons: {
+                Continue: {
+                    text: 'OK',
+                    btnClass: 'btn-dark',
+                    action: function () {
+                    }
+                }
+            },
+            onOpenBefore: function () {
+                onOpenBeforeFunction()
+            }
+        });
+    }
+
+$(document).ready(function () {
+
+    $('#close').click(function() {
+        $('#successDiv').hide();
+    })
+
+})
+
+</script>

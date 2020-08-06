@@ -1,0 +1,161 @@
+{% extends "adminBase.html" %}
+{% load custom_filters %}
+{% load order_filters %}
+{% load permission_filters %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}css/jquery-confirm.css">
+{% endblock %}
+
+{% block content %}
+
+    <style>
+        table#details tbody {
+            display: block;
+            height: 300px;
+            overflow: auto;
+        }
+
+        table#details thead, table#details tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        table#details thead {
+            width: calc(100% - 1em)
+        }
+    </style>
+
+    <div class="row" style="margin-top: 15px;">
+
+        <div>
+            <div class="small-1 columns">
+                <a href="/store/order-details?id={{ order.id }}" class="sm-btn">Back</a>
+            </div>
+            <div class="small-8 columns" style="margin-top: 10px;font-size: 15px;">
+                <b>Customer Name : {{ order.deliveryName }}</b>
+            </div>
+            <div class="small-3 columns right" style="margin-top: 10px;font-size: 15px;">
+                <b>Order Id : {{ order.orderId }}</b>
+            </div>
+        </div>
+
+        <div class="columns" style="margin-top: 12px;margin-bottom: 12px;padding-left: 0;">
+            <div class="small-3 columns" style="margin-top: 10px;"><b>Order Price :</b> Rs. {{ order.orderPrice|roundPriceString }}</div>
+            <div class="small-3 columns" style="margin-top: 10px;"><b>Advance Amount :</b> Rs. {{ advancePrice|roundPriceString }}</div>
+            <div class="small-3 columns" style="margin-top: 10px;"><b>Amount Paid :</b> Rs. {{ amountPaid|roundPriceString }}</div>
+            <div class="small-3 columns left" style="white-space: nowrap;">
+                <b>Ware House : </b>
+                <select name="" id="wareHouseName" required style="width: 175px;margin-bottom: 0;height: 33px;border-radius: 6px;">
+                    <option value="">None</option>
+                    {% for wareHouse in allWareHouse %}
+                        <option value="{{ wareHouse }}">{{ wareHouse }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="columns">
+            <table id="details">
+                <thead>
+                <tr class="row">
+                    <th class="small-1 columns">S.No.</th>
+                    <th class="small-2 columns">Factory(Warehouse) <br> Category</th>
+                    <th class="small-2 columns">Name</th>
+{#                    <th class="small-3 columns">Price</th>#}
+                    <th class="small-2 columns">Price</th>
+{#                    <th class="small-2 columns">Advance</th>#}
+                    <th class="small-2 columns">Amount Paid</th>
+{#                    <th class="small-2 columns">#}
+{#                            <span style="color: #EC3A40;">#}
+{#                                On Hold Amount : Rs. <span id="onHoldAmount" data-onhold-amount="{{ onHoldAmount }}"#}
+{#                                                           data-order-payment-status="{{ order.paymentStatus }}">{{ onHoldAmount | floatformat:2 }}</span>(approx.)</span>#}
+{#                    </th>#}
+                    <th class="small-3 columns">
+                            <span style="color: #EC3A40;">
+                                Unconsumed Amount : <br> Rs. <span id="unconsumedAmount" data-unconsumed-amount="{{ unconsumedAmount }}">
+                                {{ unconsumedAmount | floatformat:2 }}</span>(approx.)</span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in itemsHandler %}
+                    <tr class="row" style="{% if item.godavariCategory or item.hsnCode == 'default' %}background:#E8E8E8;{% endif %}">
+                        <td class="small-1 columns">{{ forloop.counter }}</td>
+                        <td class="small-2 columns">
+                            {{ item.factory|initCap }}({{ item.wareHouse|initCap }})<br>
+                            {{ item.category }}
+                            {% if not item.categoryName == item.category and not item.categoryName == 'default' %}
+                                ({{ item.categoryName }})
+                            {% endif %}<br>
+                            {% if not item.hsnCode == 'default' %}
+                                HSN CODE : {{ item.hsnCode }}
+                            {% endif %} 
+                        </td>
+                        <td class="small-2 columns">{{ item.name }}</td>
+{#                        <td class="small-3 columns">#}
+{#                            Net Price : Rs. {{ item.netPrice|roundPriceString }}<br>#}
+{#                            Gross Price : Rs. {{ item.grossPrice|roundPriceString }}#}
+{#                            {% if item.shipping %}#}
+{#                                <br>Shipping Price : Rs. {{ item.shipping|roundPriceString }}#}
+{#                            {% endif %}#}
+{#                        </td>#}
+                        <td class="small-2 columns">
+                            Rs. {{ item.netPrice|roundPriceString }}
+                        </td>
+{#                        <td class="small-2 columns">Rs. {{ item.finalAdvance|roundPriceString }}</td>#}
+                        <td class="small-2 columns">Rs. {{ item.amountPaid|roundPriceString }}</td>
+                        <td class="small-3 columns">
+                            {% if item.invoiceStatus and item.invoiceStatus != "Cancelled" and item.invoiceStatus != "Reject" %}
+                                {{ item.invoiceStatus }}
+                            {% else %}
+                                {% if item.godavariCategory %}
+                                    Godavari
+                                {% elif item.hsnCode == 'default' %}
+                                {% else %}
+                                    {% if user|has_access_to_request_invoice %}
+                                    <input type="checkbox" class="checkInvoiceRequest" value="{{ item.itemId }}"
+                                           data-pending-amount="{{ item.amountPending }}"
+                                           data-net-price="{{ item.netPrice }}"
+                                           data-factory="{{ item.factory }}"
+                                           data-wareHouse="{{ item.wareHouse }}"
+                                           data-category="{{ item.category }}"
+                                           disabled="disabled">
+                                    {% endif %}
+                                {% endif %}
+{#                                (<b>Pending :</b> Rs. {{ item.amountPending|roundPriceString }})#}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="columns">
+            <form id="invoiceRequestForm">
+                <div class="small-4 columns" style="padding-left: 0;display: flex;">
+                    <b style="display: inline-block;white-space: nowrap;margin-top: 10px;">Delivery Date : </b>
+                    <input type="date" id="deliveryDate" name="deliveryDate" style="display: inline-block;margin-left: 5px;" required>
+                </div>
+
+                <div class="small-4 columns left">
+                    <button type="button" class="sm-btn blue submitRequest" onclick="submitInvoiceRequest()"
+                            data-orderId="{{ order.id }}">Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{% endblock content %}
+
+
+{% block javascript %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery-ui-1.10.4.custom.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery-confirm.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/AdminInventory/orderDetail.js"></script>
+
+{% endblock javascript %}

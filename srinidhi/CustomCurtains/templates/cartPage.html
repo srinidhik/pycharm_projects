@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="large-6 medium-6 small-12 columns">
+        <div class="center">
+            <p class="font-14 margin-bottom-0" style="color: rgb(232, 75, 84);">TOTAL PRICE</p>
+            <p style="font-weight: 700;margin-top: 5px;margin-bottom: 0;">
+                <span class="font-24">{$ totalCost | currency:"&#8377;" $}</span>
+            </p>
+            <button type="button" ng-click="curtainAddToCart()" class="nextButton add-to-cart">ADD TO CART</button>
+        </div>
+
+        <div class="columns selected-fabric-cart-page">
+            <p class="row cartPageSubHeading"><b>SELECTED FABRIC:</b></p>
+
+            <div class="row selected-fabric-cart-page">
+
+                <div class="large-4 medium-6 small-6 columns cart-image-div">
+                    <img ng-src="{$ selectedCurtain.workingImage | convertToHTTPS $}" alt="{$ selectedCurtain.displayName $}" style="width: 90px;">
+                    <p style="color: #003366;margin-bottom: 5px;">{$ selectedCurtain.displayName $}</p>
+                    <p style="font-size: 10px;margin-bottom: 5px;">Material: {$ selectedCurtain.material_filter[0] $}</p>
+                </div>
+
+                <div class="large-8 medium-6 small-6 columns cart-details-div">
+                    <p class="cartPageSubHeading">
+                        <b>NUMBER OF CURTAINS : </b>{$ numberOfCurtains | number $}
+                    </p>
+
+                    <p class="cartPageSubHeading">
+                        <b>STYLE : </b> {$ selectedCurtain.styleName $}
+                    </p>
+
+                    <p class="cartPageSubHeading">
+                        <b>DIMENSIONS : </b> W {$ dimensions['widthFeet'] $}'{$ dimensions['widthInch'] $}" X H {$ dimensions['heightFeet'] $}'{$ dimensions['heightInch'] $}"
+                    </p>
+
+                    <p class="cartPageSubHeading" ng-if="curtainTypeName=='shade' && selectedMount" style="text-transform: uppercase;">
+                        <b>MOUNT : </b> {$ selectedMount.name $}
+                    </p>
+
+                    <p class="cartPageSubHeading" ng-if="curtainTypeName=='shade' && selectedLift" style="text-transform: uppercase;">
+                        <b>LIFT : </b> {$ selectedLift.name $}
+                    </p>
+
+                    <p class="cartPageSubHeading">
+                        <b>LINING : </b> {$ selectedLining.name $}
+                    </p>
+                </div>
+            </div>
+
+            <div ng-if="curtainTypeName == 'curtain'" class="row">
+                <p class="cartPageSubHeading"><b>HARDWARE:</b><span ng-if="!selectedHardwareList.length"> *No hardware selected</span></p>
+
+                <ul ng-if="selectedHardwareList.length" class="large-block-grid-3 medium-block-grid-3 small-block-grid-2">
+                    <li ng-repeat="eachHardware in selectedHardwareList">
+                        <div class="cartShowHardwareDetails">
+                            <div>
+                                <img ng-src="{$ eachHardware.displayImage | convertToHTTPS $}" alt="{$ eachHardware.productCategoryName $}" class="hardware-img" ng-click="showHardwareDetails(eachHardware)">
+                            </div>
+                            <p title="{$ eachHardware.name $}" class="hardware-name margin-bottom-0">{$ eachHardware.name | limitTo:15 $}{$ eachHardware.name.length > 15 ? '...' : '' $}</p>
+                            <p class="font-size-10 margin-bottom-0" style="white-space: nowrap;" title="{$ eachHardware.material $}">Material: {$ eachHardware.material | limitTo:12 $}{$ eachHardware.material.length > 12 ? '...' : '' $}</p>
+                            <p class="font-size-10 margin-bottom-0">
+                                <span>Quantity: {$ eachHardware.quantity $}</span>
+                                <span><a ng-click="removeThisHardware(eachHardware.id)" class="cursor-pointer"
+                                           style="text-decoration: underline;color: #008cba">REMOVE</a></span>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="large-6 medium-6 small-12 columns">
+        <div>
+            <img ng-src="{$ selectedCurtain.images[0] | convertToHTTPS $}" alt="{$ selectedCurtain.styleName $}">
+        </div>
+        <div class="right margin-top-10">
+            <button type="button" ng-if="curtainTypeName == 'curtain'" ng-click="goToHardware()" class="backButton">BACK</button>
+            <button type="button" ng-if="curtainTypeName == 'shade'" ng-click="goToLining()" class="backButton">BACK</button>
+            <button type="button" ng-click="curtainAddToCart()" class="nextButton add-to-cart" >ADD TO CART</button>
+        </div>
+    </div>
+</div>

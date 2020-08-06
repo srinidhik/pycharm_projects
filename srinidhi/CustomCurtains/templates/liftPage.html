@@ -1,0 +1,50 @@
+<div class="show-for-small-down row center">
+    <div class="bold font-size-16 margin-15">LIFT</div>
+</div>
+
+<div class="row">
+    <div class="large-9 small-11 medium-centered large-centered columns">
+        <div ng-repeat="eachLift in liftInformation" ng-cloak class="large-6 medium-6 small-12 columns center">
+            <div ng-class="{'selectedOptionsInformation': eachLift == selectedLift}" class="lining-div hide-for-small-down">
+                <img ng-src="{$ eachLift.displayImage | convertToHTTPS $}" alt="{$ eachLift.optionName $}" style="width:136px;margin: 10px;">
+                <div style="font-size: 18px;padding: 10px;">{$ eachLift.name $}</div>
+
+                <div>
+                    <button ng-click="submitLift(eachLift)" class="nextButton">
+                        <span ng-if="eachLift.name === selectedLift.name">SELECTED</span>
+                        <span ng-if="eachLift.name != selectedLift.name">SELECT</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="show-for-small-down margin-10">
+                <label for="{$ eachLift.optionName $}{$ eachLift.id $}" style="float: left">
+                    <input type="radio" name="lining" ng-model="selectedLift" ng-value="eachLift"
+                           id="{$ eachLift.optionName $}{$ eachLift.id $}"
+                           ng-change="submitLift(eachLift)"
+                           ng-checked="selectedLift == eachLift">&nbsp;
+                    <div style="float: right;">
+                        <div>{$ eachLift.name $}</div>
+                    </div>
+                </label>
+                <a class="margin-left-10" ng-click="openLiftDetails(eachLift)"><i class="fa fa-info-circle" style="font-size: 20px;color: #f77525;"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="show-for-small-down margin-bottom-40"></div>
+
+<div class="row">
+    <div class="right">
+        <button type="button" ng-if="curtainTypeName == 'shade'" ng-click="goToMount()" class="backButton">BACK</button>
+        <button type="button" ng-click="submitLift(selectedLift)" class="nextButton">NEXT</button>
+    </div>
+</div>
+
+<div id="liftDetails" class="row no-display">
+    <div class="lining-div center">
+        <img ng-src="{$ liftDetails.displayImage | convertToHTTPS $}" alt="{$ liftDetails.optionName $}" style="width:136px;margin: 10px;">
+        <div style="font-size: 18px;padding: 10px;">{$ liftDetails.name $}</div>
+    </div>
+</div>

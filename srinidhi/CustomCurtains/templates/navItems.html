@@ -1,0 +1,44 @@
+
+<li><a ng-click="goToStyles()" ng-class="{'selected-nav':selectedNavItem ==='styles'}">STYLE</a></li>
+<li><a ng-click="goToFabricState()" ng-class="{'selected-nav':selectedNavItem ==='fabric'}">FABRIC</a></li>
+
+<li ng-if="selectedNavItem =='fabric' || selectedNavItem =='deliveredSamples'" class="hide-seperator show-for-small-down">
+    <a ng-click="compileDefaultThemeDialog('#samplesDisplay', 80)" >VIEW SAMPLES</a>
+</li>
+<li ng-if="selectedNavItem =='fabric' || selectedNavItem =='deliveredSamples'" class="hide-seperator show-for-small-down">
+    <a ng-click="goToDeliveredSamples()" ng-class="{'delivered-sample':selectedNavItem ==='deliveredSamples'}">DELIVERED SAMPLES
+    </a>
+</li>
+
+
+<li><a ng-click="goToDimensions()" ng-class="{'selected-nav':selectedNavItem ==='dimensions'}">DIMENSIONS</a></li>
+
+<li ng-if="curtainTypeName=='curtain'">
+    <a ng-click="goToLining()" ng-class="{'selected-nav':selectedNavItem ==='lining'}">LINING</a>
+</li>
+<li ng-if="curtainTypeName=='curtain'">
+    <a ng-click="goToHardware()" ng-class="{'selected-nav':selectedNavItem ==='hardware'}">HARDWARE</a>
+</li>
+
+<li ng-if="curtainTypeName=='shade'">
+    <a ng-click="goToMount()" ng-class="{'selected-nav':selectedNavItem ==='mount'}">MOUNT</a>
+</li>
+<li ng-if="curtainTypeName=='shade'">
+    <a ng-click="goToLift()" ng-class="{'selected-nav':selectedNavItem ==='lift'}">LIFT</a>
+</li>
+<li ng-if="curtainTypeName=='shade'">
+    <a ng-click="goToLining()" ng-class="{'selected-nav':selectedNavItem ==='lining'}">LINING</a>
+</li>
+
+<li>
+    <a ng-click="goToCart()" ng-class="{'selected-nav':selectedNavItem ==='cart'}">CART</a>
+</li>
+
+<li ng-if="selectedNavItem =='fabric' || selectedNavItem =='deliveredSamples' || selectedNavItem =='search'" class="right hide-seperator hide-for-small-down">
+    <button type="button" ng-click="compileDefaultThemeDialog('#samplesDisplay', 80)" class="backButton margin-0 font-12" style="padding: 12px 6px;">VIEW SAMPLES</button>
+    <button type="button" ng-click="goToDeliveredSamples()"
+            class="backButton margin-0 font-12" style="padding: 12px 6px;margin-left: 10px !important;"
+            ng-class="{'delivered-sample':selectedNavItem ==='deliveredSamples'}">DELIVERED SAMPLES
+    </button>
+    <button type="button" ng-click="goToStyles()" class="backButton margin-0 font-12" style="padding: 12px 6px;margin-left: 10px !important;">BACK TO STYLES</button>
+</li>

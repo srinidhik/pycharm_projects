@@ -1,0 +1,11 @@
+<div class="small-5 columns padding-left-0">
+    <select ng-model="heightFeetSelected" ng-init="heightFeetSelected=dimensions['heightFeet']" ng-change="selectedDimensionValue('heightFeet',heightFeetSelected)">
+        <option ng-repeat="i in [] | rangeValues:4:20" value="{$ i $}">{$ i $} ft</option>
+    </select>
+</div>
+
+<div class="small-5 columns padding-left-0 left">
+    <select ng-model="heightInchSelected" ng-init="heightInchSelected=dimensions['heightInch']" ng-change="selectedDimensionValue('heightInch',heightInchSelected)">
+        <option ng-repeat="i in [] | rangeValues:0:11" value="{$ i $}">{$ i $} in</option>
+    </select>
+</div>

@@ -1,0 +1,180 @@
+{% extends "adminBase.html" %}
+{% load custom_filters %}
+{% load order_filters %}
+{% load permission_filters %}
+
+{% block additional_css %}
+    <link rel="stylesheet" href="{{ STATIC_CDN_URL|CDNMapper }}css/jquery-confirm.css">
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        {% if request.GET.orderId %}
+            <div class="small-4 columns" style="margin: 15px 0;">
+                <a href="/store/order-details?id={{ request.GET.orderId }}" class="sm-btn">Back</a>
+            </div>
+        {% endif %}
+        <div class="small-3 columns right" style="margin-top: 15px;">
+            <select name="" id="sortByStatus">
+                <option value="Requested" {% ifequal request.GET.status 'Requested' %}selected{% endifequal %}>Requested Invoice</option>
+                <option value="Generated" {% ifequal request.GET.status 'Generated' %}selected{% endifequal %}>Generated Invoices</option>
+                <option value="Cancelled" {% ifequal request.GET.status 'Cancelled' %}selected{% endifequal %}>Cancelled Invoices</option>
+                <option value="Request for Cancellation" {% ifequal request.GET.status 'Request for Cancellation' %}selected{% endifequal %}>Request for Cancellation</option>
+                <option value="Reject" {% ifequal request.GET.status 'Reject' %}selected{% endifequal %}>Rejected Invoices</option>
+                <option value=""
+                        {% if request.GET.status == '' %}selected
+                        {% elif request.GET.orderId and not request.GET.status %}selected{% endif %}>ALL</option>
+            </select>
+        </div>
+
+        <div class="columns">
+            <table style="width: 100%;text-align: left;margin-bottom: 0px" class="tableHeaderPrint">
+                <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Order Id</th>
+                    <th>Invoice No.</th>
+                    <th>Ware House</th>
+                    <th>Ordered Date</th>
+                    <th>Delivery Date</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for invoice in data %}
+                    <tr>
+                        <td>{{ forloop.counter|add:recordNo }}</td>
+                        <td>
+                            <a href="{% url 'staff-order-details' %}?id={{ invoice.fields.orderId }}">{{ invoice.fields.additionalInfo.KMID }}</a>
+                        </td>
+                        <td>
+                            {% if invoice.fields.status == 'Generated' or invoice.fields.status == 'Request for Cancellation' or invoice.fields.status == 'Cancelled' %}
+                                {{ invoice.fields.invoiceNumber }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td>{{ invoice.fields.wareHouse }}</td>
+                        <td>{{ invoice.fields.createdAt|get_IST_time_format }}</td>
+                        <td>{{ invoice.fields.deliveryDate|get_IST_time_format }}</td>
+                        <td>
+                            {% if invoice.fields.status == 'Requested' %}
+                                {% if user|has_access_to_generate_invoice %}
+{#                                    <button class="sm-btn generate-invoice"#}
+{#                                            data-KMID="{{ invoice.fields.additionalInfo.KMID }}"#}
+{#                                            data-invoice-amount="{{ invoice.fields.invoiceAmount }}"#}
+{#                                            data-delivery-date="{{ invoice.fields.deliveryDate }}"#}
+{#                                            data-invoice-id="{{ invoice.pk }}"#}
+{#                                            data-ware-house="{{ invoice.fields.wareHouse }}"#}
+{#                                            data-order-id="{{ invoice.fields.orderId }}">Generate Invoice</button>#}
+                                    <a class="sm-btn"
+                                            {% if invoice.fields.deliveryDate|checkDeliveryDate %}
+                                                style="color: #A0A396;background-color: #fcfcfc;border: 1px solid #e5e5e5;cursor: default;"
+                                            {% else %}
+                                                href="/staff/invoice-summary?invoiceId={{ invoice.pk }}&orderId={{ invoice.fields.orderId }}"
+                                            {% endif %}>Generate Invoice</a>
+                                {% endif %}
+                                {% if user|has_access_to_request_invoice %}
+                                    <button class="sm-btn open-edit-date" style="margin-bottom: 0;"
+                                            data-invoice-id="{{ invoice.pk }}" data-order-id="{{ invoice.fields.orderId }}">Edit Delivery Date</button>
+                                    <button class="sm-btn open-cancel-invoice" style="margin-bottom: 0;"
+                                            data-invoice-id="{{ invoice.pk }}" data-order-id="{{ invoice.fields.orderId }}">Cancel Invoice Request</button>
+                                {% endif %}
+                            {% elif invoice.fields.status == 'Generated' %}
+{#                                <a class="sm-btn button" href="{{ invoice.fields.invoiceUrl }}" target="_blank">View Invoice</a>#}
+                                <a class="sm-btn" href="/staff/invoice-summary?invoiceId={{ invoice.pk }}&orderId={{ invoice.fields.orderId }}">View Invoice</a>
+                                {% if user|has_access_to_generate_invoice %}
+                                    <button class="sm-btn open-cancel-invoice" style="margin-bottom: 0;"
+                                            data-invoice-id="{{ invoice.pk }}" data-order-id="{{ invoice.fields.orderId }}">Request Cancellation</button>
+                                {% endif %}
+                            {% elif invoice.fields.status == 'Request for Cancellation' %}
+                                {% if user|has_access_to_generate_invoice %}
+                                    <button class="sm-btn cancel-invoice" style="margin-bottom: 0;"
+                                            data-invoice-id="{{ invoice.pk }}" data-order-id="{{ invoice.fields.orderId }}"
+                                            onclick="cancelInvoice()">Approve Cancellation</button>
+                                {% else %}
+                                    Cancel Request Pending
+                                {% endif %}
+                            {% else %}
+                                {{ invoice.fields.status }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" style="text-align: center;">No records available</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <p style="float: right;font-size: small;margin-top: 10px;">
+                <label style="font-size: small;font-weight: normal;float: left;padding:5px">Show rows:</label>
+                <select id="numberOfItems" datafld="{{ request.path }}" name="numberOfItems"
+                        class="pagination-items">
+                    <option {% ifequal numberOfItems 5 %} selected=selected {% endifequal %} value="5">
+                        5
+                    </option>
+                    <option {% ifequal numberOfItems 10 %} selected=selected{% endifequal %} value="10">
+                        10
+                    </option>
+                    <option {% ifequal numberOfItems 20 %} selected=selected{% endifequal %} value="20">
+                        20
+                    </option>
+                </select>&nbsp;
+                <input type="type" class="pagination-pagenumber" name="pageNumber" datafld="{{ request.path }}"
+                       id="pageNumber" value="{{ pageNum }}">
+                of {{ totalPages }}
+                <input type="button"
+                       style="width:30px;height: 30px; background-color: #fdfdff; -webkit-border-radius: 5px;color: black"
+                       class="tiny-button prev" datafld="{{ request.path }}"
+                       {% if  pageNum < 0 %}disabled="disabled"{% endif %} value="<">
+                <input type="button"
+                       style="width:30px;height: 30px;  background-color: #fdfdff; -webkit-border-radius: 5px;color: black"
+                       class=" next tiny-button" datafld="{{ request.path }}" {% if  pageNum > totalPages %}
+                       disabled="disabled"{% endif %} value=">">
+            </p>
+        </div>
+
+        <div class="reveal-modal medium" id="invoiceDeliveryDate" data-reveal style="">
+            <form>
+                <div class="small-5 columns" style="padding-left: 0;display: flex;">
+                    <b style="display: inline-block;white-space: nowrap;margin-top: 10px;">Delivery Date : </b>
+                    <input type="date" id="newDeliveryDate" style="display: inline-block;margin-left: 5px;">
+                </div>
+
+                <div class="small-4 columns left">
+                    <button type="button" class="sm-btn blue edit-delivery-date" onclick="editInvoiceDeliveryDate()">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="reveal-modal medium" id="cancelInvoice" data-reveal>
+            <form>
+                <div class="small-10 columns">
+                    <legend><b>Reason :</b></legend>
+                    <textarea name="" id="cancelReason" cols="80" rows="2"></textarea>
+                </div>
+
+                <div class="small-2 columns left" style="margin-top: 30px;">
+                    <button type="button" class="sm-btn blue cancel-invoice" onclick="cancelInvoice()" style="margin-bottom: 0;">Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+{#    {% include 'InventoryManagement/models/viewOrderSummary.html' %}#}
+
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery-ui-1.10.4.custom.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/jquery-confirm.js"></script>
+    <script src="{{ STATIC_CDN_URL|CDNMapper }}js/AdminInventory/orderDetail.js"></script>
+{% endblock javascript %}
